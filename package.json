@@ -1,0 +1,36 @@
+{
+  "name": "expodebrique",
+  "version": "1.0.0",
+  "description": "<Pour pas demarré from Scratch",
+  "main": "server.js",
+  "dependencies": {
+    "bcrypt": "^4.0.0",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "express-session": "^1.17.0",
+    "handlebars": "4.5.0",
+    "handlebars.moment": "^1.0.4",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.9.2",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "reinstall": "sudo rm -r node_modules* && npm i && npm start"
+  },
+  "author": "Paris Willy",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AiLlE72/expodebrique.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AiLlE72/expodebrique/issues"
+  },
+  "homepage": "https://github.com/AiLlE72/expodebrique#readme"
+}
