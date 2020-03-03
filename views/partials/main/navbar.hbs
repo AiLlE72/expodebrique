@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 mb-3 bg-white rounded">
+<nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-3 bg-white rounded">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
     <span><img src="/assets/ressources/icon/menucircularbutton_79584.png" alt="..."></span>
@@ -6,14 +6,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" data-toggle="modal" data-target="#loginmodal">Se Connecter <span
+        <a class="nav-link" data-toggle="modal" data-target="#loginModal">Se Connecter <span
             class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">Créer un compte</a>
+        <a class="nav-link" href="/createUser">Créer un compte</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Déposer un exposition</a>
+        <a class="nav-link" href="/createExpo">Déposer un exposition</a>
       </li>
     </ul>
   </div>
@@ -22,7 +22,7 @@
 
 {{!-- modal login  --}}
 
-<div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

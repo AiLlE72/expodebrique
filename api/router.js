@@ -14,13 +14,13 @@ const MIME_TYPES = { //type d'image accepté
     'image/png': 'png'
 };
 
-const storage = multer.diskStorage({ 
-    destination: (req, file, callback) => { 
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
         callback(null, './publics/ressources/images') //lieu de stockage des images
     },
     filename: (req, file, callback) => { //nom de stockage de l'image
         const name = file.originalname.split(' ').join('_'); // remplace les espaces du nom de fichier fournit par un underscore
-        callback(null, Date.now() + name ); // reconstruit le nom du fichier
+        callback(null, Date.now() + name); // reconstruit le nom du fichier
     }
 });
 
@@ -28,9 +28,13 @@ const upload = multer({ storage: storage });
 
 // Import de controllers
 const home = require('./controllers/home')
-const inside = require('./controllers/inside')
+const createUser = require('./controllers/createUser')
 const admin = require('./controllers/admin')
 const verifMail = require('./controllers/verifMail')
+const createExpo = require('./controllers/createExpo')
+const dateExpo = require('./controllers/dateExpo')
+const allExpo = require('./controllers/allExpo')
+const locationExpo = require('./controllers/locationExpo')
 
 //import de middleware
 const auth = require('./middleware/auth')
@@ -41,31 +45,28 @@ router.route('/')
     .get(home.get)
     .post(home.post)
 
-/******** PAGE INSIDE **********/    
-//Inside
-router.route('/inside')
-    .get(auth, inside.get)
-    .post(upload.single('picture'), inside.post) // upload.single permet de faire le req.file !!!
-    .delete(inside.deleteAll)
+/******** PAGE INSIDE **********/
+//createUser
+router.route('/createUser')
+    .get(createUser.get)
 
-    //logout
-    router.route('/logout')
-    .get(inside.logout)
+//createExpo
+router.route('/createExpo')
+    .get(createExpo.get)
 
-/******** PAGE ADMIN **********/   
-router.route('/admin')
-    .get(auth, admin.get)
+//dateExpo
+router.route('/dateExpo')
+    .get(dateExpo.get)
 
-router.route('/inside/:id')
-    .put(upload.single('picture'), inside.put)
-    .delete(inside.delete)
+//dateExpo
+router.route('/allExpo')
+    .get(allExpo.get)
 
-/******** PAGE verifMail **********/ 
+//dateExpo
+router.route('/locationExpo')
+    .get(locationExpo.get)
 
-// Nodemailer verif 
-router.route('/verify/:id')
-    .get(inside.verifMail)
-// verifMail
+//verifMail
 router.route('/verifMail')
     .get(verifMail.get)
 
