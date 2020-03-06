@@ -3,9 +3,6 @@
         <h1>Proposer votre exposition</h1>
     </div>
 </div>
-
-
-
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -61,18 +58,71 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 mb-3">
                                     <div class="input-group mb-3">
-                                        <input type="date" name="start" max="3000-12-31" min="1000-01-01" class="form-control">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="start">Date de début</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="date" name="startdate" max="3000-12-31" min="1000-01-01"
+                                                    class="form-control" id="sart">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-6 ">
                                     <div class="input-group">
-                                        <input type="date" name="start" max="3000-12-31" min="1000-01-01" class="form-control">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="end">Date de fin</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="date" name="enddate" max="3000-12-31" min="1000-01-01"
+                                                    class="form-control" id="end">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center ">
+                    <div class="form-group row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Affiche</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choisir un fichier</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">@</span>
+                                </div>
+                                <input type="email" class="form-control" placeholder="Contact de l'organisateur">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <label class="custom-control-label" for="customSwitch1">Nous sommes en recherche
+                                    d'exposants</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center ">
                         <div class="col-md-6 offset-md-4 ">
                             <button type="submit" class="btn btn-outline-color3">
                                 S'enregistrer

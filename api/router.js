@@ -35,6 +35,9 @@ const createExpo = require('./controllers/createExpo')
 const dateExpo = require('./controllers/dateExpo')
 const allExpo = require('./controllers/allExpo')
 const locationExpo = require('./controllers/locationExpo')
+const listUser = require('./controllers/listUser')
+const listContact = require('./controllers/listContact')
+const contact = require('./controllers/contact')
 
 //import de middleware
 const auth = require('./middleware/auth')
@@ -45,11 +48,11 @@ router.route('/')
     .get(home.get)
     .post(home.post)
 
-/******** PAGE INSIDE **********/
+/******** PAGE visiteur **********/
 //createUser
 router.route('/createUser')
     .get(createUser.get)
-
+    
 //createExpo
 router.route('/createExpo')
     .get(createExpo.get)
@@ -58,17 +61,34 @@ router.route('/createExpo')
 router.route('/dateExpo')
     .get(dateExpo.get)
 
-//dateExpo
+//allExpo
 router.route('/allExpo')
     .get(allExpo.get)
 
-//dateExpo
+//locationExpo
 router.route('/locationExpo')
     .get(locationExpo.get)
 
 //verifMail
 router.route('/verifMail')
     .get(verifMail.get)
+
+//contact
+router.route('/contact')
+    .get(contact.get)
+
+/******** PAGE Admin **********/
+//Admin
+router.route('/admin')
+    .get(admin.get)
+
+//listContact
+router.route('/listContact')
+.get(listContact.get)
+
+//listUser
+router.route('/listUser')
+.get(listUser.get)
 
 
 module.exports = router

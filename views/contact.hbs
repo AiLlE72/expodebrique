@@ -1,0 +1,32 @@
+<div class="container my-3">
+    <div class="row justify-content-center">
+        <h1>Nous envoyer un message ?</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form action="/contact" method="POST">
+                <div class="form-group row justify-content-center">
+                    <input type="email" class="form-control" placeholder="Email de contact" name="email" required>
+                </div>
+                <div class="form-group row ">
+                    <label>Sujet</label>
+                    <select class="form-control" name="sujet" required>
+                        <option></option>
+                        <option value="contact">Contact</option>
+                        <option value="support">Support</option>
+                    </select>
+                </div>
+                <div class="form-group row ">
+                    <label>Votre message</label>
+                    <textarea class="form-control" rows="3" name="message"></textarea>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <button type="submit" class="btn btn-outline-color3">Envoyer le message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -140,6 +140,10 @@ ul ol {
   margin-bottom: 0;
 }
 
+li {
+  list-style: none;
+}
+
 dt {
   font-weight: $dt-font-weight;
 }
