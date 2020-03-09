@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo')
-const dateFormat = require('dateformat')
+
 
 
 
@@ -29,6 +29,7 @@ app.set('view engine', 'hbs');
 //Moment
 var MomentHandler = require("handlebars.moment");
 MomentHandler.registerHelpers(Handlebars);
+
 
 // Method-Override
 app.use(methodOverride('_method'));
@@ -68,13 +69,6 @@ app.use('*', (req, res, next) => {
     } 
     next()    
 })
-
-//dateformat
-dateFormat.i18n = {
-    monthNames: [
-        'Jan', 'Fev', 'Mar', 'Avr', 'May', 'Jui', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec',
-        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'
-    ]}
 
 // Router
 const router = require('./api/router')

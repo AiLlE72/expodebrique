@@ -19,7 +19,7 @@ module.exports = {
             endDate: req.body.endDate,
             image: `/assets/ressources/images/${req.file.filename}`,
             affiche: req.file.path,
-            contact: req.bodycontact,
+            contact: req.body.contact,
             search: req.body.search
         },
         (error, post) => {
