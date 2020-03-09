@@ -52,10 +52,12 @@ router.route('/')
 //createUser
 router.route('/createUser')
     .get(createUser.get)
+    .post(createUser.post)
     
 //createExpo
 router.route('/createExpo')
     .get(createExpo.get)
+    .post(upload.single('affiche'),createExpo.post)
 
 //dateExpo
 router.route('/dateExpo')
@@ -69,13 +71,18 @@ router.route('/allExpo')
 router.route('/locationExpo')
     .get(locationExpo.get)
 
-//verifMail
-router.route('/verifMail')
-    .get(verifMail.get)
-
 //contact
 router.route('/contact')
     .get(contact.get)
+
+/******** PAGE verifMail **********/
+// Nodemailer verif 
+router.route('/verify/:id')
+    .get(createUser.verifMail)
+
+//verifMail
+router.route('/verifMail')
+    .get(verifMail.get)
 
 /******** PAGE Admin **********/
 //Admin
@@ -84,11 +91,15 @@ router.route('/admin')
 
 //listContact
 router.route('/listContact')
-.get(listContact.get)
+    .get(listContact.get)
 
 //listUser
 router.route('/listUser')
-.get(listUser.get)
+    .get(listUser.get)
+
+router.route('/listUser/:id')
+    .put(listUser.put)
+    .delete(listUser.delete)
 
 
 module.exports = router

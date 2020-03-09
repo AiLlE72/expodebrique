@@ -7,25 +7,25 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card-body">
-                <form action="/createUser" method="POST">
+                <form action="/createExpo" method="POST" enctype="multipart/form-data">
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="full-name" placeholder="Nom de l'exposition">
+                            <input type="text" class="form-control" name="name" placeholder="Nom de l'exposition" required>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="username" placeholder="Adresse de la salle">
+                            <input type="text" class="form-control" name="adress" placeholder="Adresse de la salle" required>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 mb-3 ">
-                                    <input type="text" class="form-control" name="city" placeholder="Ville">
+                                    <input type="text" class="form-control" name="city" placeholder="Ville" required>
                                 </div>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" class="form-control" name="departement"
+                                    <input type="number" class="form-control" name="departement"
                                         placeholder="Département">
                                 </div>
                             </div>
@@ -35,18 +35,18 @@
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-6 col-sm-6 mb-3">
-                                    <input type="text" class="form-control" name="postCode" placeholder="Code Postal">
+                                    <input type="text" class="form-control" name="postCode" placeholder="Code Postal" required>
                                 </div>
                                 <div class="col-md-6 col-sm-6 ">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text" for="inputGroupSelect01">Pays</label>
                                         </div>
-                                        <select class="custom-select" id="inputGroupSelect01" name="departement">
+                                        <select class="custom-select" id="inputGroupSelect01" name="country">
                                             <option selected>Choisir...</option>
-                                            <option value="1">France</option>
-                                            <option value="2">Belgique</option>
-                                            <option value="3">Espagne</option>
+                                            <option value="France">France</option>
+                                            <option value="Belgique">Belgique</option>
+                                            <option value="Espagne">Espagne</option>
                                         </select>
                                     </div>
                                 </div>
@@ -65,8 +65,8 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <input type="date" name="startdate" max="3000-12-31" min="1000-01-01"
-                                                    class="form-control" id="sart">
+                                                <input type="date" name="startDate" max="3000-12-31" min="2020-01-01"
+                                                    class="form-control" id="start">
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +80,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <input type="date" name="enddate" max="3000-12-31" min="1000-01-01"
+                                                <input type="date" name="endDate" max="3000-12-31" min="2020-01-01"
                                                     class="form-control" id="end">
                                             </div>
                                         </div>
@@ -96,8 +96,7 @@
                                     <span class="input-group-text" id="inputGroupFileAddon01">Affiche</span>
                                 </div>
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                        aria-describedby="inputGroupFileAddon01">
+                                    <input name="affiche" type="file" class="custom-file-input" id="inputGroupFile01" required>
                                     <label class="custom-file-label" for="inputGroupFile01">Choisir un fichier</label>
                                 </div>
                             </div>
@@ -109,14 +108,15 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">@</span>
                                 </div>
-                                <input type="email" class="form-control" placeholder="Contact de l'organisateur">
+                                <input name="contact" type="email" class="form-control"
+                                    placeholder="Contact de l'organisateur" required>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <input name="search" type="checkbox" class="custom-control-input" id="customSwitch1">
                                 <label class="custom-control-label" for="customSwitch1">Nous sommes en recherche
                                     d'exposants</label>
                             </div>

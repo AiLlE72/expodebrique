@@ -4,13 +4,13 @@
             <div class="row no-gutters">
                 <div class="col-8 col-md-8">
                     <div class="card-body">
-                        <h1><span class="badge badge-color1 shadow mx-2 text-white">21</span>
-                            <span class="badge badge-color1 shadow mx-2 text-white">22</span>
-                            <span class="font-weight-bold ">Mars 2020</span></h1>
+                        <h1><span class="badge badge-color1 shadow mx-2 text-white">{{ moment startDate format="DD" }}</span>
+                            <span class="badge badge-color1 shadow mx-2 text-white">{{ moment endDate format="DD" }}</span>
+                            <span class="font-weight-bold ">{{ moment startDate "MMMM" }}</span></h1>
                         
-                        <h4 class="card-title">Yvré en briques</h4>
-                        <p class="card-text">lieu</p>
-                        <p>département</p>
+                        <h4 class="card-title">{{ this.name }}</h4>
+                        <p class="card-text">{{ this.city }}</p>
+                        <p>{{ this.departement }}</p>
                         <p>horaire</p>
                         <p>Tarif</p>
                         <p class="card-text"><small class="text-muted"><button type="button" class="btn btn-outline-color1">Contacter l'organisateur</button></small></p>
@@ -21,6 +21,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

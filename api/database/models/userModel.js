@@ -3,11 +3,12 @@ const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
 
-    name:  String,
+    firstname:  String,
+    lastname: String,
     email: String,
-    image : String,
+    departement: Number,
+    pays: String,
     password: String,
-    img: String,
     isAdmin: {
         type: Boolean,
         default: false,
@@ -16,11 +17,19 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    isBan: {
+        type: Boolean,
+        default: false,
+    },
     createDate : {
         type: Date,
         default : new Date()
     },
-    
+    exposant: String,
+    organisateur: String,
+    newsAcceptExpositionLocation: String,
+    newsAcceptExposant: String,
+    newsAcceptExposition: String
 })
 
 userSchema.pre('save', function ( next ) {

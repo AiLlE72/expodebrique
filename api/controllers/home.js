@@ -23,11 +23,11 @@ module.exports = {
                         req.session.userId = User._id
                         req.session.name = User.name
                         req.session.isAdmin = User.isAdmin   
-                        res.redirect('/inside')
+                        res.redirect('/')
                     } else {
                         req.session.userId = User._id
                         req.session.name = User.name
-                        res.redirect('/inside')
+                        res.redirect('/')
                     }    
                 }
             })

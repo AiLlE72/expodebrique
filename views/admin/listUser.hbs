@@ -3,103 +3,103 @@
         <h1>Liste des utilisateurs</h1>
     </div>
 </div>
-    
-    <div class="container">
-        <div class="row">
-            <!-- GET -->
-            <div class="col-md-12 col-sm-12">
-                <ul class="list-group ">
-                    
-                    <li class="list-item border border-color5 rounded m-2 p-3">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-3  column">
-                                <h3>name</h3>
-                            </div>
-                            <div class="col-md-7 pt-4 col-sm-7">
-                                <p>email: </p>
-                                <p>date d'inscription :  </p>
-                                <p> Utilisateur vérifié :  </p>
-                                <p>Admin : </p>
-                                <p> Bannis : </p>
-                            </div>
-                            {{!-- bouton editer --}}
-                            <div class="col-md-2 pt-4 col-sm-2">
-                                <button class="btn btn-color1 m-1" data-toggle="modal"
-                                    data-target="#modalEditerUser{{ _id }}" type="submit">Modifier</button>
-                                {{!-- bouton suppression --}}
-                                <button class="btn btn-color2 m-1" data-toggle="modal" type="submit"
-                                    data-target="#modalConfirmSuppUser{{_id}}">Supprimer</button>
-                            </div>
-                    </li>
-                    {{!-- Modal Editer user --}}
-                    <div class="container mt-3">
-                        <div class="row text-center">
-                            <div class="modal fade" id="modalEditerUser{{ _id }}" tabindex="-1" role="dialog"
-                                aria-labelledby="modalEditerLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-xl" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title"> name : {{ name }} </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form action="/listUser/{{ _id }}/?_method=PUT" method="POST">
-                                                <input type="text" class="form-control" name="name"
-                                                    contenteditable="true" value="{{ this.name }}">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
+
+<div class="container">
+    <div class="row">
+        <!-- GET -->
+        <div class="col-md-12 col-sm-12">
+            <ul class="list-group ">
+                {{#each dbuser}}
+                <li class="list-item border border-color5 rounded m-2 p-3">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-3  column">
+                            <h3>name</h3>
+                        </div>
+                        <div class="col-md-7 pt-4 col-sm-7">
+                            <p>Nom : {{ this.firstname }}</p>
+                            <p>Prénom : {{ this.lastname }}</p>
+                            <p>Email: {{ this.email }}</p>
+                            <p>Date d'inscription : {{ this.createDate }} </p>
+                            <p>Utilisateur vérifié : {{ this.isVerified }} </p>
+                            <p>Admin : {{ this.isAdmin }}</p>
+                            <p>Bannis : {{ this.isBan }}</p>
+                        </div>
+                        {{!-- bouton editer --}}
+                        <div class="col-md-2 pt-4 col-sm-2">
+                            <button class="btn btn-color1 m-1" data-toggle="modal"
+                                data-target="#modalEditerUser{{ _id }}" type="submit">Modifier</button>
+                            {{!-- bouton suppression --}}
+                            <button class="btn btn-color2 m-1" data-toggle="modal" type="submit"
+                                data-target="#modalConfirmSuppUser{{_id}}">Supprimer</button>
+                        </div>
+                </li>
+                {{!-- Modal Editer user --}}
+                <div class="container mt-3">
+                    <div class="row text-center">
+                        <div class="modal fade" id="modalEditerUser{{ _id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="modalEditerLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-xl" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"> name : {{ this.lastname }} {{ this.firstname }} </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="/listUser/{{ _id }}/?_method=PUT" method="POST">
+                                            <input type="text" class="form-control" name="name" contenteditable="true"
+                                                value="{{ this.lastname }} {{ this.firstname }}">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
                                                             <label>Sujet</label>
                                                             <select class="form-control" name="status" required>
                                                                 <option></option>
                                                                 <option value="isAdmin">Administrateur</option>
-                                                                <option value="isModo">Moderateur</option>
                                                                 <option value="isVerified">Verifié</option>
                                                                 <option value="isBan">Banni</option>
                                                             </select>
                                                         </div>
-                                                    </div>
-
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-color4"
-                                                        data-dismiss="modal">Fermer</button>
-                                                    <button type="submit" class="btn btn-color2">Confirmer la
-                                                        modification</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-color4"
+                                                    data-dismiss="modal">Fermer</button>
+                                                <button type="submit" class="btn btn-color2">Confirmer la
+                                                    modification</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {{!-- Modal Supprimer user --}}
-                    <div class="modal fade" id="modalConfirmSuppUser{{_id}}" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Confirmez-vous la suppression de {{ name}} ?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="/listUser/{{ _id }}/?_method=delete" method="POST">
-                                        <button type="submit" class="btn btn-color2">Oui</button>
-                                    </form>
-                                    <button type="button" data-dismiss="modal" aria-label="Close"
-                                        class="btn btn-color4">Non</button>
-                                </div>
+                </div>
+                {{!-- Modal Supprimer user --}}
+                <div class="modal fade" id="modalConfirmSuppUser{{_id}}" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Confirmez-vous la suppression de {{ name}} ?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="/listUser/{{ _id }}/?_method=delete" method="POST">
+                                    <button type="submit" class="btn btn-color2">Oui</button>
+                                </form>
+                                <button type="button" data-dismiss="modal" aria-label="Close"
+                                    class="btn btn-color4">Non</button>
                             </div>
                         </div>
                     </div>
-                   
-                </ul>
-            </div>
+                </div>
+                {{/each}}
+            </ul>
         </div>
     </div>
+</div>

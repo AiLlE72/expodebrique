@@ -1,13 +1,15 @@
 //Import module
 
-const Handlebars = require("handlebars");
-const exphbs = require('express-handlebars');
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const methodOverride = require('method-override');
+const Handlebars = require("handlebars")
+const exphbs = require('express-handlebars')
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 const expressSession = require('express-session')
-const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo')
+const dateFormat = require('dateformat')
+
 
 
 // Constante
@@ -66,6 +68,13 @@ app.use('*', (req, res, next) => {
     } 
     next()    
 })
+
+//dateformat
+dateFormat.i18n = {
+    monthNames: [
+        'Jan', 'Fev', 'Mar', 'Avr', 'May', 'Jui', 'Juil', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec',
+        'Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'
+    ]}
 
 // Router
 const router = require('./api/router')
