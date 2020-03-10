@@ -5,22 +5,42 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" data-toggle="modal" data-target="#loginModal">Se Connecter <span
-            class="sr-only">(current)</span></a>
+      
+      {{#unless name}}
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#loginModal"href=" ">Se connecter</a>
       </li>
+      {{/unless}}
+
+      {{#if name}}
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Se déconnecter</a>
+      </li>
+      {{/if}}
+      
+      {{#unless name}}
       <li class="nav-item">
         <a class="nav-link" href="/createUser">Créer un compte</a>
       </li>
+      {{/unless}}
       <li class="nav-item">
         <a class="nav-link" href="/createExpo">Déposer un exposition</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/contact">Nous contacter</a>
       </li>
+      {{#if isAdmin}}
       <li class="nav-item">
         <a class="nav-link" href="/admin">Admin</a>
       </li>
+      {{/if}}
+
+      {{#if name}}
+      <li class="nav-item">
+       <a class="nav-link" href="/">Bonjour  {{ name }}</a>
+      </li>
+      {{/if}}
+
     </ul>
   </div>
 </nav>
@@ -39,22 +59,22 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/authentification" method="post">
+        <form action="/" method="post">
           <div class="form-group">
             <input type="email" class="form-control" name="email" placeholder="Votre Email *" value="" />
           </div>
           <div class="form-group">
             <input type="password" class="form-control" name="password" placeholder="Votre mot de passe *" value="" />
           </div>
-          <div class="checkbox">
+          {{!-- <div class="checkbox">
             <label> <input type="checkbox"> Se rappeler de moi. </label>
-          </div>
+          </div> --}}
           <div class="form-group">
             <a href="#" class="ForgetPwd">Mot de passe oublié</a>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Valider</button>
+        <button type="submit" class="btn btn-color3">Valider</button>
       </div>
       </form>
     </div>

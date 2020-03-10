@@ -11,7 +11,10 @@ const expoSchema = new mongoose.Schema({
     country: String,
     startDate: Date,
     endDate: Date,
+    image: String,
     affiche: String,
+    horaire: String,
+    price: String,
     contact: String,
     search: String
 })

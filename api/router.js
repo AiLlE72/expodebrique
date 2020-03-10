@@ -38,6 +38,7 @@ const locationExpo = require('./controllers/locationExpo')
 const listUser = require('./controllers/listUser')
 const listContact = require('./controllers/listContact')
 const contact = require('./controllers/contact')
+const logout = require('./controllers/home')
 
 //import de middleware
 const auth = require('./middleware/auth')
@@ -47,6 +48,10 @@ const auth = require('./middleware/auth')
 router.route('/')
     .get(home.get)
     .post(home.post)
+
+// Logout
+router.route('/logout')
+    .get(home.getLogout)
 
 /******** PAGE visiteur **********/
 //createUser

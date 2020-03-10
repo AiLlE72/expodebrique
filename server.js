@@ -29,6 +29,8 @@ app.set('view engine', 'hbs');
 //Moment
 var MomentHandler = require("handlebars.moment");
 MomentHandler.registerHelpers(Handlebars);
+var moment = require('moment');
+moment.locale('fr')
 
 
 // Method-Override
@@ -40,6 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 //express-handlebars
 app.use('/assets', express.static('publics'))
+
 
 
 // Mongoose
@@ -65,10 +68,19 @@ app.use(expressSession({
 //Définition du res.locals
 app.use('*', (req, res, next) => {
     if (req.session) {
+        res.locals.name = req.session.name
+        res.locals.isVerified = req.session.isVerified
         res.locals.isAdmin = req.session.isAdmin
     } 
     next()    
 })
+
+/******** HELPERS **********/
+//compteur d'objet
+Handlebars.registerHelper("counter", function (db) {
+    if (!Array.isArray(db)) { return [] }
+    return db.length
+});
 
 // Router
 const router = require('./api/router')

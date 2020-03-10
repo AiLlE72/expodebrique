@@ -1,6 +1,6 @@
 const expomodel = require('../database/models/expoModel')
-const fs = require('fs')
 const path = require('path')
+
 
 module.exports = {
     get: (req, res) => {
@@ -17,18 +17,20 @@ module.exports = {
             country: req.body.country,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
-            image: `/assets/ressources/images/${req.file.filename}`,
-            affiche: req.file.path,
+            affiche: `assets/ressources/images/${req.file.filename}`,
+            image: req.file.path,
+            horaire: req.body.horaire,
+            price: req.body.price,
             contact: req.body.contact,
             search: req.body.search
         },
-        (error, post) => {
-            if(error){
-                res.send(error)
-            } else {
-                res.redirect('/')
+            (error, post) => {
+                if (error) {
+                    res.send(error)
+                } else {
+                    res.redirect('/')
+                }
             }
-        }
 
         )
 
