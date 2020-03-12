@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const methodOverride = require('method-override')
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo')
-
+const helpers = require('handlebars-helpers');
 
 
 
@@ -18,6 +18,7 @@ const key = require('./api/config')
 const urlDB = key.urlDBcloud //key.urlDBlocal
 const port = process.env.PORT || 3000
 const mongoStore = MongoStore(expressSession)
+
 
 // Handlebars
 app.engine('hbs', exphbs({
@@ -81,6 +82,15 @@ Handlebars.registerHelper("counter", function (db) {
     if (!Array.isArray(db)) { return [] }
     return db.length
 });
+
+//filtre
+Handlebars.registerHelper('filterdep', function (dep) {
+    
+    if (this.departement == dep) {
+        return this;
+    }
+})
+
 
 // Router
 const router = require('./api/router')

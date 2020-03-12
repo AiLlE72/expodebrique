@@ -71,10 +71,12 @@ router.route('/dateExpo')
 //allExpo
 router.route('/allExpo')
     .get(allExpo.get)
+    
 
 //locationExpo
 router.route('/locationExpo')
     .get(locationExpo.get)
+    .post(locationExpo.post)
 
 //contact
 router.route('/contact')
