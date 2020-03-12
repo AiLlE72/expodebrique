@@ -1,12 +1,29 @@
+<script type="text/javascript">
+
+    function changeFunc() {
+        var selectBox = document.getElementById("selectBox").value;
+        console.log(selectBox)
+        return (selectBox);
+    };
+
+    function filtre() {
+        if (document.getElementById === selectBox) {
+            return (document.getElementById)
+        }
+    }
+
+
+</script>
+
 <div class="container my-5">
     <form action="/locationExpo" method="POST">
         <div class="form-row justify-content-center ml-5">
             <div class="col-md-6 col-sm-6 ">
-                <div class="input-group">
+                <div class="input-group mt-1">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">Département</label>
                     </div>
-                    <select id="selectBox" onchange="changeFunc();">
+                    <select class="custom-select"id="selectBox" onchange="changeFunc();">
                         {{#each dbexpo}}
                         <option value="{{this.departement}}">{{this.departement}}</option>
                         {{/each}}
@@ -14,41 +31,30 @@
                 </div>
             </div>
             <div class="col-md-2 col-sm-2">
-                <button type="submit" class="btn btn-outline-color3 mb-2">rechercher</button>
+                <button type="submit" class="btn btn-outline-color3 mb-2 b-2">rechercher</button>
             </div>
         </div>
     </form>
 </div>
 
-{{!-- <div id="myBtnContainer">
-    <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-    <button class="btn" onclick="filterSelection('cars')"> Cars</button>
-    <button class="btn" onclick="filterSelection('animals')"> Animals</button>
-    <button class="btn" onclick="filterSelection('fruits')"> Fruits</button>
-    <button class="btn" onclick="filterSelection('colors')"> Colors</button>
-</div> --}}
-
-
-
-
 
 {{#each dbexpo }}
 
-{{#if (filterdep selectedValue)}}
-
 {{> cardExpo}}
-
-{{/if}}
 
 {{/each}}
 
-<script type="text/javascript">
+{{!-- <script type="text/javascript">
 
     function changeFunc() {
-        var selectBox = document.getElementById("selectBox");
+        var selectBox = document.getElementById("selectBox").value;
         var selectedValue = selectBox.value;
-        return(selectedValue);
+        console.log('coucou')
+        console.log(selectBox)
+        return (selectedValue);
+        console.log('coucou')
+
         console.log(selectedValue)
     }
 
-</script>
+</script> --}}

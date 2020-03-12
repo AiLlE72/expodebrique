@@ -1,13 +1,13 @@
 //Import module
 
-const Handlebars = require("handlebars")
-const exphbs = require('express-handlebars')
-const express = require('express')
-const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
-const methodOverride = require('method-override')
+const Handlebars = require("handlebars");
+const exphbs = require('express-handlebars');
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 const expressSession = require('express-session')
-const MongoStore = require('connect-mongo')
+const MongoStore = require('connect-mongo');
 const helpers = require('handlebars-helpers');
 
 
@@ -83,10 +83,17 @@ Handlebars.registerHelper("counter", function (db) {
     return db.length
 });
 
-//filtre
-Handlebars.registerHelper('filterdep', function (dep) {
+//
+function changeFunc() {
+    var selectBox = document.getElementById("selectBox").value;
+    console.log('coucou')
+    console.log(selectBox)
+    return(selectBox);   
+}
+
+Handlebars.registerHelper('filterdep', function (selectBox) {
     
-    if (this.departement == dep) {
+    if (this.departement == selectBox) {
         return this;
     }
 })
@@ -101,4 +108,3 @@ app.use("/", router)
 app.listen(port, function () {
     console.log("Le serveur tourne sur le port : " + port);
 })
-
