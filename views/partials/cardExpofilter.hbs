@@ -1,5 +1,5 @@
 
-    <div class="row justify-content-center ">
+    <div class="row justify-content-center {{ this.departement }}">
         <div class="card mb-3 " style="max-width: 700px;">
             <div class="row no-gutters">
                 <div class="col-8 col-md-8">
@@ -10,6 +10,7 @@
                         
                         <h4 class="card-title mx-2">{{ this.name }}</h4>
                         <p class="card-text mx-2">{{ this.adress }}</p>
+                        <p class="card-text mx-2">{{ this.departement }}</p>
                         <p class="card-text mx-2">{{ this.postCode }} {{ this.city }}</p>
                         <p class="card-text mx-2">Horaire : {{ this.horaire }}</p>
                         <p class="card-text mx-2">Tarif : {{ this.price }}</p>

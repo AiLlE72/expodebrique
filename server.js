@@ -84,15 +84,9 @@ Handlebars.registerHelper("counter", function (db) {
 });
 
 //
-function changeFunc() {
-    var selectBox = document.getElementById("selectBox").value;
-    console.log('coucou')
-    console.log(selectBox)
-    return(selectBox);   
-}
+
 
 Handlebars.registerHelper('filterdep', function (selectBox) {
-    
     if (this.departement == selectBox) {
         return this;
     }

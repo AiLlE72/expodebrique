@@ -1,60 +1,55 @@
-<script type="text/javascript">
-
-    function changeFunc() {
-        var selectBox = document.getElementById("selectBox").value;
-        console.log(selectBox)
-        return (selectBox);
-    };
-
-    function filtre() {
-        if (document.getElementById === selectBox) {
-            return (document.getElementById)
-        }
-    }
+{{!-- <div id="myBtnContainer">
+    <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+    {{#each dbexpo}}
+    <button class="btn" onclick="filterSelection('{{this.departement}}')">{{this.departement}}</button>
+    {{/each}}
+</div> --}}
 
 
-</script>
 
 <div class="container my-5">
-    <form action="/locationExpo" method="POST">
-        <div class="form-row justify-content-center ml-5">
-            <div class="col-md-6 col-sm-6 ">
-                <div class="input-group mt-1">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Département</label>
-                    </div>
-                    <select class="custom-select"id="selectBox" onchange="changeFunc();">
-                        {{#each dbexpo}}
-                        <option value="{{this.departement}}">{{this.departement}}</option>
-                        {{/each}}
-                    </select>
+    <div class="form-row justify-content-center ml-5">
+        <div class="col-md-6 col-sm-6 ">
+            <div class="input-group mt-1">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Département</label>
                 </div>
-            </div>
-            <div class="col-md-2 col-sm-2">
-                <button type="submit" class="btn btn-outline-color3 mb-2 b-2">rechercher</button>
+                <select class="custom-select selectfilter">
+                    <option class="btn active filter" value="all">Choisir</option>
+                    {{#each dbexpo}}
+                    <option class="btn" value="{{this.departement}}">{{this.departement}}</option>
+                    {{/each}}
+                </select>
             </div>
         </div>
-    </form>
+        <div class="col-md-2 col-sm-2">
+            <button type="submit" class="btn btn-outline-color3 mb-2 filter-btn">rechercher</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    {{#each dbexpo }}
+
+    {{> cardExpofilter}}
+
+    {{/each}}
 </div>
 
 
-{{#each dbexpo }}
-
-{{> cardExpo}}
-
-{{/each}}
-
-{{!-- <script type="text/javascript">
-
-    function changeFunc() {
-        var selectBox = document.getElementById("selectBox").value;
-        var selectedValue = selectBox.value;
-        console.log('coucou')
-        console.log(selectBox)
-        return (selectedValue);
-        console.log('coucou')
-
-        console.log(selectedValue)
-    }
-
-</script> --}}
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script>
+    $('select').change(function () {
+        $('.filter').hide();
+    })
+    $(".filter-btn").click(function () {
+        var brand = $(".selectfilter option:selected").val()
+        if ($('.filter').hasClass(brand)) {
+            $('' + '.' + type).show()
+        }
+        else {
+            $('.' + brand).hide()
+        }
+    });
+</script>
