@@ -1,55 +1,34 @@
-{{!-- <div id="myBtnContainer">
-    <button class="btn active" onclick="filterSelection('all')"> Show all</button>
-    {{#each dbexpo}}
-    <button class="btn" onclick="filterSelection('{{this.departement}}')">{{this.departement}}</button>
-    {{/each}}
-</div> --}}
-
-
-
 <div class="container my-5">
     <div class="form-row justify-content-center ml-5">
-        <div class="col-md-6 col-sm-6 ">
-            <div class="input-group mt-1">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Département</label>
+        <form id="myForm" action="/locationExpo" method="POST" class=" form-inline">
+            <div class="col-auto">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Département</div>
+                    </div>
+                    <select name="departement" class="custom-select" id="selectBox" onchange="changeFunc();" witdh="600px">
+                        <option hidden>Choisir...</option>
+                        <option value="all">Tous</option>
+                        {{#each dbdep}}
+                        <option value="{{this.departement}}">{{this.departement}}</option>
+                        {{/each}}
+                    </select>
                 </div>
-                <select class="custom-select selectfilter">
-                    <option class="btn active filter" value="all">Choisir</option>
-                    {{#each dbexpo}}
-                    <option class="btn" value="{{this.departement}}">{{this.departement}}</option>
-                    {{/each}}
-                </select>
             </div>
-        </div>
-        <div class="col-md-2 col-sm-2">
-            <button type="submit" class="btn btn-outline-color3 mb-2 filter-btn">rechercher</button>
-        </div>
+        </form>
     </div>
 </div>
 
 <div class="container">
     {{#each dbexpo }}
 
-    {{> cardExpofilter}}
+    {{> cardExpo}}
 
     {{/each}}
+
 </div>
-
-
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"
-    integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-<script>
-    $('select').change(function () {
-        $('.filter').hide();
-    })
-    $(".filter-btn").click(function () {
-        var brand = $(".selectfilter option:selected").val()
-        if ($('.filter').hasClass(brand)) {
-            $('' + '.' + type).show()
-        }
-        else {
-            $('.' + brand).hide()
-        }
-    });
+<script type="text/javascript">
+    function changeFunc() {
+        document.getElementById('myForm').submit()
+    };
 </script>
