@@ -39,6 +39,7 @@ const listUser = require('./controllers/listUser')
 const listContact = require('./controllers/listContact')
 const contact = require('./controllers/contact')
 const logout = require('./controllers/home')
+const success = require('./controllers/success')
 
 //import de middleware
 const auth = require('./middleware/auth')
@@ -58,11 +59,11 @@ router.route('/logout')
 router.route('/createUser')
     .get(createUser.get)
     .post(createUser.post)
-    
+
 //createExpo
 router.route('/createExpo')
     .get(createExpo.get)
-    .post(upload.single('affiche'),createExpo.post)
+    .post(upload.single('affiche'), createExpo.post)
 
 //dateExpo
 router.route('/dateExpo')
@@ -71,7 +72,7 @@ router.route('/dateExpo')
 //allExpo
 router.route('/allExpo')
     .get(allExpo.get)
-    
+
 
 //locationExpo
 router.route('/locationExpo')
@@ -81,6 +82,11 @@ router.route('/locationExpo')
 //contact
 router.route('/contact')
     .get(contact.get)
+    .post(contact.post)
+
+//success
+router.route('/success')
+    .get(success.get)
 
 /******** PAGE verifMail **********/
 // Nodemailer verif 
@@ -99,6 +105,9 @@ router.route('/admin')
 //listContact
 router.route('/listContact')
     .get(listContact.get)
+
+router.route('/listContact/:id')
+    .delete(listContact.delete)
 
 //listUser
 router.route('/listUser')

@@ -72,6 +72,7 @@ app.use('*', (req, res, next) => {
         res.locals.name = req.session.name
         res.locals.isVerified = req.session.isVerified
         res.locals.isAdmin = req.session.isAdmin
+        res.locals.email = req.session.email
     } 
     next()    
 })
@@ -90,6 +91,15 @@ Handlebars.registerHelper("sortByDate", function (db) {
         return new Date(a.startDate) - new Date(b.startDate)
     })
     return db
+});
+
+// limitation taille text message
+Handlebars.registerHelper('truncate', function (str, len) {
+    if (str != null && str.length > len && str.length > 0) {
+        return new Handlebars.SafeString(str.substring(0, len) + '...');
+    }
+    return str;
+
 });
 
 

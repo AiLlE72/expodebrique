@@ -5,6 +5,7 @@
 </div>
 
 <div class="container">
+    {{#each dbcontact}}
     <div class="row">
         <!-- GET -->
         <div class="col-md-12 col-sm-12">
@@ -12,17 +13,18 @@
                 <li class="list-item border border-color5 rounded m-2 p-3">
                     <div class="row">
                         <div class="col-md-3 col-sm-3  column">
-                            <h3> sujet</h3>
+                            <h3>Notification</h3>
                         </div>
                         <div class="col-md-7 pt-4 col-sm-7">
-                            <p> email </p>
-                            <p>message : </p>
+                            <p>sujet: {{this.sujet}}</p>
+                            <p> email: {{this.email}} </p>
+                            <p>Vous avez un nouveau message: {{truncate this.message 20}} </p>
 
                             <!-- BOUTTON SUPPRIMER -->
                             <button class="btn btn-color2" data-toggle="modal" type="subit"
-                                data-target="#modalConfirmSuppContact{{ _id }}">Supprimer</button>
+                                data-target="#modalConfirmSuppContact{{ _id }}">Le mail a été traité</button>
                         </div>
-
+                    </div>
                 </li>
                 {{!-- modal confirmation suppression --}}
                 <div class="modal fade" id="modalConfirmSuppContact{{ _id }}" tabindex="-1" role="dialog">
@@ -37,23 +39,16 @@
                                 <p>Confirmez-vous la suppression ?</p>
                             </div>
                             <div class="modal-footer">
-
-                                <form action="/ticketAdmin/{{ _id }}/?_method=DELETE" method="post">
+                                <form action="/listContact/{{ _id }}/?_method=DELETE" method="post">
                                     <button type="submit" class="btn btn-color2">Oui</button>
                                 </form>
-
-
                                 <button type="button" class="btn btn-color4">Non</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </ul>
         </div>
-
     </div>
+    {{/each}}
 </div>
-
-
-
