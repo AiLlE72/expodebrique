@@ -5,6 +5,6 @@
 </div>
 
 {{!-- ajouter helper classement par date --}}
-{{#each dbexpo}}
+{{#each (sortByDate dbexpo)}}
 {{> cardExpo}}
 {{/each}}

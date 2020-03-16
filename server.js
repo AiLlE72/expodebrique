@@ -83,14 +83,14 @@ Handlebars.registerHelper("counter", function (db) {
     return db.length
 });
 
-//
-
-
-Handlebars.registerHelper('filterdep', function (selectBox) {
-    if (this.departement == selectBox) {
-        return this;
-    }
-})
+//tri par date
+Handlebars.registerHelper("sortByDate", function (db) {
+    if (!Array.isArray(db)) { return [db] }
+    db.sort(function (a,b) {
+        return new Date(a.startDate) - new Date(b.startDate)
+    })
+    return db
+});
 
 
 // Router

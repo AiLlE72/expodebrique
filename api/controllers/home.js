@@ -19,7 +19,6 @@ module.exports = {
             bcrypt.compare(password, User.password, (err, same) => {
                 if (!same) {
                     console.log("erreur de mot de passe");
-
                     res.render('home')
                 } else {
                     if (User.isAdmin == true) {
@@ -29,12 +28,9 @@ module.exports = {
                         req.session.isAdmin = User.isAdmin
                         res.redirect('/')
                     } else if (User.isVerified == true) {
-                        
-                        
                         req.session.userId = User._id
                         req.session.name = User.lastname
                         req.session.isVerified = User.isVerified
-                        console.log(req.session)
                         res.redirect('/')
                     } else {
                         req.session.userId = User._id
