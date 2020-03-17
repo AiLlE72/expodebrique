@@ -5,10 +5,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      
+
       {{#unless name}}
       <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#loginModal"href=" ">Se connecter</a>
+        <a class="nav-link" data-toggle="modal" data-target="#loginModal" href=" ">Se connecter</a>
       </li>
       {{/unless}}
 
@@ -17,7 +17,7 @@
         <a class="nav-link" href="/logout">Se déconnecter</a>
       </li>
       {{/if}}
-      
+
       {{#unless name}}
       <li class="nav-item">
         <a class="nav-link" href="/createUser">Créer un compte</a>
@@ -37,7 +37,7 @@
 
       {{#if name}}
       <li class="nav-item">
-       <a class="nav-link" href="/">Bonjour  {{ name }}</a>
+        <a class="nav-link" href="/">Bonjour {{ name }}</a>
       </li>
       {{/if}}
 

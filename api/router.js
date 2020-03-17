@@ -40,9 +40,10 @@ const listContact = require('./controllers/listContact')
 const contact = require('./controllers/contact')
 const logout = require('./controllers/home')
 const success = require('./controllers/success')
+const contactorga = require('./controllers/contactorga')
 
 //import de middleware
-const auth = require('./middleware/auth')
+const isAdmin = require('./middleware/admin')
 
 /******** PAGE ACCUEIL **********/
 // Home
@@ -84,6 +85,11 @@ router.route('/contact')
     .get(contact.get)
     .post(contact.post)
 
+//contactorga
+router.route('/contactorga/:id')
+    .get(contactorga.get)
+    .post(contactorga.post)  
+    
 //success
 router.route('/success')
     .get(success.get)
@@ -100,22 +106,22 @@ router.route('/verifMail')
 /******** PAGE Admin **********/
 //Admin
 router.route('/admin')
-    .get(admin.get)
+    .get(isAdmin, admin.get)
 
 //listContact
 router.route('/listContact')
-    .get(listContact.get)
+    .get(isAdmin, listContact.get)
 
 router.route('/listContact/:id')
-    .delete(listContact.delete)
+    .delete(isAdmin, listContact.delete)
 
 //listUser
 router.route('/listUser')
-    .get(listUser.get)
+    .get(isAdmin, listUser.get)
 
 router.route('/listUser/:id')
-    .put(listUser.put)
-    .delete(listUser.delete)
+    .put(isAdmin, listUser.put)
+    .delete(isAdmin, listUser.delete)
 
 
 module.exports = router

@@ -1,26 +1,121 @@
+<div class="item row justify-content-center ">
+    <div class="card mb-3 " style="max-width: 700px;">
+        <div class="row no-gutters">
+            <div class="col-8 col-md-8">
+                <div class="card-body">
+                    <h1><span class="badge badge-color1 shadow mx-2 text-white">{{ moment startDate format="DD" }}</span>
+                        <span class="badge badge-color1 shadow mx-2 text-white">{{ moment endDate format="DD" }}</span>
+                        <span class="font-weight-bold ">{{ moment startDate locale="fr" format="MMMM" }}</span></h1>
 
-    <div class="row justify-content-center ">
-        <div class="card mb-3 " style="max-width: 700px;">
-            <div class="row no-gutters">
-                <div class="col-8 col-md-8">
-                    <div class="card-body">
-                        <h1><span class="badge badge-color1 shadow mx-2 text-white">{{ moment startDate format="DD" }}</span>
-                            <span class="badge badge-color1 shadow mx-2 text-white">{{ moment endDate format="DD" }}</span>
-                            <span class="font-weight-bold ">{{ moment startDate locale="fr" format="MMMM" }}</span></h1>
-                        
-                        <h4 class="card-title mx-2">{{ this.name }}</h4>
-                        <p class="card-text mx-2">{{ this.adress }}</p>
-                        <p class="card-text mx-2">{{ this.postCode }} {{ this.city }}</p>
-                        <p class="card-text mx-2">Horaire : {{ this.horaire }}</p>
-                        <p class="card-text mx-2">Tarif : {{ this.price }}</p>
-                        <p class="card-text mx-2"><small class="text-muted"><button type="button" class="btn btn-outline-color1">Contacter l'organisateur</button></small></p>
-                    </div>
-                </div>
-                <div class="col-4 col-md-4">
-                    <img src="{{this.affiche}}" class="card-img" alt="Affiche expo">
+                    <h4 class="card-title mx-2">{{ this.name }}</h4>
+                    <p class="card-text mx-2">{{ this.adress }}</p>
+                    <p class="card-text mx-2">{{ this.postCode }} {{ this.city }}</p>
+                    <p class="card-text mx-2">Horaire : {{ this.horaire }}</p>
+                    <p class="card-text mx-2">Tarif : {{ this.price }}</p>
+                    <a href="/contactorga/{{this.id}}" class="btn btn-outline-color1 mx-2">Contacter l'organisateur</a>
                 </div>
             </div>
+            <div class="col-4 col-md-4">
+                <img src="{{this.affiche}}" class="card-img" alt="Affiche expo">
+            </div>
         </div>
-        
     </div>
+</div>
 
+
+<script>
+    // http://www.appelsiini.net/projects/viewport
+// http://remysharp.com/2009/01/26/element-in-view-event-plugin/
+// https://github.com/cobbweb/jquery.scrollwatch
+var WINDOW_WIDTH = window.innerWidth || document.documentElement.clientWidth;
+var WINDOW_HEIGHT = window.innerHeight || document.documentElement.clientHeight;
+
+var ScrollMonitor = function (options) {
+    this.items = [];
+    this.options = {};
+
+    for (var key in options) {
+        this.options[key] = options[key];
+    }
+};
+
+ScrollMonitor.prototype.add = function (node, options) {
+    var gap = options.gap || 0;
+    this.items.push({
+        node: node,
+        gap: +gap === gap ? [gap, gap, gap, gap] : gap,
+        callbacks: {
+            step: options.step || function (node, distance) {},
+            enter: options.enter || function (node, distance) {},
+            leave: options.leave || function (node, distance) {}
+        }
+    });
+    
+    this.resize();
+};
+
+ScrollMonitor.prototype.resize = function () {
+    WINDOW_WIDTH = window.innerWidth || document.documentElement.clientWidth;
+    WINDOW_HEIGHT = window.innerHeight || document.documentElement.clientHeight;
+
+    for (var i = 0; i < this.items.length; i++) {
+        var node = this.items[i].node;
+        this.items[i].rect = {
+            top: node.offsetTop,
+            left: node.offsetLeft,
+            width: node.clientWidth,
+            height: node.clientHeight
+        };
+    }
+};
+
+ScrollMonitor.prototype.scroll = function (scrollX, scrollY) {
+
+    for (var i = 0; i < this.items.length; i++) {
+        var item = this.items[i];
+        var rect = item.rect;
+        var gap = item.gap;
+
+        var distance = {
+            top: (rect.top + rect.height) - scrollY,
+            left: (rect.left + rect.width) - scrollX,
+            right: rect.left - (WINDOW_WIDTH + scrollX),
+            bottom: rect.top - (WINDOW_HEIGHT + scrollY),
+        };
+
+        var inView = (distance.right < -gap[1] && distance.left > gap[3] && distance.bottom < -gap[2] && distance.top > gap[0]);
+
+        if (inView && !item.callbacks.once) {
+            item.callbacks.once = true;
+            item.callbacks.enter.call(this, item.node, distance);
+        }
+
+        if (!inView && item.callbacks.once) {
+            item.callbacks.once = false;
+            item.callbacks.leave.call(this, item.node, distance);
+        }
+        
+        item.callbacks.step.call(this, item.node, distance);
+    }
+};
+
+var monitor = new ScrollMonitor();
+var nodeList = document.querySelectorAll('.item');
+
+for (var i = 0; i < nodeList.length; i++) {
+    monitor.add(nodeList[i], {
+        gap: 0,
+        enter: function (node, distance) {
+            node.classList.add('in-view');
+        },
+        leave: function (node, distance) {
+            node.classList.remove('in-view');
+        }
+    });
+}
+
+window.onscroll = function () { monitor.scroll(window.pageXOffset, window.pageYOffset); };
+window.onresize = function () { monitor.resize(); window.onscroll(); };
+
+window.onresize();
+</script>

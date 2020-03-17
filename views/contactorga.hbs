@@ -1,0 +1,37 @@
+<div class="container my-3">
+    <div class="row justify-content-center">
+        <h1>Nous envoyer un message ?</h1>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form action="/contactorga/{{ id }}" method="POST">
+                <div class="form-group row justify-content-center">
+                    {{#if email}}
+                    <input type="email" class="form-control" name="email"  value="{{email}}">
+                    {{else}}
+                    <input type="email" class="form-control" placeholder="Email de contact" name="email2" required>
+                    <p class="text-muted">votre adresse ne sera pas enregistrée dans notre base de donnée</p>
+                    {{/if}}
+                </div>
+                <div class="form-group row ">
+                    <label>Sujet</label>
+                    <select class="form-control" name="sujet" required>
+                        <option hidden>Choisir...</option>
+                        <option >Demande d'information</option>
+                        <option >Je suis exposant et souhaite exposer lors de votre expostition</option>
+                    </select>
+                </div>
+                <div class="form-group row ">
+                    <label>Votre message</label>
+                    <textarea class="form-control" rows="3" name="message"></textarea>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <button type="submit" class="btn btn-outline-color3">Envoyer le message</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

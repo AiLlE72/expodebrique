@@ -58,6 +58,5 @@ module.exports = {
                     res.redirect('/success')
                 }
             })
-
     }
 }
