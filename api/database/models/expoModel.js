@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const depmodel = require('./depModel')
+
 
 
 const expoSchema = new mongoose.Schema({
@@ -6,7 +8,7 @@ const expoSchema = new mongoose.Schema({
     name: String,
     adress: String,
     city: String,
-    departement: Number,
+    departement: { type : mongoose.Schema.Types.ObjectId, ref:"depmodel"},
     postCode: Number,
     country: String,
     startDate: Date,

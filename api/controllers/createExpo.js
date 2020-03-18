@@ -1,10 +1,12 @@
 const expomodel = require('../database/models/expoModel')
+const depmodel = require('../database/models/depModel')
 const path = require('path')
 
 
 module.exports = {
-    get: (req, res) => {
-        res.render('createExpo')
+    get: async(req, res) => {
+        const dbdepartement = await depmodel.find({})   
+        res.render('createExpo', { dbdepartement })
     },
     post: (req, res) => {
 
