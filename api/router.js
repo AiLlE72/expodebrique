@@ -44,6 +44,8 @@ const contactorga = require('./controllers/contactorga')
 
 //import de middleware
 const isAdmin = require('./middleware/admin')
+const isBan = require('./middleware/ban')
+
 
 /******** PAGE ACCUEIL **********/
 // Home
@@ -63,8 +65,8 @@ router.route('/createUser')
 
 //createExpo
 router.route('/createExpo')
-    .get(createExpo.get)
-    .post(upload.single('affiche'), createExpo.post)
+    .get(isBan,createExpo.get)
+    .post(isBan,upload.single('affiche'), createExpo.post)
 
 //dateExpo
 router.route('/dateExpo')

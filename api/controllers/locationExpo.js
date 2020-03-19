@@ -5,19 +5,8 @@ module.exports = {
     get: async (req, res) => {
         const date = new Date()
         const dbdep = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
-        // const dbdepartement = await depmodel.find({})
         const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
-        res.render('locationExpo', { dbexpo, dbdep })
-        // const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement").exec((err, Dbexpo) => {
-        //     if (err) {
-        //         console.log(err)
-        //         res.send(err)
-        //     } else {
-        //         res.render('locationExpo', { Dbexpo, dbdep, dbdepartement })
-        //     }
-        // })
-
-
+        res.render('locationExpo', { dbexpo, dbdep })  
     },
     post: async (req, res) => {
         const date = new Date()
@@ -29,17 +18,7 @@ module.exports = {
             const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
             res.render('locationExpo', { dbexpo, dbdep })
         } else {
-
-            const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement", {
-                select: '_id',
-                match: {  _id : 'dep' }
-            }).exec()
-
-            console.log(db)
-            console.log(dbexpo);
-            console.log(dep);
-
-
+            const dbexpo = await expomodel.find({departement: dep})
             res.render('locationExpo', { dbexpo, dbdep })
         }
     }

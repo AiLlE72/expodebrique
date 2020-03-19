@@ -10,7 +10,7 @@
                         <option hidden>Choisir...</option>
                         <option value="all">Tous</option>
                         {{#each dbdep}}
-                        <option value="{{this._id}}">({{this.departement.code}}) - {{this.departement.name}}</option>
+                        <option value="{{this.departement._id}}">({{this.departement.code}}) - {{this.departement.name}}</option>
                         {{/each}}
                     </select>
                 </div>
