@@ -25,10 +25,10 @@
                                     <label class="input-group-text" for="inputGroupSelect01">Département</label>
                                 </div>
                                 <select class="custom-select" id="inputGroupSelect01" name="departement">
-                                    <option selected>Choisir...</option>
-                                    <option value="1">01</option>
-                                    <option value="2">02</option>
-                                    <option value="3">03</option>
+                                    <option selected hidden>Choisir...</option>
+                                    {{#each dbdepartement}}
+                                    <option value="{{this.id}}">({{this.code}}) - {{this.name}}</option>
+                                    {{/each}}
                                 </select>
                             </div>
                         </div>
@@ -73,7 +73,8 @@
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch2" name="organisateur">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch2"
+                                    name="organisateur">
                                 <label class="custom-control-label" for="customSwitch2">Je suis organisateur
                                     d'exposition</label>
                             </div>
@@ -82,7 +83,8 @@
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch3" name="newsAcceptExpositionLocation">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch3"
+                                    name="newsAcceptExpositionLocation">
                                 <label class="custom-control-label" for="customSwitch3">J'accepte de recevoir des infos
                                     sur les expositions autour de chez moi</label>
                             </div>
@@ -91,7 +93,8 @@
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch4" name="newsAcceptExposant">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch4"
+                                    name="newsAcceptExposant">
                                 <label class="custom-control-label" for="customSwitch4">J'accepte de recevoir des
                                     demandes d'exposants</label>
                             </div>
@@ -100,7 +103,8 @@
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch5" name="newsAcceptExposition">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch5"
+                                    name="newsAcceptExposition">
                                 <label class="custom-control-label" for="customSwitch5">J'accepte de recevoir des
                                     demandes d'expositions</label>
                             </div>

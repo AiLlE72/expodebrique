@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const depmodel = require('./depModel')
 
 const userSchema = new mongoose.Schema({
 
     firstname:  String,
     lastname: String,
     email: String,
-    departement: Number,
+    departement: { type : mongoose.Schema.Types.ObjectId, ref:depmodel},
     pays: String,
     password: String,
     isAdmin: {

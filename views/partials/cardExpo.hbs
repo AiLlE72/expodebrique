@@ -3,7 +3,8 @@
         <div class="row no-gutters">
             <div class="col-8 col-md-8">
                 <div class="card-body">
-                    <h1><span class="badge badge-color1 shadow mx-2 text-white">{{ moment startDate format="DD" }}</span>
+                    <h1><span
+                            class="badge badge-color1 shadow mx-2 text-white">{{ moment startDate format="DD" }}</span>
                         <span class="badge badge-color1 shadow mx-2 text-white">{{ moment endDate format="DD" }}</span>
                         <span class="font-weight-bold ">{{ moment startDate locale="fr" format="MMMM" }}</span></h1>
 
@@ -12,11 +13,187 @@
                     <p class="card-text mx-2">{{ this.postCode }} {{ this.city }}</p>
                     <p class="card-text mx-2">Horaire : {{ this.horaire }}</p>
                     <p class="card-text mx-2">Tarif : {{ this.price }}</p>
-                    <a href="/contactorga/{{this.id}}" class="btn btn-outline-color1 mx-2">Contacter l'organisateur</a>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a href="/contactorga/{{this.id}}" class="btn btn-outline-color1">Contacter
+                                l'organisateur</a>
+                        </div>
+
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-color2" data-toggle="modal" data-target="#modalEditer{{_id}}"
+                                type="submit">Modifier l'expo</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-4 col-md-4">
                 <img src="{{this.affiche}}" class="card-img" alt="Affiche expo">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{{!-- *******************************modal edition********************************* --}}
+<div class="container mt-3">
+    <div class="row text-center">
+        <div class="modal fade" id="modalEditer{{ _id }}" tabindex="-1" role="dialog" aria-labelledby="modalEditerLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"> </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="createExpo/{{ _id }}/?_method=PUT" method="POST" enctype="multipart/form-data" >
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="name"
+                                        value="{{this.name}}" >
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="adress"
+                                        value="{{this.adress}}" >
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 mb-3 ">
+                                            <input type="text" class="form-control" name="city" value="{{this.city}}">
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 mb-3 ">
+                                            <select name="departement" class="custom-select" value="{{this.departement}}">
+                                                <option hidden>{{ this.departement }}</option>
+                                                {{#each ../dbdepartement}}
+                                                <option value="{{this.id}}">{{this.name}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 mb-3">
+                                            <input type="text" class="form-control" name="postCode"
+                                                value="{{this.postCode}}" >
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <label class="input-group-text"
+                                                        for="inputGroupSelect01">Pays</label>
+                                                </div>
+                                                <select class="custom-select"  name="country" >
+                                                    <option selected hidden>{{this.country}}</option>
+                                                    <option value="France">France</option>
+                                                    <option value="Belgique">Belgique</option>
+                                                    <option value="Espagne">Espagne</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 mb-3">
+                                           
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label for="start">Date de début</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="date" name="startDate" max="3000-12-31"
+                                                            min="2020-01-01" class="form-control" value="{{moment this.startDate format="YYYY-MM-DD"}}">
+                                                    </div>
+                                                </div>
+                                            
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 ">
+                                            
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label for="end">Date de fin</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <input type="date" name="endDate" max="3000-12-31"
+                                                            min="2020-01-01" class="form-control" value="{{moment this.endDate format="YYYY-MM-DD"}}">
+                                                    </div>
+                                                </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" >Affiche</span>
+                                        </div>
+                                        <div class="custom-file">
+                                            <input name="affiche" type="file" class="custom-file-input">
+                                            <label class="custom-file-label" for="inputGroupFile01">Choisir un
+                                                fichier</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 mb-3 ">
+                                            <input type="text" class="form-control" name="horaire"
+                                                value="{{this.horaire}}">
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 mb-3 ">
+                                            <input type="text" class="form-control" name="price" value="{{this.price}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">@</span>
+                                        </div>
+                                        <input name="contact" type="email" class="form-control"
+                                            value="{{this.contact}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row justify-content-center">
+                                <div class="col-md-6">
+                                    <div class="custom-control custom-switch">
+                                        <input name="search" type="checkbox" class="custom-control-input" id="customSwitch{{_id}}">
+                                <label class="custom-control-label" for="customSwitch{{_id}}">Nous sommes en recherche
+                                    d'exposants</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-color4">Confirmer la modification</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

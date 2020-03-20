@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
         if (user && user.isBan == true && !error) {
             res.redirect('/')
         } else {
-            next
+            next()
         }
     })
 }

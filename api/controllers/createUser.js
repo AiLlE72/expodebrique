@@ -1,6 +1,7 @@
 const usermodel = require('../database/models/userModel')
 const nodemailer = require('nodemailer')
 const key = require('../config')
+const depmodel = require('../database/models/depModel')
 
 // *************parametrage nodemailer***************
 
@@ -23,8 +24,9 @@ var rand, mailOptions, host, link // creation de variable sans affectation pour 
 // *************module****************************
 
 module.exports = {
-    get: (req, res) => {
-        res.render('createUser')
+    get: async (req, res) => {
+        const dbdepartement = await depmodel.find({}) 
+        res.render('createUser', { dbdepartement })
     },
 
     post: (req, res) => {

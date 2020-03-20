@@ -66,7 +66,11 @@ router.route('/createUser')
 //createExpo
 router.route('/createExpo')
     .get(isBan,createExpo.get)
-    .post(isBan,upload.single('affiche'), createExpo.post)
+    .post(isBan, upload.single('affiche'), createExpo.post)
+
+//createExpo/:id
+router.route('/createExpo/:id')
+    .put(isBan, upload.single('affiche'), createExpo.put)
 
 //dateExpo
 router.route('/dateExpo')
@@ -89,8 +93,8 @@ router.route('/contact')
 
 //contactorga
 router.route('/contactorga/:id')
-    .get(contactorga.get)
-    .post(contactorga.post)  
+    .get(isBan, contactorga.get)
+    .post(isBan, contactorga.post)  
     
 //success
 router.route('/success')
