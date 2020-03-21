@@ -1,7 +1,7 @@
 const expomodel = require('../database/models/expoModel')
 const depmodel = require('../database/models/depModel')
 const fs = require('fs')
-const path = require('path')
+
 
 
 
@@ -11,7 +11,12 @@ module.exports = {
         res.render('createExpo', { dbdepartement })
     },
     post: (req, res) => {
-        const search = (req.body.search == 'true' || false)
+        var search
+        if (req.body.search === 'on') {
+            search = 'true'
+        } else {
+            search = 'false'
+        }
         expomodel.create({
             name: req.body.name,
             adress: req.body.adress,
@@ -41,7 +46,6 @@ module.exports = {
     put: async (req, res) => {
         const myexpo = await expomodel.findById({ _id: req.params.id })
         const image = await myexpo.image
-console.log(image)
         var search
         if (req.body.search === 'on') {
             search = 'true'
@@ -49,14 +53,14 @@ console.log(image)
             search = 'false'
         }
 
-        console.log(req.file)
         if (!req.file) {
-            expomodel.findOneAndUpdate(
-                { myexpo },
+            expomodel.findByIdAndUpdate(
+                {  _id: req.params.id },
                 {
                     name: req.body.name,
                     adress: req.body.adress,
                     city: req.body.city,
+                    departement: req.body.departement,
                     postCode: req.body.postCode,
                     country: req.body.country,
                     startDate: req.body.startDate,
@@ -69,25 +73,27 @@ console.log(image)
                 { multi: true },
                 (err) => {
                     if (!err) {
-                        console.log('UPDATE OK without image');
+                        
                         res.redirect('/allExpo')
                     } else {
                         res.send(err)
                     }
                 })
         } else {
+            console.log(req.file)
             fs.unlink(
                 image,
                 (err) => {
                     if (err) {
-                        console.log(err)
+                        res.send(err)
                     } else {
-                        expomodel.findOneAndUpdate(
-                            { myexpo },
+                        expomodel.findByIdAndUpdate(
+                            {  _id: req.params.id },
                             {
                                 name: req.body.name,
                                 adress: req.body.adress,
                                 city: req.body.city,
+                                departement: req.body.departement,
                                 postCode: req.body.postCode,
                                 country: req.body.country,
                                 startDate: req.body.startDate,
@@ -101,7 +107,6 @@ console.log(image)
                             { multi: true },
                             (err) => {
                                 if (!err) {
-                                    console.log('UPDATE OK with image');
                                     res.redirect('/allExpo')
                                 } else {
                                     res.send(err)

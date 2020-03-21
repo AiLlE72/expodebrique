@@ -9,7 +9,7 @@ const expoSchema = new mongoose.Schema({
     adress: String,
     city: String,
     departement: { type : mongoose.Schema.Types.ObjectId, ref:depmodel},
-    postCode: Number,
+    postCode: String,
     country: String,
     startDate: Date,
     endDate: Date,
