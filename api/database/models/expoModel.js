@@ -18,7 +18,8 @@ const expoSchema = new mongoose.Schema({
     horaire: String,
     price: String,
     contact: String,
-    search: Boolean
+    search: Boolean,
+    author: String
 })
 
 

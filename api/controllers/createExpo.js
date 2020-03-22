@@ -102,7 +102,9 @@ module.exports = {
                                 image: req.file.path,
                                 horaire: req.body.horaire,
                                 price: req.body.price,
-                                contact: req.body.contact
+                                contact: req.body.contact,
+                                author: req.session.name
+
                             },
                             { multi: true },
                             (err) => {

@@ -20,6 +20,7 @@ const port = process.env.PORT || 3000
 const mongoStore = MongoStore(expressSession)
 
 
+
 // Handlebars
 app.engine('hbs', exphbs({
     extname: 'hbs',
@@ -53,6 +54,8 @@ mongoose.connect(urlDB, {
     useFindAndModify: false,
     useCreateIndex: true
 });
+
+
 
 
 // Express-session
@@ -101,6 +104,20 @@ Handlebars.registerHelper('truncate', function (str, len) {
     return str;
 
 });
+
+//inversion objet de db
+Handlebars.registerHelper('reverse', function (arr) {
+    if (!Array.isArray(arr)) { return []; }
+    return arr.reverse();
+});
+
+//controle de l'auteur
+// Handlebars.registerHelper('Author', async function () {
+//     const expomodel = require('../database/models/expoModel')
+//     const expo = await expomodel.find({})
+//     if(req.session.name === expo.author){ return true} else {return false}
+    
+// });
 
 
 // Router

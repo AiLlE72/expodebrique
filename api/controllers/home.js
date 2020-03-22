@@ -14,12 +14,12 @@ module.exports = {
         const User = await usermodel.findOne({ email: email })
 
         if (!User) {
-            res.render('home')
+            res.redirect('/')
         } else {
             bcrypt.compare(password, User.password, (err, same) => {
                 if (!same) {
                     console.log("erreur de mot de passe");
-                    res.render('home')
+                    res.redirect('/')
                 } else {
                     if (User.isAdmin == true) {
                         req.session.userId = User._id

@@ -4,8 +4,8 @@ const depmodel = require('../database/models/depModel')
 module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
-        const dbexpoAll = await expomodel.find({}).populate("departement")
-        res.render('allExpo', { dbexpoAll, dbdepartement } )
+        const dbexpo = await expomodel.find({}).populate("departement")
+        res.render('allExpo', { dbexpo, dbdepartement } )
            
     },
 }
