@@ -41,6 +41,8 @@ const contact = require('./controllers/contact')
 const logout = require('./controllers/home')
 const success = require('./controllers/success')
 const contactorga = require('./controllers/contactorga')
+const lostPassword = require('./controllers/lostPassword')
+
 
 //import de middleware
 const isAdmin = require('./middleware/admin')
@@ -65,7 +67,7 @@ router.route('/createUser')
 
 //createExpo
 router.route('/createExpo')
-    .get(isBan,createExpo.get)
+    .get(isBan, createExpo.get)
     .post(isBan, upload.single('affiche'), createExpo.post)
 
 //createExpo/:id
@@ -94,16 +96,31 @@ router.route('/contact')
 //contactorga
 router.route('/contactorga/:id')
     .get(isBan, contactorga.get)
-    .post(isBan, contactorga.post)  
-    
+    .post(isBan, contactorga.post)
+
 //success
 router.route('/success')
     .get(success.get)
+
+/******** Mot de passe perdu **********/
+//lostPassword
+router.route('/lostPassword')
+    .get(lostPassword.get)
+    .post(lostPassword.post)
+    
+
+//newPassword
+router.route('/newPassword/:id')
+    .get(lostPassword.getReset)
+    .post(lostPassword.postReset)
+    
+
 
 /******** PAGE verifMail **********/
 // Nodemailer verif 
 router.route('/verify/:id')
     .get(createUser.verifMail)
+    
 
 //verifMail
 router.route('/verifMail')

@@ -6,3 +6,6 @@ node_modules/
 
 # config 
 /api/config.js
+
+# sass
+.sass-cache

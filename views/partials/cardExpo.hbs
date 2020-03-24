@@ -18,16 +18,22 @@
                             <a href="/contactorga/{{this.id}}" class="btn btn-outline-color1">Contacter
                                 l'organisateur</a>
                         </div>
+                        
+                        {{#ifCond author @root.name}}
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-color2" data-toggle="modal" data-target="#modalEditer{{_id}}"
+                                type="submit">Modifier l'expo</button>
+                        </div>
+                        {{else}}
                         {{#if @root.isAdmin}}
                         <div class="col-md-6">
                             <button class="btn btn-outline-color2" data-toggle="modal" data-target="#modalEditer{{_id}}"
                                 type="submit">Modifier l'expo</button>
                         </div>
                         {{/if}}
+                        
+                        {{/ifCond}}
 
-                        {{!-- {{#if (Author)}}
-                        <p>coucou</p>
-                        {{/if}} --}}
                     </div>
                 </div>
             </div>
@@ -74,7 +80,8 @@
                                         </div>
                                         <div class="col-md-6 col-sm-6 mb-3 ">
                                             <select name="departement" class="custom-select">
-                                                <option value="{{this.departement._id}}" hidden>({{this.departement.code}}) - {{this.departement.name}}</option>
+                                                <option value="{{this.departement._id}}" hidden>
+                                                    ({{this.departement.code}}) - {{this.departement.name}}</option>
                                                 {{#each @root.dbdepartement}}
                                                 <option value="{{id}}">({{code}}) - {{name}}</option>
                                                 {{/each}}

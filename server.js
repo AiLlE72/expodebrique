@@ -111,13 +111,13 @@ Handlebars.registerHelper('reverse', function (arr) {
     return arr.reverse();
 });
 
-//controle de l'auteur
-// Handlebars.registerHelper('Author', async function () {
-//     const expomodel = require('../database/models/expoModel')
-//     const expo = await expomodel.find({})
-//     if(req.session.name === expo.author){ return true} else {return false}
-    
-// });
+//controle de l'auteur des cards
+Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+    if(v1 === v2) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });
 
 
 // Router
