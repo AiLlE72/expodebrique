@@ -5,17 +5,17 @@
                 <form action="/createUser" method="POST">
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="firstname" placeholder="Nom">
+                            <input type="text" class="form-control" name="firstname" placeholder="Nom"required>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="lastname" placeholder="Prénom">
+                            <input type="text" class="form-control" name="lastname" placeholder="Prénom"required>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="email" placeholder="Email">
+                            <input type="text" class="form-control" name="email" placeholder="Email"required>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
@@ -24,7 +24,7 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Département</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" name="departement">
+                                <select class="custom-select" id="inputGroupSelect01" name="departement"required>
                                     <option selected hidden>Choisir...</option>
                                     {{#each dbdepartement}}
                                     <option value="{{this.id}}">({{this.code}}) - {{this.name}}</option>
@@ -37,9 +37,9 @@
                         <div class="col-md-6">
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Pays</label>
+                                    <label class="input-group-text" for="inputGroupSelect02">Pays</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" name="pays">
+                                <select class="custom-select" id="inputGroupSelect02" name="pays"required>
                                     <option selected>Choisir...</option>
                                     <option value="France">France</option>
                                     <option value="Belgique">Belgique</option>
@@ -53,16 +53,16 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-6  mb-3">
                                     <input type="password" class="form-control" name="password"
-                                        placeholder="Mot de passe">
+                                        placeholder="Mot de passe"required>
                                 </div>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="password" class="form-control" name="confpassword"
-                                        placeholder="Confirmer le mot de passe">
+                                        placeholder="Confirmer le mot de passe"required>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row justify-content-center">
+                    {{!-- <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
                                 <input type="checkbox" class="custom-control-input" id="customSwitch1" name="exposant">
@@ -79,13 +79,13 @@
                                     d'exposition</label>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch3"
-                                    name="newsAcceptExpositionLocation">
-                                <label class="custom-control-label" for="customSwitch3">J'accepte de recevoir des infos
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1" name="visiteur">
+                                <label class="custom-control-label" for="customSwitch1">Je suis visiteur et j'accepte de
+                                    recevoir des infos
                                     sur les expositions autour de chez moi</label>
                             </div>
                         </div>
@@ -93,9 +93,10 @@
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch4"
-                                    name="newsAcceptExposant">
-                                <label class="custom-control-label" for="customSwitch4">J'accepte de recevoir des
+                                <input type="checkbox" class="custom-control-input" id="customSwitch2"
+                                    name="organisateur">
+                                <label class="custom-control-label" for="customSwitch2">Je suis organisateur et
+                                    j'accepte de recevoir des
                                     demandes d'exposants</label>
                             </div>
                         </div>
@@ -103,11 +104,16 @@
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch5"
-                                    name="newsAcceptExposition">
-                                <label class="custom-control-label" for="customSwitch5">J'accepte de recevoir des
+                                <input type="checkbox" class="custom-control-input" id="customSwitch3" name="exposant">
+                                <label class="custom-control-label" for="customSwitch3">Je suis exposant et j'accepte de
+                                    recevoir des
                                     demandes d'expositions</label>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <p class="text-muted"><small>Vos coordonnées ne seront pas communiqué à des organismes tiers</small></p>
                         </div>
                     </div>
                     <div class="row justify-content-center ">

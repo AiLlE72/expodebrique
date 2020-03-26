@@ -4,10 +4,10 @@ const depmodel = require('./depModel')
 
 const userSchema = new mongoose.Schema({
 
-    firstname:  String,
+    firstname: String,
     lastname: String,
     email: String,
-    departement: { type : mongoose.Schema.Types.ObjectId, ref:depmodel},
+    departement: { type: mongoose.Schema.Types.ObjectId, ref: depmodel },
     pays: String,
     password: String,
     isAdmin: {
@@ -22,18 +22,25 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    createDate : {
+    createDate: {
         type: Date,
-        default : new Date()
+        default: new Date()
     },
-    exposant: String,
-    organisateur: String,
-    newsAcceptExpositionLocation: String,
-    newsAcceptExposant: String,
-    newsAcceptExposition: String
+    exposant: {
+        type: String,
+        default: 'off'
+    },
+    organisateur: {
+        type: String,
+        default: 'off'
+    },
+    visiteur: {
+        type: String,
+        default: 'off'
+    }
 })
 
-userSchema.pre('save', function ( next ) {
+userSchema.pre('save', function (next) {
     const user = this
     bcrypt.hash(user.password, 10, (err, encrypted) => {
         user.password = encrypted

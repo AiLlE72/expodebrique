@@ -25,7 +25,7 @@ var rand, mailOptions, host, link // creation de variable sans affectation pour 
 
 module.exports = {
     get: async (req, res) => {
-        const dbdepartement = await depmodel.find({}) 
+        const dbdepartement = await depmodel.find({})
         res.render('createUser', { dbdepartement })
     },
 
@@ -49,43 +49,38 @@ module.exports = {
         if (Pass !== confPass || Pass === '') {
             res.redirect('/')
         } else {
-            if (req.body.organisateur !== 'on' || req.body.exposant !== 'on') {
-                console.log('erreur de orga/expo')  
-                res.redirect('/')
-            } else {                
-                usermodel.create(
-                    {
-                        firstname: req.body.firstname,
-                        lastname: req.body.lastname,
-                        email: req.body.email,
-                        departement: req.body.departement,
-                        pays: req.body.pays,
-                        password: req.body.password,
-                        exposant: req.body.exposant,
-                        organisateur: req.body.organisateur,
-                        newsAcceptExpositionLocation: req.body.newsAcceptExpositionLocation,
-                        newsAcceptExposant: req.body.newsAcceptExposant,
-                        newsAcceptExposition: req.body.newsAcceptExposition
-                    },
-                    // Nodemailer transport      
-                    transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
-                        if (err) {
-                            res.send(err)
-                        } else {
-                            next()
-                        }
-                    }),
-                    (error, post) => {
-                        if(error){
-                            res.send(error)
-                        } else {
-                            res.redirect('/')
-                        }
-                    })
-            }
+
+            usermodel.create(
+                {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    departement: req.body.departement,
+                    pays: req.body.pays,
+                    password: req.body.password,
+                    exposant: req.body.exposant,
+                    organisateur: req.body.organisateur,
+                    visiteur: req.body.visiteur,
+
+                },
+                // Nodemailer transport      
+                transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
+                    if (err) {
+                        res.send(err)
+                    } else {
+                        next()
+                    }
+                }),
+                (error, post) => {
+                    if (error) {
+                        res.send(error)
+                    } else {
+                        res.redirect('/')
+                    }
+                })
         }
     },
-    verifMail: async (req, res, next) => {    
+    verifMail: async (req, res, next) => {
         const userID = await usermodel.findOne({ email: mailOptions.to })
         const rand = req.params.id
         if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) { //compare le lien utiliser pour venir sur la page et celui de la page 
@@ -93,7 +88,7 @@ module.exports = {
             if (rand == mailOptions.rand) { //recupere le numero random present dans le mail
 
                 usermodel.findByIdAndUpdate( // modifie l'info isVerified de l'utilisateur 
-                userID._id,
+                    userID._id,
                     {
                         isVerified: true
                     },
@@ -102,7 +97,7 @@ module.exports = {
                             res.redirect('/verifMail')
                         } else {
                             console.log(err);
-                            
+
                             res.send(err)
                         }
                     }

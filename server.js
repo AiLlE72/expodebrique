@@ -80,6 +80,7 @@ app.use('*', (req, res, next) => {
     next()    
 })
 
+
 /******** HELPERS **********/
 //compteur d'objet
 Handlebars.registerHelper("counter", function (db) {
