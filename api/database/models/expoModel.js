@@ -19,10 +19,11 @@ const expoSchema = new mongoose.Schema({
     price: String,
     contact: String,
     search: Boolean,
-    author: String
+    author: {
+        type: String,
+        default : 'noAuthor'
+    },
 })
-
-
 
 
 module.exports = mongoose.model('expocollection', expoSchema)
