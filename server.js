@@ -12,6 +12,7 @@ const helpers = require('handlebars-helpers');
 
 
 
+
 // Constante
 const app = express()
 const key = require('./api/config')
@@ -76,8 +77,8 @@ app.use('*', (req, res, next) => {
         res.locals.isVerified = req.session.isVerified
         res.locals.isAdmin = req.session.isAdmin
         res.locals.email = req.session.email
-    } 
-    next()    
+    }
+    next()
 })
 
 
@@ -91,7 +92,7 @@ Handlebars.registerHelper("counter", function (db) {
 //tri par date
 Handlebars.registerHelper("sortByDate", function (db) {
     if (!Array.isArray(db)) { return [db] }
-    db.sort(function (a,b) {
+    db.sort(function (a, b) {
         return new Date(a.startDate) - new Date(b.startDate)
     })
     return db
@@ -113,18 +114,31 @@ Handlebars.registerHelper('reverse', function (arr) {
 });
 
 //controle de l'auteur des cards
-Handlebars.registerHelper('ifCond', function(v1, v2, options) {
-    if(v1 === v2) {
-      return options.fn(this);
+Handlebars.registerHelper('ifCond', function (v1, v2, options) {
+    if (v1 === v2) {
+        return options.fn(this);
     }
     return options.inverse(this);
-  });
+});
 
+
+//fonction emailing
+const emailing = require('./api/emailing')
+app.use(emailing.email)
+
+// cron.schedule('* * * * *', () => {
+//     console.log('coucou');
+    
+// })
 
 // Router
 const router = require('./api/router')
 app.use("/", router)
 
+// Error404
+app.use((req, res) => {
+    res.render('error404')
+})
 
 // Port
 app.listen(port, function () {

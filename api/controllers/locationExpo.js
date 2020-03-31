@@ -17,7 +17,6 @@ module.exports = {
         const dbdep = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
         const dep = req.body.departement
 
-        console.log(dep)
         if (dep === "all") {
             const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
             res.render('locationExpo', { dbexpo, dbdep })
