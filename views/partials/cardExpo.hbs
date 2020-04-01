@@ -3,10 +3,12 @@
         <div class="row no-gutters">
             <div class="col-8 col-md-8">
                 <div class="card-body">
-                    <h1><span
+                    <h1>
+                        <span
                             class="badge badge-color1 shadow mx-2 text-white">{{ moment startDate format="DD" }}</span>
                         <span class="badge badge-color1 shadow mx-2 text-white">{{ moment endDate format="DD" }}</span>
-                        <span class="font-weight-bold ">{{ moment startDate locale="fr" format="MMMM" }}</span></h1>
+                        <span class="font-weight-bold ">{{ moment startDate locale="fr" format="MMMM" }}</span>
+                    </h1>
 
                     <h4 class="card-title mx-2">{{ this.name }}</h4>
                     <p class="card-text mx-2">{{ this.adress }}</p>
@@ -18,7 +20,7 @@
                             <a href="/contactorga/{{this.id}}" class="btn btn-outline-color1">Contacter
                                 l'organisateur</a>
                         </div>
-                        
+
                         {{#ifCond author @root.name}}
                         <div class="col-md-6">
                             <button class="btn btn-outline-color2" data-toggle="modal" data-target="#modalEditer{{_id}}"
@@ -31,7 +33,7 @@
                                 type="submit">Modifier l'expo</button>
                         </div>
                         {{/if}}
-                        
+
                         {{/ifCond}}
 
                     </div>

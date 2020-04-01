@@ -36,7 +36,7 @@ module.exports = {
             from: dest, // adresse du mail qui envoi le lien de verif
             to: dbexpo.contact, // adresse de la personne qui s'inscrit
             subject: sujet, // sujet du mail de verif
-            html: "Bonjour. une personne souhaite entrée en contact avec vous dans le cadre de l'exposition que vous organisé : " + expo + ". <br>Repondez a ce mail pour entrée en contact avec cette personne.<br>Voici son message : " + mess, // contenu du mail
+            html: "Bonjour.<br> Une personne souhaite entrer en contact avec vous dans le cadre de l'exposition que vous organisez : " + expo + ". <br>Repondez à ce mail pour entrée en contact avec cette personne.<br>Voici son message : " + mess, // contenu du mail
         },
 
             transporter.sendMail(mailOptions, (err, res, next) => {

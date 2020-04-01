@@ -18,7 +18,6 @@ module.exports = {
         } else {
             bcrypt.compare(password, User.password, (err, same) => {
                 if (!same) {
-                    console.log("erreur de mot de passe");
                     res.redirect('/')
                 } else {
                     if (User.isAdmin == true) {

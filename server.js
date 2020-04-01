@@ -9,7 +9,7 @@ const methodOverride = require('method-override');
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
 const helpers = require('handlebars-helpers');
-
+const cron = require('node-cron')
 
 
 
@@ -19,6 +19,8 @@ const key = require('./api/config')
 const urlDB = key.urlDBcloud //key.urlDBlocal
 const port = process.env.PORT || 3000
 const mongoStore = MongoStore(expressSession)
+const emailing = require('./api/emailing')
+
 
 
 
@@ -120,16 +122,6 @@ Handlebars.registerHelper('ifCond', function (v1, v2, options) {
     }
     return options.inverse(this);
 });
-
-
-//fonction emailing
-const emailing = require('./api/emailing')
-app.use(emailing.email)
-
-// cron.schedule('* * * * *', () => {
-//     console.log('coucou');
-    
-// })
 
 // Router
 const router = require('./api/router')

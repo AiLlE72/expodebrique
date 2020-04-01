@@ -6,8 +6,14 @@ const userSchema = new mongoose.Schema({
 
     firstname: String,
     lastname: String,
-    email: String,
-    departement: { type: mongoose.Schema.Types.ObjectId, ref: depmodel },
+    email: {
+        type: String,
+        unique: true,
+    },
+    departement: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: depmodel
+    },
     pays: String,
     password: String,
     isAdmin: {

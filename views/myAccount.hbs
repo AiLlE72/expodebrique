@@ -1,0 +1,183 @@
+<div class="container my-3">
+  <div class="row justify-content-center">
+    <h3>Mes informations personnelles</h3>
+  </div>
+</div>
+<div class="container ">
+
+  <div class="card text-white bg-color4 mb-3 mx-auto" style="max-width: 900px;">
+    <div class=" card-header">
+      <div class="col-md-3">
+        Votre identité
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3  ">
+      </div>
+      <div class="col-md-3 col-3">
+        Nom :
+      </div>
+      <div class="col-md-4 text-capitalize col-5">
+        {{user.firstname}}
+      </div>
+      <div class="col-md-2 col-3">
+        <a href="">Modifier</a>
+      </div>
+    </div>
+    <div class="row my-2 ">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Prénom :
+      </div>
+      <div class="col-md-4 text-capitalize col-5">
+        {{user.lastname}}
+      </div>
+      <div class="col-md-2 col-3">
+        <a href="">Modifier</a>
+      </div>
+    </div>
+    <div class=" card-header">
+      <div class="col-md-3">
+        Vos coordonnées
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Email:
+      </div>
+      <div class="col-md-4 col-5">
+        {{user.email}}
+      </div>
+      <div class="col-md-2 col-3 ">
+        <a href="">Modifier</a>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Département :
+      </div>
+      <div class="col-md-4 col-5">
+        ({{user.departement.code}}) - {{user.departement.name}}
+      </div>
+      <div class="col-md-2 col-3">
+        <a href="">Modifier</a>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Pays :
+      </div>
+      <div class="col-md-4 col-5">
+        {{user.pays}}
+      </div>
+      <div class="col-md-2 col-3">
+        <a href="">Modifier</a>
+      </div>
+    </div>
+    <div class=" card-header">
+      <div class="col-md-3">
+        Votre status
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Email vérifié :
+      </div>
+      <div class="col-md-4 col-5">
+        {{#if user.isVerified}} Oui {{else}} Non {{/if}}
+      </div>
+      <div class="col-md-2 col-3">
+        <a href="">Modifier</a>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Banni :
+      </div>
+      <div class="col-md-4 col-3">
+        {{#if user.isVerified}} Oui {{else}} Non {{/if}}
+      </div>
+      <div class="col-md-2 col-5">
+        <a href="/contact">Nous contacter</a>
+      </div>
+    </div>
+    <div class=" card-header">
+      <div class="col-md-3">
+        Newsletter
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Vous êtes exposant :
+      </div>
+      <div class="col-md-4 col-3">
+        {{#if user.exposant}} Oui {{else}} Non {{/if}}
+      </div>
+      <div class="col-md-2 col-5">
+        <a href="/contact">Modifier</a>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Vous êtes organisateur :
+      </div>
+      <div class="col-md-4 col-3">
+        {{#if user.organisateur}} Oui {{else}} Non {{/if}}
+      </div>
+      <div class="col-md-2 col-5">
+        <a href="/contact">Modifier</a>
+      </div>
+    </div>
+    <div class="row my-2">
+      <div class="col-md-3 ">
+      </div>
+      <div class="col-md-3 col-3">
+        Vous êtes visiteur :
+      </div>
+      <div class="col-md-4 col-3">
+        {{#if user.visiteur}} Oui {{else}} Non {{/if}}
+      </div>
+      <div class="col-md-2 col-5">
+        <a href="/contact">Modifier</a>
+      </div>
+    </div>
+  </div>

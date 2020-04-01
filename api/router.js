@@ -42,6 +42,7 @@ const logout = require('./controllers/home')
 const success = require('./controllers/success')
 const contactorga = require('./controllers/contactorga')
 const lostPassword = require('./controllers/lostPassword')
+const myAccount = require('./controllers/myAccount')
 
 
 //import de middleware
@@ -64,6 +65,10 @@ router.route('/logout')
 router.route('/createUser')
     .get(createUser.get)
     .post(createUser.post)
+
+//myAccount
+router.route('/myAccount')
+    .get(myAccount.get)
 
 //createExpo
 router.route('/createExpo')
