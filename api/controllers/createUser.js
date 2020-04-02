@@ -100,7 +100,6 @@ module.exports = {
         const userID = await usermodel.findOne({ email: mailOptions.to })
         const rand = req.params.id
         if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) { //compare le lien utiliser pour venir sur la page et celui de la page 
-            // console.log("Domain is matched. Information is from Authentic email")
             if (rand == mailOptions.rand) { //recupere le numero random present dans le mail
 
                 usermodel.findByIdAndUpdate( // modifie l'info isVerified de l'utilisateur 
@@ -113,7 +112,6 @@ module.exports = {
                             res.redirect('/verifMail')
                         } else {
                             console.log(err);
-
                             res.send(err)
                         }
                     }
@@ -126,5 +124,3 @@ module.exports = {
         }
     }
 }
-
-

@@ -33,9 +33,9 @@ module.exports = {
         const message = req.body.message
 
         mailOptions = {
-            replyTo: dest, // adresse du mail qui envoi le lien de verif
-            to: key.mailUser, // adresse de la personne qui s'adresse le mail
-            subject: subject, // sujet du mail de verif
+            replyTo: dest, // adresse de la personne qui envoi le mail
+            to: key.mailUser, // adresse du site
+            subject: subject, // sujet du mail 
             html: "Bonjour.<br> Mr " + name + " vous a envoyé un message : <br>" + message + "<br>"   // contenu du mail
         }
 

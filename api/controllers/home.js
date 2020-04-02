@@ -26,18 +26,18 @@ module.exports = {
                         req.session.isVerified = User.isVerified
                         req.session.isAdmin = User.isAdmin
                         req.session.email = User.email
-                        res.redirect('/')
+                        res.redirect('back')
                     } else if (User.isVerified == true) {
                         req.session.userId = User._id
                         req.session.name = User.lastname
                         req.session.isVerified = User.isVerified
                         req.session.email = User.email
-                        res.redirect('/')
+                        res.redirect('back')
                     } else {
                         req.session.userId = User._id
                         req.session.name = User.lastname
                         req.session.email = User.email
-                        res.redirect('/')
+                        res.redirect('back')
                     }
                 }
             })

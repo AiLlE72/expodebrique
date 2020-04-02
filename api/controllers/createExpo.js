@@ -14,6 +14,7 @@ module.exports = {
         res.render('createExpo', { dbdepartement })
     },
     post: async (req, res) => {
+        // variable pour la modification du rendu de la checkbox "search"
         var search
         if (req.body.search === 'on') {
             search = 'true'
@@ -85,6 +86,8 @@ module.exports = {
     put: async (req, res) => {
         const myexpo = await expomodel.findById({ _id: req.params.id })
         const image = await myexpo.image
+
+        // variable pour la modification du rendu de la checkbox "search"
         var search
         if (req.body.search === 'on') {
             search = 'true'
@@ -143,7 +146,6 @@ module.exports = {
                                 price: req.body.price,
                                 contact: req.body.contact,
                                 author: req.session.name
-
                             },
                             { multi: true },
                             (err) => {

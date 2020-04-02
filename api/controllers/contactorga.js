@@ -1,8 +1,8 @@
 const expomodel = require('../database/models/expoModel')
-
 const nodemailer = require('nodemailer')
 const key = require('../config')
 
+//configuration nodemailer
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
     host: "smtp.gmail.com", // host de l'hebergeur de l'adresse mail
     service: 'gmail', // nom du service
@@ -18,11 +18,12 @@ const transporter = nodemailer.createTransport({ //creation de la constante tran
 })
 
 var mailOptions // creation de variable sans affectation pour une portée global
+
+
 module.exports = {
     get: async (req, res) => {
         const id = req.params.id
         const dbexpo = await expomodel.findById(req.params.id)
-
         res.render('contactorga', { dbexpo, id })
     },
 
