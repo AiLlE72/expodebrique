@@ -49,6 +49,22 @@ module.exports = {
         if (Pass !== confPass || Pass === '') {
             res.redirect('/')
         } else {
+            var Exposant, Visiteur, Organisateur
+            if (req.body.exposant === undefined) { 
+                 Exposant = false
+            } else {
+                 Exposant = true
+            }
+            if (req.body.organisateur === undefined) { 
+                 Organisateur = false
+            } else {
+                 Organisateur = true
+            }
+            if (req.body.Visiteur === undefined) { 
+                 Visiteur = false
+            } else {
+                 Visiteur = true
+            }
 
             usermodel.create(
                 {
@@ -58,9 +74,9 @@ module.exports = {
                     departement: req.body.departement,
                     pays: req.body.pays,
                     password: req.body.password,
-                    exposant: req.body.exposant,
-                    organisateur: req.body.organisateur,
-                    visiteur: req.body.visiteur,
+                    exposant: Exposant,
+                    organisateur: Organisateur,
+                    visiteur: Visiteur,
 
                 },
                 // Nodemailer transport      
@@ -108,7 +124,7 @@ module.exports = {
         } else {
             res.send('Request is from unknow source')
         }
-    },
+    }
 }
 
 

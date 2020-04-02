@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light shadow p-3 mb-3 bg-white rounded">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
-    <span><img src="/assets/ressources/icon/menucircularbutton_79584.png" alt="..."></span>
+    <span><img src="/assets/ressources/icon/menucircularbutton_79584.png" alt="Hamburger de menu"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -23,12 +23,17 @@
         <a class="nav-link" href="/createUser">Créer un compte</a>
       </li>
       {{/unless}}
+
+      {{#if name}}
       <li class="nav-item">
         <a class="nav-link" href="/createExpo">Déposer un exposition</a>
       </li>
+      {{/if}}
+
       <li class="nav-item">
         <a class="nav-link" href="/contact">Nous contacter</a>
       </li>
+
       {{#if isAdmin}}
       <li class="nav-item">
         <a class="nav-link" href="/admin">Admin</a>
@@ -37,7 +42,7 @@
 
       {{#if name}}
       <li class="nav-item">
-        <a class="nav-link" href="/myAccount">Bonjour {{ name }}</a>
+        <a class="nav-link text-capitalize" href="/myAccount/{{userId}}">Bonjour {{ name }}</a>
       </li>
       {{/if}}
 
@@ -46,36 +51,33 @@
 </nav>
 
 
-{{!-- modal login  --}}
+{{!--------------------- modal login  ---------------------}}
 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Se connecter</h5>
+        <h5 class="modal-title" >Se connecter</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form action="/" method="post">
+      <form action="/" method="post">
+        <div class="modal-body">
           <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Votre Email *"  />
+            <input type="email" class="form-control" name="email" placeholder="Votre Email *" />
           </div>
           <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Votre mot de passe *"  />
+            <input type="password" class="form-control" name="password" placeholder="Votre mot de passe *" />
           </div>
-          {{!-- <div class="checkbox">
-            <label> <input type="checkbox"> Se rappeler de moi. </label>
-          </div> --}}
           <div class="form-group">
             <a href="/lostPassword" class="ForgetPwd">Mot de passe oublié</a>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-color3">Valider</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-color3">Valider</button>
+        </div>
       </form>
     </div>
   </div>

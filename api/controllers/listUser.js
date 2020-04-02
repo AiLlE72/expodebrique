@@ -14,7 +14,6 @@ module.exports = {
                 {
                     name: req.body.name,
                     isVerified: true,
-                    isModo: true,
                     isAdmin: true,
                     isBan: false
                 },
@@ -33,7 +32,6 @@ module.exports = {
                 {
                     name: req.body.name,
                     isVerified: true,
-                    isModo: false,
                     isAdmin: false,
                     isBan: false
                 },
@@ -52,7 +50,6 @@ module.exports = {
                 {
                     name: req.body.name,
                     isVerified: false,
-                    isModo: false,
                     isAdmin: false,
                     isBan: true
                 },

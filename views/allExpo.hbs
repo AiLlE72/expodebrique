@@ -1,14 +1,18 @@
 <div class="container my-3">
     <div class="row justify-content-center">
-        <h3>Retrouver toutes les expositions qui ont été proposée sur expo de briques</h3>
+        <h3>Retrouver toutes les expositions qui ont été proposée sur Expo de Briques</h3>
     </div>
 </div>
 
-{{#each (reverse dbexpo) }}
+<div class="container">
 
-{{> cardExpo}}
+    {{#each (reverse dbexpo) }}
 
-{{/each}}
+    {{> cardExpo}}
 
+    {{/each}}
+
+</div>
 
 {{> scriptcard}}
+</br>

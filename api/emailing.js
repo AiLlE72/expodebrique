@@ -23,7 +23,7 @@ const Mail = cron.schedule(' 0 10 25 * *', async () => {
     })
 
     
-    const dest = await usermodel.find({ isVerified: 'true', visiteur: 'on' })
+    const dest = await usermodel.find({ isVerified: 'true', visiteur: 'true' })
     for (let i = 0; i < dest.length; i++) {
         const destinataire = dest[i]
         const d = new Date()

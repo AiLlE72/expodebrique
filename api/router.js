@@ -66,10 +66,16 @@ router.route('/createUser')
     .get(createUser.get)
     .post(createUser.post)
 
-//myAccount
-router.route('/myAccount')
-    .get(myAccount.get)
 
+//myAccount
+router.route('/myAccount/:id')
+    .get(myAccount.get)
+    .put(myAccount.put)
+
+//verif mail modifier
+router.route('/verifEditMail/:id')
+    .get(myAccount.verifEditMail)
+    
 //createExpo
 router.route('/createExpo')
     .get(isBan, createExpo.get)

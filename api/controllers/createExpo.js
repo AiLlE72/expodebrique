@@ -57,7 +57,7 @@ module.exports = {
 
                     var mailOptions
                     const Departement = req.body.departement
-                    const dest = await usermodel.find({ departement: Departement, exposant: 'on' })
+                    const dest = await usermodel.find({ departement: Departement, exposant: 'true' })
 
                     for (let i = 0; i < dest.length; i++) {
                         const destinataire = dest[i]

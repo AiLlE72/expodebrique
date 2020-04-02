@@ -33,16 +33,16 @@ const userSchema = new mongoose.Schema({
         default: new Date()
     },
     exposant: {
-        type: String,
-        default: 'off'
+        type: Boolean,
+        default: false
     },
     organisateur: {
-        type: String,
-        default: 'off'
+        type: Boolean,
+        default: false
     },
     visiteur: {
-        type: String,
-        default: 'off'
+        type: Boolean,
+        default: false
     }
 })
 

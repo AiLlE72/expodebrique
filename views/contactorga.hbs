@@ -1,6 +1,6 @@
 <div class="container my-3">
     <div class="row justify-content-center">
-        <h1>Nous envoyer un message ?</h1>
+        <h1>Vous souhaitez contacter l'organisateur de {{dbexpo.name}} ?</h1>
     </div>
 </div>
 
@@ -8,7 +8,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <form action="/contactorga/{{ id }}" method="POST">
-                <div class="form-group row justify-content-center">
+                <div class="form-group row ">
+                    <label>Votre adresse Email :</label>
                     {{#if email}}
                     <input type="email" class="form-control" name="email"  value="{{email}}">
                     {{else}}
@@ -17,7 +18,7 @@
                     {{/if}}
                 </div>
                 <div class="form-group row ">
-                    <label>Sujet</label>
+                    <label>Sujet :</label>
                     <select class="form-control" name="sujet" required>
                         <option hidden>Choisir...</option>
                         <option >Demande d'information</option>
@@ -25,7 +26,7 @@
                     </select>
                 </div>
                 <div class="form-group row ">
-                    <label>Votre message</label>
+                    <label>Votre message :</label>
                     <textarea class="form-control" rows="3" name="message"></textarea>
                 </div>
                 <div class="form-group row justify-content-center">

@@ -7,20 +7,23 @@
                         <span
                             class="badge badge-color1 shadow mx-2 text-white">{{ moment startDate format="DD" }}</span>
                         <span class="badge badge-color1 shadow mx-2 text-white">{{ moment endDate format="DD" }}</span>
-                        <span class="font-weight-bold ">{{ moment startDate locale="fr" format="MMMM" }}</span>
+                        <span
+                            class="font-weight-bold text-capitalize">{{ moment startDate locale="fr" format="MMMM" }}</span>
                     </h1>
-
                     <h4 class="card-title mx-2">{{ this.name }}</h4>
                     <p class="card-text mx-2">{{ this.adress }}</p>
                     <p class="card-text mx-2">{{ this.postCode }} {{ this.city }}</p>
                     <p class="card-text mx-2">Horaire : {{ this.horaire }}</p>
                     <p class="card-text mx-2">Tarif : {{ this.price }}</p>
                     <div class="row">
+                        {{!-- bouton visible uniquement pour les utilisateurs connecter --}}
+                        {{#if @root.name}}
                         <div class="col-md-6">
                             <a href="/contactorga/{{this.id}}" class="btn btn-outline-color1">Contacter
                                 l'organisateur</a>
                         </div>
-
+                        {{/if}}
+                        {{!-- bouton visible si auteur de l'expo ou si administrateur --}}
                         {{#ifCond author @root.name}}
                         <div class="col-md-6">
                             <button class="btn btn-outline-color2" data-toggle="modal" data-target="#modalEditer{{_id}}"
@@ -33,7 +36,6 @@
                                 type="submit">Modifier l'expo</button>
                         </div>
                         {{/if}}
-
                         {{/ifCond}}
 
                     </div>
@@ -134,10 +136,8 @@
                                                         value="{{moment this.startDate format="YYYY-MM-DD"}}">
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="col-md-6 col-sm-6 ">
-
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <label for="end">Date de fin</label>
