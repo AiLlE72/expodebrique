@@ -1,4 +1,16 @@
+/************************
+ *                      * 
+ *      Constante       *   
+ *                      *
+ ************************/
+
 const usermodel = require('../database/models/userModel')
+
+/************************
+ *                      * 
+ *      Module          *   
+ *                      *
+ ************************/
 
 module.exports = {
     get: async (req, res) => {

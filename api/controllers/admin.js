@@ -1,6 +1,18 @@
+/************************
+ *                      *
+ *      Constante       *
+ *                      *
+ ************************/
+
 const usermodel = require('../database/models/userModel')
 const expomodel = require('../database/models/expoModel')
 const contactmodel = require('../database/models/contactModel')
+
+/************************
+ *                      * 
+ *      Module          *   
+ *                      *
+ ************************/
 
 
 module.exports = {

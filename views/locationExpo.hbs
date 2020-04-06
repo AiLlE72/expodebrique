@@ -21,6 +21,8 @@
 
 
 <div class="container">
+
+    {{!-- affiche chaque expo en fonction du filtre definit par le select si dessus --}}
     {{#each dbexpo }}
 
     {{> cardExpo}}
@@ -30,6 +32,7 @@
 
 {{> scriptcard}}
 
+{{!--  definit le select comme un bouton submit pour un rechargemetn a chaud du contenu de la page --}}
 <script type="text/javascript">
     function changeFunc() {
         document.getElementById('myForm').submit()

@@ -6,6 +6,7 @@
 
 <div class="container">
 
+{{!-- renvoi chaque expo de la db mais en sens inverse de l'orde de la db --}}
     {{#each (reverse dbexpo) }}
 
     {{> cardExpo}}
@@ -15,4 +16,5 @@
 </div>
 
 {{> scriptcard}}
+
 </br>

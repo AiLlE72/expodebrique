@@ -9,6 +9,7 @@
         <div class="col-md-8">
             <form action="/contact" method="POST">
                 <div class="form-group row justify-content-center">
+                    {{!-- affiche l'input avec l'email de l'utilisateur si connecer ou propose de remplir l'email si non connecter --}}
                     {{#if email}}
                     <input type="email" class="form-control" name="email"  value="{{email}}" disabled>
                     {{else}}

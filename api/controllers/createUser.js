@@ -1,3 +1,9 @@
+/************************
+ *                      * 
+ *      Constante       *   
+ *                      *
+ ************************/
+
 const usermodel = require('../database/models/userModel')
 const nodemailer = require('nodemailer')
 const key = require('../config')
@@ -6,22 +12,26 @@ const depmodel = require('../database/models/depModel')
 // *************parametrage nodemailer***************
 
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
-    host: "smtp.gmail.com", // host de l'hebergeur de l'adresse mail
-    service: 'gmail', // nom du service
-    port: 587, // port du service
-    secure: false, // permet de passer la connection en TLS, laisser sur false lors de l'utilisation des port 587 et 25
-    auth: { // info de connection au compte d'envoi de mail
+    host: key.host, 
+    service: key.service, 
+    port: key.port, 
+    secure: key.secure, 
+    auth: { 
         user: key.mailUser,
         pass: key.mailPass
     },
     tls: {
-        rejectUnauthorized: false // définit des options TLSSocket node.js supplémentaires à transmettre au constructeur de socket,
+        rejectUnauthorized: key.rejectUnauthorized 
     }
 })
 
 var rand, mailOptions, host, link // creation de variable sans affectation pour une portée global
 
-// *************module****************************
+/************************
+ *                      * 
+ *      Module          *   
+ *                      *
+ ************************/
 
 module.exports = {
     get: async (req, res) => {
@@ -50,20 +60,20 @@ module.exports = {
             res.redirect('/')
         } else {
             var Exposant, Visiteur, Organisateur
-            if (req.body.exposant === undefined) { 
-                 Exposant = false
+            if (req.body.exposant === undefined) {
+                Exposant = false
             } else {
-                 Exposant = true
+                Exposant = true
             }
-            if (req.body.organisateur === undefined) { 
-                 Organisateur = false
+            if (req.body.organisateur === undefined) {
+                Organisateur = false
             } else {
-                 Organisateur = true
+                Organisateur = true
             }
-            if (req.body.Visiteur === undefined) { 
-                 Visiteur = false
+            if (req.body.Visiteur === undefined) {
+                Visiteur = false
             } else {
-                 Visiteur = true
+                Visiteur = true
             }
 
             usermodel.create(
@@ -79,19 +89,21 @@ module.exports = {
                     visiteur: Visiteur,
 
                 },
-                // Nodemailer transport      
-                transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        next()
-                    }
-                }),
+
+
                 (error, post) => {
                     if (error) {
                         res.send(error)
                     } else {
-                        res.redirect('/')
+                        // Nodemailer transport 
+                        transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
+                            if (err) {
+                                res.send(err)
+                            } else {
+                                next()
+                            }
+                        }),
+                            res.redirect('/')
                     }
                 })
         }

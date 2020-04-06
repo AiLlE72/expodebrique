@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt')
 const depmodel = require('./depModel')
 
 const userSchema = new mongoose.Schema({
-
     firstname: String,
     lastname: String,
     email: {

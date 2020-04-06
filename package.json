@@ -22,7 +22,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "dev" : "code .  && nodemon",
+    "start": "nodemon server.js",
     "sass": "sass --watch ./publics/ressources/style/bootstrap/scss/bootstrap.scss:./publics/ressources/style/style.css",
     "reinstall": "sudo rm -r node_modules* && npm i && npm start"
   },

@@ -1,4 +1,16 @@
+/************************
+ *                      * 
+ *      Constante       *   
+ *                      *
+ ************************/
+
 const contactmodel = require('../database/models/contactModel')
+
+/************************
+ *                      * 
+ *      Module          *   
+ *                      *
+ ************************/
 
 module.exports = {
     get: async (req, res) => {

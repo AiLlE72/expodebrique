@@ -4,7 +4,6 @@ const depmodel = require('./depModel')
 
 
 const expoSchema = new mongoose.Schema({
-
     name: String,
     adress: String,
     city: String,
@@ -24,6 +23,5 @@ const expoSchema = new mongoose.Schema({
         default : 'noAuthor'
     },
 })
-
 
 module.exports = mongoose.model('expocollection', expoSchema)

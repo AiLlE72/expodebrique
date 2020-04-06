@@ -26,6 +26,7 @@
                                 </div>
                                 <select class="custom-select" id="inputGroupSelect01" name="departement"required>
                                     <option selected hidden>Choisir...</option>
+                                    {{!-- affiche chaque departement de la db --}}
                                     {{#each dbdepartement}}
                                     <option value="{{this.id}}">({{this.code}}) - {{this.name}}</option>
                                     {{/each}}

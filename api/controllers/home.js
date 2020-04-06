@@ -1,6 +1,18 @@
+/************************
+ *                      * 
+ *      Constante       *   
+ *                      *
+ ************************/
+
 const usermodel = require('../database/models/userModel')
 const expomodel = require('../database/models/expoModel')
 const bcrypt = require('bcrypt')
+
+/************************
+ *                      * 
+ *      Module          *   
+ *                      *
+ ************************/
 
 module.exports = {
     get: async (req, res) => {

@@ -1,3 +1,9 @@
+/************************
+ *                      * 
+ *      Constante       *   
+ *                      *
+ ************************/
+
 const usermodel = require('../database/models/userModel')
 const depmodel = require('../database/models/depModel')
 const bcrypt = require('bcrypt')
@@ -7,31 +13,34 @@ const nodemailer = require('nodemailer')
 // *************parametrage nodemailer***************
 
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
-    host: "smtp.gmail.com", // host de l'hebergeur de l'adresse mail
-    service: 'gmail', // nom du service
-    port: 587, // port du service
-    secure: false, // permet de passer la connection en TLS, laisser sur false lors de l'utilisation des port 587 et 25
-    auth: { // info de connection au compte d'envoi de mail
+    host: key.host, 
+    service: key.service, 
+    port: key.port, 
+    secure: key.secure, 
+    auth: { 
         user: key.mailUser,
         pass: key.mailPass
     },
     tls: {
-        rejectUnauthorized: false // définit des options TLSSocket node.js supplémentaires à transmettre au constructeur de socket,
+        rejectUnauthorized: key.rejectUnauthorized 
     }
 })
 
 var rand, mailOptions, host, link // creation de variable sans affectation pour une portée global
 
 
+/************************
+ *                      * 
+ *      Module          *   
+ *                      *
+ ************************/
+
 module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
         const user = await usermodel.findById(req.params.id).populate("departement")
 
-        // console.log(user);
-
         res.render('myAccount', { user, dbdepartement })
-
     },
 
     put: async (req, res) => {
@@ -145,15 +154,10 @@ module.exports = {
                             if (err) {
                                 res.send(err)
                             } else {
-                                console.log('1');
-                                
-                               
                                 transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
                                     if (err) {
                                         res.send(err)
                                     } else {
-                                        console.log('2');
-                                        
                                         next()
                                     }
                                 })
@@ -183,7 +187,6 @@ module.exports = {
                             res.redirect('/myAccount/' + userID._id)
                         } else {
                             console.log(err);
-
                             res.send(err)
                         }
                     }

@@ -1,3 +1,9 @@
+/************************
+ *                      * 
+ *      Constante       *   
+ *                      *
+ ************************/
+
 const usermodel = require('../database/models/userModel')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer')
@@ -6,20 +12,26 @@ const key = require('../config')
 // *************parametrage nodemailer***************
 
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
-    host: "smtp.gmail.com", // host de l'hebergeur de l'adresse mail
-    service: 'gmail', // nom du service
-    port: 587, // port du service
-    secure: false, // permet de passer la connection en TLS, laisser sur false lors de l'utilisation des port 587 et 25
-    auth: { // info de connection au compte d'envoi de mail
+    host: key.host, 
+    service: key.service, 
+    port: key.port, 
+    secure: key.secure, 
+    auth: { 
         user: key.mailUser,
         pass: key.mailPass
     },
     tls: {
-        rejectUnauthorized: false // définit des options TLSSocket node.js supplémentaires à transmettre au constructeur de socket,
+        rejectUnauthorized: key.rejectUnauthorized 
     }
 })
 
 var rand, mailOptions, host, link // creation de variable sans affectation pour une portée global
+
+/************************
+ *                      * 
+ *      Module          *   
+ *                      *
+ ************************/
 
 module.exports = {
     get: (req, res) => {
@@ -34,9 +46,9 @@ module.exports = {
         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
         link = "http://" + req.get('host') + "/newPassword/" + rand // construction du lien avec adresse du site et le chiffre random
         mailOptions = {
-            from: key.mailUser, // adresse du mail qui envoi le lien de verif
-            to: req.body.email, // adresse de la personne qui s'inscrit
-            subject: 'Reinitialisation de mot de passe', // sujet du mail de verif
+            from: key.mailUser, // adresse du mail qui envoi le lien de reinitialisation
+            to: req.body.email, // adresse de la personne qui demande le renouvellement de mot de passe
+            subject: 'Reinitialisation de mot de passe', // sujet du mail 
             rand: rand, // nombre random generer a l'envoi du mail
             html: "Bonjour.<br> Merci de cliquer sur ce lien pour reinitialisé votre mot de passe <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
         }
