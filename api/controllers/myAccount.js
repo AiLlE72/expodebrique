@@ -6,6 +6,7 @@
 
 const usermodel = require('../database/models/userModel')
 const depmodel = require('../database/models/depModel')
+const oldusermodel = require('../database/models/oldUserModel')
 const bcrypt = require('bcrypt')
 const key = require('../config')
 const nodemailer = require('nodemailer')
@@ -13,16 +14,16 @@ const nodemailer = require('nodemailer')
 // *************parametrage nodemailer***************
 
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
-    host: key.host, 
-    service: key.service, 
-    port: key.port, 
-    secure: key.secure, 
-    auth: { 
+    host: key.host,
+    service: key.service,
+    port: key.port,
+    secure: key.secure,
+    auth: {
         user: key.mailUser,
         pass: key.mailPass
     },
     tls: {
-        rejectUnauthorized: key.rejectUnauthorized 
+        rejectUnauthorized: key.rejectUnauthorized
     }
 })
 
@@ -45,17 +46,17 @@ module.exports = {
 
     put: async (req, res) => {
 
-         // Nodemailer config  affectation des constantes declaré plus haut
-         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
-         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
-         link = "http://" + req.get('host') + "/verifEditMail/" + rand // construction du lien avec adresse du site et le chiffre random
-         mailOptions = {
-             from: key.mailUser, // adresse du mail qui envoi le lien de verif
-             to: req.body.email, // adresse de la personne qui s'inscrit
-             subject: 'Merci de confirmer votre compte email', // sujet du mail de verif
-             rand: rand, // nombre random generer a l'envoi du mail
-             html: "Bonjour.<br> Merci de cliquer sur ce lien pour verifier votre adresse mail <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
-         }
+        // Nodemailer config  affectation des constantes declaré plus haut
+        rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
+        host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
+        link = "http://" + req.get('host') + "/verifEditMail/" + rand // construction du lien avec adresse du site et le chiffre random
+        mailOptions = {
+            from: key.mailUser, // adresse du mail qui envoi le lien de verif
+            to: req.body.email, // adresse de la personne qui s'inscrit
+            subject: 'Merci de confirmer votre compte email', // sujet du mail de verif
+            rand: rand, // nombre random generer a l'envoi du mail
+            html: "Bonjour.<br> Merci de cliquer sur ce lien pour verifier votre adresse mail <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
+        }
 
         if (req.body.firstname) {
             usermodel.findByIdAndUpdate(
@@ -197,5 +198,35 @@ module.exports = {
         } else {
             res.send('Request is from unknow source')
         }
+    },
+
+    delete: async (req, res, next) => {
+        const myUser = await usermodel.findById(req.params.id)
+        
+        oldusermodel.create(
+            {
+                firstname: myUser.firstname,
+                lastName: myUser.lastname,
+                email: myUser.email
+
+            },
+            (error) => {
+                if (error) {
+                    res.send(error)
+                } else {
+                    usermodel.findByIdAndRemove(req.params.id, (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            req.session.destroy(() => {
+                                res.clearCookie('coucou');
+                                res.redirect('/')
+                            })
+                        }
+                    })
+
+                }
+            })
+
     }
 }

@@ -181,6 +181,17 @@
       </div>
     </div>
   </div>
+  <div class="container">
+    <div class="row justify-content-center">
+      <button class="btn btn-outline-color2 my-2" data-toggle="modal" type="subit"
+        data-target="#modalConfirmSuppAccount{{userId}}">Supprimer mon compte</button>
+    </div>
+  </div>
+
+
+
+
+
 
   {{!-- modal  modif firstname--}}
   <div class="modal fade" id="firstname{{userId}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -440,6 +451,31 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-color1" data-dismiss="modal">Fermer</button>
             <button type="submit" class="btn btn-color2">Sauvergarder</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+    {{!-- modal  suppression de compte --}}
+  <div class="modal fade" id="modalConfirmSuppAccount{{userId}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <form action="/myAccount/{{ userId }}/?_method=delete" method="POST">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Vous nous quittez déjà ?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{userId}}</p>
+            <p>Vous souhaitez supprimer votre compte. Votre compte va donc être inaccessible et vos données supprimé definitivement</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-color1" data-dismiss="modal">Fermer</button>
+            <button type="submit" class="btn btn-color2">Supprimer</button>
           </div>
         </div>
       </div>

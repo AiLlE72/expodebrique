@@ -71,6 +71,7 @@ router.route('/createUser')
 router.route('/myAccount/:id')
     .get(myAccount.get)
     .put(myAccount.put)
+    .delete(myAccount.delete)
 
 //verif mail modifier
 router.route('/verifEditMail/:id')

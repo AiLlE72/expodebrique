@@ -1,5 +1,4 @@
 //Import module
-
 const Handlebars = require("handlebars");
 const exphbs = require('express-handlebars');
 const express = require('express');
@@ -20,8 +19,7 @@ const urlDB = key.urlDBcloud //key.urlDBlocal
 const port = process.env.PORT || 3000
 const mongoStore = MongoStore(expressSession)
 const emailing = require('./api/emailing')
-
-
+const deleteArchive= require('./api/deleteArchive')
 
 
 // Handlebars
@@ -49,7 +47,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/assets', express.static('publics'))
 
 
-
 // Mongoose
 mongoose.connect(urlDB, {
     useNewUrlParser: true,
@@ -57,7 +54,6 @@ mongoose.connect(urlDB, {
     useFindAndModify: false,
     useCreateIndex: true
 });
-
 
 
 
