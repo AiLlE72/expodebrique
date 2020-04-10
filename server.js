@@ -23,6 +23,7 @@ const emailing = require('./api/emailing')
 const deleteArchive = require('./api/deleteArchive')
 
 
+
 // Handlebars
 app.engine('hbs', exphbs({
     extname: 'hbs',
@@ -43,6 +44,8 @@ app.use(methodOverride('_method'));
 // Body Parser 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+
 
 //express-handlebars
 app.use('/assets', express.static('publics'))
@@ -68,6 +71,9 @@ app.use(expressSession({
         mongooseConnection: mongoose.connection
     })
 }));
+
+//cookie parser
+app.use(cookieParser());
 
 //Définition du res.locals
 app.use('*', (req, res, next) => {

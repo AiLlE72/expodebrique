@@ -35,7 +35,8 @@ var rand, mailOptions, host, link // creation de variable sans affectation pour 
 
 module.exports = {
     get: (req, res) => {
-        res.render('lostPassword');
+        const RT = req.cookies.rememberToast
+        res.render('lostPassword',{ RT});
     },
 
 

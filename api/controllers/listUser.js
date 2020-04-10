@@ -15,7 +15,8 @@ const usermodel = require('../database/models/userModel')
 module.exports = {
     get: async (req, res) => {
         const dbuser = await usermodel.find(req.params.id)
-        res.render('admin/listUser', { dbuser })
+        const RT = req.cookies.rememberToast
+        res.render('admin/listUser', { dbuser, RT })
     },
 
     put: (req, res) => {

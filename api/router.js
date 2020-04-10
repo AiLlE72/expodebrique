@@ -43,6 +43,7 @@ const success = require('./controllers/success')
 const contactorga = require('./controllers/contactorga')
 const lostPassword = require('./controllers/lostPassword')
 const myAccount = require('./controllers/myAccount')
+const cookie = require('./controllers/cookie')
 
 
 //import de middleware
@@ -128,7 +129,7 @@ router.route('/newPassword/:id')
     
 
 
-/******** PAGE verifMail **********/
+/********** PAGE verifMail *************/
 // Nodemailer verif 
 router.route('/verify/:id')
     .get(createUser.verifMail)
@@ -138,7 +139,7 @@ router.route('/verify/:id')
 router.route('/verifMail')
     .get(verifMail.get)
 
-/******** PAGE Admin **********/
+/********* PAGE Admin **************/
 //Admin
 router.route('/admin')
     .get(isAdmin, admin.get)
@@ -157,6 +158,11 @@ router.route('/listUser')
 router.route('/listUser/:id')
     .put(isAdmin, listUser.put)
     .delete(isAdmin, listUser.delete)
+
+/************** Cookies **************/
+
+router.route('/cookie')
+    .post(cookie.post)
 
 
 module.exports = router

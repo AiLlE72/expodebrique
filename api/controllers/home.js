@@ -17,7 +17,8 @@ const bcrypt = require('bcrypt')
 module.exports = {
     get: async (req, res) => {
         const dbexpo = await expomodel.find({})
-        res.render('home', { dbexpo })
+        const RT = req.cookies.rememberToast
+        res.render('home', { dbexpo, RT })
     },
 
     post: async (req, res) => {

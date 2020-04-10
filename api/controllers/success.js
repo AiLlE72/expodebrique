@@ -6,6 +6,7 @@
 
  module.exports = {
     get: (req, res) => {
-        res.render('success');
+        const RT = req.cookies.rememberToast
+        res.render('success', { RT });
     }
 }

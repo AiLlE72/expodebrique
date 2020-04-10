@@ -15,7 +15,8 @@ const contactmodel = require('../database/models/contactModel')
 module.exports = {
     get: async (req, res) => {
         const dbcontact = await contactmodel.find({})
-        res.render('admin/listContact', { dbcontact })
+        const RT = req.cookies.rememberToast
+        res.render('admin/listContact', { dbcontact, RT })
     },
     delete: async (req, res) => {
         const mycontact = await contactmodel.findById({ _id: req.params.id })

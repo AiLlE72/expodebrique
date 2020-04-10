@@ -19,6 +19,7 @@ module.exports = {
         const date = d.setDate(d.getDate() - 2)
         const dbexpo = await expomodel.find({ startDate: {$gte: date}}).populate("departement")
         const dbdepartement = await depmodel.find({})
-        res.render('dateExpo', {dbexpo, dbdepartement})
+        const RT = req.cookies.rememberToast
+        res.render('dateExpo', {dbexpo, dbdepartement, RT})
     }
 }
