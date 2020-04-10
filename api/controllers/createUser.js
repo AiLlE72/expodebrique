@@ -36,7 +36,8 @@ var rand, mailOptions, host, link // creation de variable sans affectation pour 
 module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
-        res.render('createUser', { dbdepartement })
+        const RT = req.cookies.rememberToast
+        res.render('createUser', { dbdepartement, RT })
     },
 
     post: (req, res) => {

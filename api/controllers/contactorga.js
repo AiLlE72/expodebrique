@@ -35,7 +35,8 @@ module.exports = {
     get: async (req, res) => {
         const id = req.params.id
         const dbexpo = await expomodel.findById(req.params.id)
-        res.render('contactorga', { dbexpo, id })
+        const RT = req.cookies.rememberToast
+        res.render('contactorga', { dbexpo, id, RT})
     },
 
     post: async (req, res) => {

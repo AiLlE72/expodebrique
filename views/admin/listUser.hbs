@@ -17,7 +17,7 @@
                             <p>Nom : {{ this.firstname }}</p>
                             <p>Prénom : {{ this.lastname }}</p>
                             <p>Email: {{ this.email }}</p>
-                            <p>Date d'inscription : {{ this.createDate }} </p>
+                            <p>Date d'inscription : {{moment this.createDate format="DD-MM-YYYY"}} </p>
                             <p>Utilisateur vérifié : {{ this.isVerified }} </p>
                             <p>Admin : {{ this.isAdmin }}</p>
                             <p>Bannis : {{ this.isBan }}</p>

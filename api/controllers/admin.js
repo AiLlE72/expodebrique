@@ -20,6 +20,7 @@ module.exports = {
         const dbuser = await usermodel.find({})
         const dbexpo = await expomodel.find({})
         const dbcontact = await contactmodel.find({})
-        res.render('admin/admin', { dbuser, dbexpo, dbcontact })
+        const RT = req.cookies.rememberToast
+        res.render('admin/admin', { dbuser, dbexpo, dbcontact, RT })
     }
 }

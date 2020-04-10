@@ -20,7 +20,8 @@ module.exports = {
         const dbdep = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
         const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
         const dbdepartement = await depmodel.find({})
-        res.render('locationExpo', { dbexpo, dbdep, dbdepartement })  
+        const RT = req.cookies.rememberToast
+        res.render('locationExpo', { dbexpo, dbdep, dbdepartement, RT })  
     },
     post: async (req, res) => {
         const d = new Date()

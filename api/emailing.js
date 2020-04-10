@@ -54,7 +54,7 @@ const Mail = cron.schedule(' 0 10 25 * *', async () => {
                 from: key.mailUser, // adresse du mail qui envoi le mail
                 to: destinataire.email, // adresse de la personne qui s'inscrit
                 subject: "Une exposition pres de chez vous. ", // sujet du mail de verif
-                html: "Bonjour.<br>Une exposition à bientôt lieu près de chez vous: " + Expo.name + ".<br>Rendez vous sur notre site pour plus de détails.<br>Pour modifier la façon dont vous rcevez les mails contactez-nous sur le <a href=http://localhost:3000>site</a>."
+                html: "Bonjour.<br>Une exposition à bientôt lieu près de chez vous: " + Expo.name + ".<br>Rendez vous sur notre site pour plus de détails.<br>Pour modifier la façon dont vous recevez les mails, contactez-nous sur le <a href=http://expodebrique.willyparis.fr>site</a>."
             }
             transporter.sendMail(mailOptions, (err, res, next) => {
                 if (err) {

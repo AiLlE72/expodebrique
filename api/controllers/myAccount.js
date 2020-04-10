@@ -40,8 +40,8 @@ module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
         const user = await usermodel.findById(req.params.id).populate("departement")
-
-        res.render('myAccount', { user, dbdepartement })
+        const RT = req.cookies.rememberToast
+        res.render('myAccount', { user, dbdepartement, RT })
     },
 
     put: async (req, res) => {

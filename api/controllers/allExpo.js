@@ -17,7 +17,8 @@ module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
         const dbexpo = await expomodel.find({}).populate("departement")
-        res.render('allExpo', { dbexpo, dbdepartement } )
+        const RT = req.cookies.rememberToast
+        res.render('allExpo', { dbexpo, dbdepartement, RT } )
            
     },
 }

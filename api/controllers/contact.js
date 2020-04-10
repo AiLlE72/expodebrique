@@ -34,7 +34,8 @@ var mailOptions
 module.exports = {
 
     get: async (req, res) => {
-        res.render('contact')
+        const RT = req.cookies.rememberToast
+        res.render('contact', { RT })
     },
 
     post: (req, res) => {

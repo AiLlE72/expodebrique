@@ -20,7 +20,8 @@ const key = require('../config')
 module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
-        res.render('createExpo', { dbdepartement })
+        const RT = req.cookies.rememberToast
+        res.render('createExpo', { dbdepartement, RT })
     },
     post: async (req, res) => {
         // variable pour la modification du rendu de la checkbox "search"
