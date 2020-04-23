@@ -46,9 +46,11 @@ const myAccount = require('./controllers/myAccount')
 const cookie = require('./controllers/cookie')
 
 
+
 //import de middleware
 const isAdmin = require('./middleware/admin')
 const isBan = require('./middleware/ban')
+const auth = require('./middleware/auth')
 
 
 /******** PAGE ACCUEIL **********/
@@ -80,12 +82,12 @@ router.route('/verifEditMail/:id')
     
 //createExpo
 router.route('/createExpo')
-    .get(isBan, createExpo.get)
-    .post(isBan, upload.single('affiche'), createExpo.post)
+    .get(isBan, auth, createExpo.get)
+    .post(isBan, auth, upload.single('affiche'), createExpo.post)
 
 //createExpo/:id
 router.route('/createExpo/:id')
-    .put(isBan, upload.single('affiche'), createExpo.put)
+    .put(isBan, auth, upload.single('affiche'), createExpo.put)
 
 //dateExpo
 router.route('/dateExpo')
@@ -108,8 +110,8 @@ router.route('/contact')
 
 //contactorga
 router.route('/contactorga/:id')
-    .get(isBan, contactorga.get)
-    .post(isBan, contactorga.post)
+    .get(isBan, auth, contactorga.get)
+    .post(isBan, auth, contactorga.post)
 
 //success
 router.route('/success')

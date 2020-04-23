@@ -47,7 +47,7 @@ module.exports = {
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
-        link = "http://" + req.get('host') + "/verify/" + rand // construction du lien avec adresse du site et le chiffre random
+        link = "https://expodebrique.willyparis.fr/verify/" + rand // construction du lien avec adresse du site et le chiffre random
         mailOptions = {
             from: key.mailUser, // adresse du mail qui envoi le lien de verif
             to: req.body.email, // adresse de la personne qui s'inscrit
