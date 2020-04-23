@@ -75,7 +75,7 @@ module.exports = {
                             from: key.mailUser, // adresse du mail qui envoi le mail
                             to: destinataire.email, // adresse des personne interesser pour exposer dans le departement
                             subject: "une exposition pres de chez vous recherche des exposants. ", // sujet du mail 
-                            html: "Bonjour.<br> Une Exposition près de chez vous est à la recherche d'exposant : " + req.body.name + ".<br>Pour plus d'information, nous vous invitons à contacter l'organisateur via la fiche de l'exposition sur notre site.<br>Pour modifier la façon dont vous rcevez les mails contactez-nous sur le <a href=http://localhost:3000>site</a>."
+                            html: "Bonjour.<br> Une Exposition près de chez vous est à la recherche d'exposant : " + req.body.name + ".<br>Pour plus d'information, nous vous invitons à contacter l'organisateur via la fiche de l'exposition sur notre site.<br>Pour modifier la façon dont vous recevez les mails contactez-nous sur le <a href=http://localhost:3000>site</a>."
                         }
                         transporter.sendMail(mailOptions, (err, res, next) => {
                             if (err) {

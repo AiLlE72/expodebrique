@@ -42,18 +42,16 @@ const Mail = cron.schedule(' 0 10 25 * *', async () => {
     const dest = await usermodel.find({ isVerified: 'true', visiteur: 'true' })
     for (let i = 0; i < dest.length; i++) {
         const destinataire = dest[i]
-        const d = new Date()
-        const month = d.getMonth()
-        const nextMonth = month + 2
-        const year = d.getFullYear()
+        const nextMonth = new Date().getMonth() +2
+        const year = new Date().getFullYear()
         const expoLocal = await expomodel.find({ departement: destinataire.departement, startDate: { $gt: new Date(), $lt: new Date(year + ',' + nextMonth) } })
         
         for (let i = 0; i < expoLocal.length; i++) {
             const Expo = expoLocal[i];
             mailOptions = {
-                from: key.mailUser, // adresse du mail qui envoi le mail
-                to: destinataire.email, // adresse de la personne qui s'inscrit
-                subject: "Une exposition pres de chez vous. ", // sujet du mail de verif
+                from: key.mailUser, // adresse mail qui envoi le mail
+                to: destinataire.email, // adresse de l'utilisateur'
+                subject: "Une exposition pres de chez vous. ", // sujet du mail 
                 html: "Bonjour.<br>Une exposition à bientôt lieu près de chez vous: " + Expo.name + ".<br>Rendez vous sur notre site pour plus de détails.<br>Pour modifier la façon dont vous recevez les mails, contactez-nous sur le <a href=http://expodebrique.willyparis.fr>site</a>."
             }
             transporter.sendMail(mailOptions, (err, res, next) => {
@@ -64,9 +62,7 @@ const Mail = cron.schedule(' 0 10 25 * *', async () => {
                 }
             })
         }
-
     }
-
     console.log("Tache d'email automatique executée à : " + new Date())
 })
 

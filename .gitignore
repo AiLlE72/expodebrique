@@ -9,3 +9,6 @@ node_modules/
 
 # sass
 .sass-cache
+
+# test
+/api/controllers/projet.*

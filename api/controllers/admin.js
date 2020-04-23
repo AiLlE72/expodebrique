@@ -17,10 +17,15 @@ const contactmodel = require('../database/models/contactModel')
 
 module.exports = {
     get: async (req, res) => {
-        const dbuser = await usermodel.find({})
-        const dbexpo = await expomodel.find({})
-        const dbcontact = await contactmodel.find({})
-        const RT = req.cookies.rememberToast
-        res.render('admin/admin', { dbuser, dbexpo, dbcontact, RT })
+        if (req.session.isAdmin !== true) {
+            res.redirect('/home')
+        } else {
+            const dbuser = await usermodel.find({})
+            const dbexpo = await expomodel.find({})
+            const dbcontact = await contactmodel.find({})
+            const RT = req.cookies.rememberToast
+            res.render('admin/admin', { dbuser, dbexpo, dbcontact, RT })
+        }
+
     }
 }
