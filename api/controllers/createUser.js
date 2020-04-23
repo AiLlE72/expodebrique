@@ -46,7 +46,6 @@ module.exports = {
 
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
-        host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
         link = "https://expodebrique.willyparis.fr/verify/" + rand // construction du lien avec adresse du site et le chiffre random
         mailOptions = {
             from: key.mailUser, // adresse du mail qui envoi le lien de verif
@@ -97,8 +96,7 @@ module.exports = {
                         res.send(error)
                     } else {                        
                         // Nodemailer transport 
-                        console.log(host);
-                        
+                                                
                         transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
                             if (err) {
                                 res.send(err)
