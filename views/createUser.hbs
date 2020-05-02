@@ -3,19 +3,31 @@
         <div class="col-md-12">
             <div class="card-body">
                 <form action="/createUser" method="POST">
+                    {{#if errors}}
+                    <div class="form-group row justify-content-center">
+                        {{#each errors}}
+                        <div class="col-md-6">
+                            <p class=' rounded border border-danger  p-1 bg-danger text-white'>{{this.msg}}</p>
+                        </div>
+
+                        {{/each}}
+                    </div>
+
+                    {{/if}}
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="firstname" placeholder="Nom"required>
+                            <input type="text" class="form-control" name="firstname" placeholder="Nom" required>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="lastname" placeholder="Prénom"required>
+                            <input type="text" class="form-control" name="lastname" placeholder="Prénom" required>
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
-                            <input type="email" class="form-control" name="email" placeholder="Email"required>
+                            <input type="text" class="form-control" name="email" placeholder="Email" required>
+
                         </div>
                     </div>
                     <div class="form-group row justify-content-center">
@@ -24,7 +36,7 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Département</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01" name="departement"required>
+                                <select class="custom-select" id="inputGroupSelect01" name="departement" required>
                                     <option selected hidden>Choisir...</option>
                                     {{!-- affiche chaque departement de la db --}}
                                     {{#each dbdepartement}}
@@ -40,7 +52,7 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect02">Pays</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect02" name="pays"required>
+                                <select class="custom-select" id="inputGroupSelect02" name="pays" required>
                                     <option selected hidden>Choisir...</option>
                                     <option value="France">France</option>
                                     <option value="Belgique">Belgique</option>
@@ -54,16 +66,16 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-6  mb-3">
                                     <input type="password" class="form-control" name="password"
-                                        placeholder="Mot de passe"required>
+                                        placeholder="Mot de passe" required>
                                 </div>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="password" class="form-control" name="confpassword"
-                                        placeholder="Confirmer le mot de passe"required>
+                                        placeholder="Confirmer le mot de passe" required>
                                 </div>
                             </div>
                         </div>
                     </div>
-                   
+
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">
                             <div class="custom-control custom-switch">
@@ -97,7 +109,8 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-6">
-                            <p class="text-muted"><small>Vos coordonnées ne seront pas communiquées à des organismes tiers</small></p>
+                            <p class="text-muted"><small>Vos coordonnées ne seront pas communiquées à des organismes
+                                    tiers</small></p>
                         </div>
                     </div>
                     <div class="row justify-content-center ">

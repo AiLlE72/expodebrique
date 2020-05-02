@@ -6,6 +6,7 @@
 const express = require('express')
 const router = express.Router()
 const multer = require("multer")
+const { check, validationResult } = require('express-validator');
 
 //config multer
 const MIME_TYPES = { //type d'image accepté
@@ -67,7 +68,9 @@ router.route('/logout')
 //createUser
 router.route('/createUser')
     .get(createUser.get)
-    .post(createUser.post)
+    .post([
+        check('email').isEmail().withMessage('Veuillez rentrer un email valide')
+    ], createUser.post)
 
 
 //myAccount

@@ -8,20 +8,21 @@ const usermodel = require('../database/models/userModel')
 const nodemailer = require('nodemailer')
 const key = require('../config')
 const depmodel = require('../database/models/depModel')
+const { check, validationResult } = require('express-validator');
 
 // *************parametrage nodemailer***************
 
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
-    host: key.host, 
-    service: key.service, 
-    port: key.port, 
-    secure: key.secure, 
-    auth: { 
+    host: key.host,
+    service: key.service,
+    port: key.port,
+    secure: key.secure,
+    auth: {
         user: key.mailUser,
         pass: key.mailPass
     },
     tls: {
-        rejectUnauthorized: key.rejectUnauthorized 
+        rejectUnauthorized: key.rejectUnauthorized
     }
 })
 
@@ -40,9 +41,10 @@ module.exports = {
         res.render('createUser', { dbdepartement, RT })
     },
 
-    post: (req, res) => {
+    post: async (req, res) => {
         const Pass = req.body.password
         const confPass = req.body.confpassword
+        const errors = validationResult(req);
 
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
@@ -75,6 +77,13 @@ module.exports = {
                 Visiteur = false
             } else {
                 Visiteur = true
+            }
+
+            if (!errors.isEmpty()) {
+                console.log(errors)
+                const dbdepartement = await depmodel.find({})
+                const RT = req.cookies.rememberToast
+                return res.status(422).render('createUser', { errors: errors.array(), dbdepartement, RT });
             }
 
             usermodel.create(
