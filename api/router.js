@@ -69,7 +69,13 @@ router.route('/logout')
 router.route('/createUser')
     .get(createUser.get)
     .post([
-        check('email').isEmail().withMessage('Veuillez rentrer un email valide')
+        check('firstname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre nom doit contenir au moins 2 caractères'),
+        check('lastname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre prénom doit contenir au moins 2 caractères'),
+        check('email').isEmail().normalizeEmail().withMessage('Veuillez rentrer un email valide'),
+        check('departement').exists().trim().escape().withMessage("Merci d'utilisé un choix parmi les départements disponible"),
+        check('pays').exists().trim().escape().withMessage("Merci d'utilisé un choix parmi les pays disponible"),
+        check('password').isLength({ min: 6 }).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i").withMessage('Votre mot de passe doit contenir au moins un caractère spécial !')
+
     ], createUser.post)
 
 
@@ -82,7 +88,7 @@ router.route('/myAccount/:id')
 //verif mail modifier
 router.route('/verifEditMail/:id')
     .get(myAccount.verifEditMail)
-    
+
 //createExpo
 router.route('/createExpo')
     .get(isBan, auth, createExpo.get)
@@ -125,20 +131,20 @@ router.route('/success')
 router.route('/lostPassword')
     .get(lostPassword.get)
     .post(lostPassword.post)
-    
+
 
 //newPassword
 router.route('/newPassword/:id')
     .get(lostPassword.getReset)
     .post(lostPassword.postReset)
-    
+
 
 
 /********** PAGE verifMail *************/
 // Nodemailer verif 
 router.route('/verify/:id')
     .get(createUser.verifMail)
-    
+
 
 //verifMail
 router.route('/verifMail')
