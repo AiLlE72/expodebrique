@@ -4,15 +4,16 @@
             <div class="card-body">
                 <form action="/createUser" method="POST">
                     {{#if errors}}
+                    {{#each errors}}
                     <div class="form-group row justify-content-center">
-                        {{#each errors}}
+
                         <div class="col-md-6">
                             <p class=' rounded border border-danger  p-1 bg-danger text-white'>{{this.msg}}</p>
                         </div>
 
-                        {{/each}}
-                    </div>
 
+                    </div>
+                    {{/each}}
                     {{/if}}
                     <div class="form-group row justify-content-center">
                         <div class="col-md-6">

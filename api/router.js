@@ -72,10 +72,24 @@ router.route('/createUser')
         check('firstname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre nom doit contenir au moins 2 caractères'),
         check('lastname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre prénom doit contenir au moins 2 caractères'),
         check('email').isEmail().normalizeEmail().withMessage('Veuillez rentrer un email valide'),
-        check('departement').exists().trim().escape().withMessage("Merci d'utilisé un choix parmi les départements disponible"),
+        check('departement').exists().trim().escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
         check('pays').exists().trim().escape().withMessage("Merci d'utilisé un choix parmi les pays disponible"),
-        check('password').isLength({ min: 6 }).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i").withMessage('Votre mot de passe doit contenir au moins un caractère spécial !')
+        check('password')
+        .matches(/^(?=.{8,}$)/).withMessage('Votre mot de passe doit contenir au moins 8 caracteres')
+        .matches(/(?=.*?[a-z])/).withMessage('Votre mot de passe doit contenir au moins 1 minuscule')
+        .matches(/(?=.*?[A-Z])/).withMessage('Votre mot de passe doit contenir au moins 1 majuscule')
+        .matches(/(?=.*?[0-9])/).withMessage('Votre mot de passe doit contenir au moins 1 chiffre')
+        .matches(/(?=.*?[[!@#$%^&*])/).withMessage('Votre mot de passe doit contenir au moins 1 caractere spécial ()'),
 
+        // check('password').isLength({ min: 6 }).withMessage('Votre mot de passe doit contenir au moins 6 caracteres').matches(/^(?=.{8,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/).withMessage('Votre mot de passe doit contenir au moins un caractère spécial !'),
+        check('confpassword').custom((value,{req, loc, path}) => {
+            if (value !== req.body.password) {
+                // créer une nouvelle erreur sur les mots de passe ne correspondent pas 
+                throw new Error("Les mots de passe de correspondent pas");
+            } else {
+                return value;
+            }
+        })
     ], createUser.post)
 
 
@@ -110,7 +124,7 @@ router.route('/allExpo')
 //locationExpo
 router.route('/locationExpo')
     .get(locationExpo.get)
-    .post(locationExpo.post)
+    .post([check('departement').trim().escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible")], locationExpo.post)
 
 //contact
 router.route('/contact')

@@ -59,64 +59,72 @@ module.exports = {
         }
 
 
-        if (Pass !== confPass || Pass === '') {
-            res.redirect('/')
+
+
+        var Exposant, Visiteur, Organisateur //declaration de variable pour une porté globale
+        
+        if (req.body.exposant === undefined) {
+            Exposant = false
         } else {
-            var Exposant, Visiteur, Organisateur
-            if (req.body.exposant === undefined) {
-                Exposant = false
-            } else {
-                Exposant = true
-            }
-            if (req.body.organisateur === undefined) {
-                Organisateur = false
-            } else {
-                Organisateur = true
-            }
-            if (req.body.Visiteur === undefined) {
-                Visiteur = false
-            } else {
-                Visiteur = true
-            }
-
-            if (!errors.isEmpty()) {
-                console.log(errors)
-                const dbdepartement = await depmodel.find({})
-                const RT = req.cookies.rememberToast
-                return res.status(422).render('createUser', { errors: errors.array(), dbdepartement, RT });
-            }
-
-            usermodel.create(
-                {
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
-                    email: req.body.email,
-                    departement: req.body.departement,
-                    pays: req.body.pays,
-                    password: req.body.password,
-                    exposant: Exposant,
-                    organisateur: Organisateur,
-                    visiteur: Visiteur,
-
-                },
-
-
-                (error, post) => {
-                    if (error) {
-                        res.send(error)
-                    } else {
-                        // Nodemailer transport 
-                        transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
-                            if (err) {
-                                res.send(err)
-                            } else {
-                                next()
-                            }
-                        }),
-                            res.redirect('/')
-                    }
-                })
+            Exposant = true
         }
+
+        if (req.body.organisateur === undefined) {
+            Organisateur = false
+        } else {
+            Organisateur = true
+        }
+
+        if (req.body.Visiteur === undefined) {
+            Visiteur = false
+        } else {
+            Visiteur = true
+        }
+
+        if (!errors.isEmpty()) {
+            console.log(errors)
+            const dbdepartement = await depmodel.find({})
+            const RT = req.cookies.rememberToast
+            return res.status(422).render('createUser', { errors: errors.array(), dbdepartement, RT });
+        } else {
+            if (Pass !== confPass || Pass === '') {
+                res.redirect('/')
+            } else {
+                usermodel.create(
+                    {
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        email: req.body.email,
+                        departement: req.body.departement,
+                        pays: req.body.pays,
+                        password: req.body.password,
+                        exposant: Exposant,
+                        organisateur: Organisateur,
+                        visiteur: Visiteur,
+
+                    },
+                    (error, post) => {
+                        if (error) {
+                            res.send(error)
+                        } else {
+                            // Nodemailer transport 
+                            transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
+                                if (err) {
+                                    res.send(err)
+                                } else {
+                                    next()
+                                }
+                            }),
+                                res.redirect('/')
+                        }
+                    })
+            }
+        }
+
+
+
+
+
     },
     verifMail: async (req, res, next) => {
         const userID = await usermodel.findOne({ email: mailOptions.to })
