@@ -58,7 +58,10 @@ const auth = require('./middleware/auth')
 // Home
 router.route('/')
     .get(home.get)
-    .post(home.post)
+    .post([
+        check('email').isEmail(),
+        check('password').escape()
+    ], home.post)
 
 // Logout
 router.route('/logout')
@@ -72,16 +75,16 @@ router.route('/createUser')
         check('firstname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre nom doit contenir au moins 2 caractères'),
         check('lastname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre prénom doit contenir au moins 2 caractères'),
         check('email').isEmail().normalizeEmail().withMessage('Veuillez rentrer un email valide'),
-        check('departement').exists().trim().escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
-        check('pays').exists().trim().escape().withMessage("Merci d'utilisé un choix parmi les pays disponible"),
+        check('departement').exists().escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
+        check('pays').exists().escape().withMessage("Merci d'utilisé un choix parmi les pays disponible"),
         check('password')
         .matches(/^(?=.{8,}$)/).withMessage('Votre mot de passe doit contenir au moins 8 caracteres')
         .matches(/(?=.*?[a-z])/).withMessage('Votre mot de passe doit contenir au moins 1 minuscule')
         .matches(/(?=.*?[A-Z])/).withMessage('Votre mot de passe doit contenir au moins 1 majuscule')
         .matches(/(?=.*?[0-9])/).withMessage('Votre mot de passe doit contenir au moins 1 chiffre')
-        .matches(/(?=.*?[[!@#$%^&*])/).withMessage('Votre mot de passe doit contenir au moins 1 caractere spécial ()'),
+        .matches(/(?=.*?[[!@#$%^*])/).withMessage('Votre mot de passe doit contenir au moins 1 caractere spécial (!@#$%^*)'),
 
-        // check('password').isLength({ min: 6 }).withMessage('Votre mot de passe doit contenir au moins 6 caracteres').matches(/^(?=.{8,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/).withMessage('Votre mot de passe doit contenir au moins un caractère spécial !'),
+        // check('password').isLength({ min: 6 }).withMessage('Votre mot de passe doit contenir au moins 6 caracteres').matches(/^(?=.{8,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[[!@#$%^*]).withMessage('Votre mot de passe ne respecte pas les spécifications'),
         check('confpassword').custom((value,{req, loc, path}) => {
             if (value !== req.body.password) {
                 // créer une nouvelle erreur sur les mots de passe ne correspondent pas 
@@ -106,7 +109,18 @@ router.route('/verifEditMail/:id')
 //createExpo
 router.route('/createExpo')
     .get(isBan, auth, createExpo.get)
-    .post(isBan, auth, upload.single('affiche'), createExpo.post)
+    .post(isBan, auth,[
+        check('name').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le nom de l'exposition"),
+        check('adress').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié l'adresse de l'exposition"),
+        check('city').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié la ville de l'exposition"),
+        check('departement').exists().escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
+        check('postCode').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le code postal de l'exposition"),
+        check('country').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le pays de l'exposition"),
+        check('startDate').isISO8601().withMessage("Veuillez selectionner une date de debut"),
+        check('endDate').isISO8601().withMessage("Veuillez selectionner une date de fin"),
+        check('horaire').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié les horaires de l'exposition"),
+        check('price').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le tarif de l'exposition")
+    ], upload.single('affiche'), createExpo.post)
 
 //createExpo/:id
 router.route('/createExpo/:id')
