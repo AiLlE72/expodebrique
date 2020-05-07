@@ -44,7 +44,7 @@ module.exports = {
     post: async (req, res) => {
         const errors = validationResult(req)
         const userID = await usermodel.findOne({ email: req.body.email })
-        console.log(req.body.email);
+        console.log(req.body.email)
         
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 37) //crer un chiffre random
