@@ -8,7 +8,7 @@ const usermodel = require('../database/models/userModel')
 const nodemailer = require('nodemailer')
 const key = require('../config')
 const depmodel = require('../database/models/depModel')
-const { check, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator')
 
 // *************parametrage nodemailer***************
 
@@ -44,7 +44,7 @@ module.exports = {
     post: async (req, res) => {
         const Pass = req.body.password
         const confPass = req.body.confpassword
-        const errors = validationResult(req);
+        const errors = validationResult(req)
 
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random

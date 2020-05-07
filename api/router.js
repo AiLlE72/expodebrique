@@ -74,18 +74,17 @@ router.route('/createUser')
     .post([
         check('firstname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre nom doit contenir au moins 2 caractères'),
         check('lastname').exists().isLength({ min: 2 }).trim().escape().withMessage('Votre prénom doit contenir au moins 2 caractères'),
-        check('email').isEmail().normalizeEmail().withMessage('Veuillez rentrer un email valide'),
+        check('email').isEmail().withMessage('Veuillez rentrer un email valide'),
         check('departement').exists().escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
         check('pays').exists().escape().withMessage("Merci d'utilisé un choix parmi les pays disponible"),
         check('password')
-        .matches(/^(?=.{8,}$)/).withMessage('Votre mot de passe doit contenir au moins 8 caracteres')
-        .matches(/(?=.*?[a-z])/).withMessage('Votre mot de passe doit contenir au moins 1 minuscule')
-        .matches(/(?=.*?[A-Z])/).withMessage('Votre mot de passe doit contenir au moins 1 majuscule')
-        .matches(/(?=.*?[0-9])/).withMessage('Votre mot de passe doit contenir au moins 1 chiffre')
-        .matches(/(?=.*?[[!@#$%^*])/).withMessage('Votre mot de passe doit contenir au moins 1 caractere spécial (!@#$%^*)'),
-
-        // check('password').isLength({ min: 6 }).withMessage('Votre mot de passe doit contenir au moins 6 caracteres').matches(/^(?=.{8,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[[!@#$%^*]).withMessage('Votre mot de passe ne respecte pas les spécifications'),
-        check('confpassword').custom((value,{req, loc, path}) => {
+            .matches(/^(?=.{8,}$)/).withMessage('Votre mot de passe doit contenir au moins 8 caracteres')
+            .matches(/(?=.*?[a-z])/).withMessage('Votre mot de passe doit contenir au moins 1 minuscule')
+            .matches(/(?=.*?[A-Z])/).withMessage('Votre mot de passe doit contenir au moins 1 majuscule')
+            .matches(/(?=.*?[0-9])/).withMessage('Votre mot de passe doit contenir au moins 1 chiffre')
+            .matches(/(?=.*?[[!@#$%^*])/).withMessage('Votre mot de passe doit contenir au moins 1 caractere spécial (!@#$%^*)')
+            .escape(),
+        check('confpassword').custom((value, { req, loc, path }) => {
             if (value !== req.body.password) {
                 // créer une nouvelle erreur sur les mots de passe ne correspondent pas 
                 throw new Error("Les mots de passe de correspondent pas");
@@ -99,7 +98,16 @@ router.route('/createUser')
 //myAccount
 router.route('/myAccount/:id')
     .get(myAccount.get)
-    .put(myAccount.put)
+    .put([
+        check('firstname').escape(),
+        check('lastname').escape(),
+        check('email').escape(),
+        check('departement').escape(),
+        check('pays').escape(),
+        check('exposant').isBoolean(),
+        check('organisateur').isBoolean(),
+        check('visiteur').isBoolean(),
+    ], myAccount.put)
     .delete(myAccount.delete)
 
 //verif mail modifier
@@ -109,7 +117,7 @@ router.route('/verifEditMail/:id')
 //createExpo
 router.route('/createExpo')
     .get(isBan, auth, createExpo.get)
-    .post(isBan, auth,[
+    .post(isBan, auth, [
         check('name').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le nom de l'exposition"),
         check('adress').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié l'adresse de l'exposition"),
         check('city').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié la ville de l'exposition"),
@@ -119,12 +127,25 @@ router.route('/createExpo')
         check('startDate').isISO8601().withMessage("Veuillez selectionner une date de debut"),
         check('endDate').isISO8601().withMessage("Veuillez selectionner une date de fin"),
         check('horaire').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié les horaires de l'exposition"),
-        check('price').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le tarif de l'exposition")
+        check('price').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le tarif de l'exposition"),
+        check('contact').isEmail().withMessage('Veuillez rentrer un email valide'),
     ], upload.single('affiche'), createExpo.post)
 
 //createExpo/:id
 router.route('/createExpo/:id')
-    .put(isBan, auth, upload.single('affiche'), createExpo.put)
+    .put(isBan, auth,[
+        check('name').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le nom de l'exposition"),
+        check('adress').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié l'adresse de l'exposition"),
+        check('city').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié la ville de l'exposition"),
+        check('departement').exists().escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
+        check('postCode').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le code postal de l'exposition"),
+        check('country').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le pays de l'exposition"),
+        check('startDate').isISO8601().withMessage("Veuillez selectionner une date de debut"),
+        check('endDate').isISO8601().withMessage("Veuillez selectionner une date de fin"),
+        check('horaire').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié les horaires de l'exposition"),
+        check('price').exists().isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le tarif de l'exposition"),
+        check('contact').isEmail().withMessage('Veuillez rentrer un email valide'),  
+    ], upload.single('affiche'), createExpo.put)
 
 //dateExpo
 router.route('/dateExpo')
@@ -143,12 +164,22 @@ router.route('/locationExpo')
 //contact
 router.route('/contact')
     .get(contact.get)
-    .post(contact.post)
+    .post([
+        check('email').isEmail().withMessage('Veuillez rentrer un email valide'),
+        check('email2').isEmail().withMessage('Veuillez rentrer un email valide'),
+        check('sujet').escape(),
+        check('message').escape()
+    ], contact.post)
 
 //contactorga
 router.route('/contactorga/:id')
     .get(isBan, auth, contactorga.get)
-    .post(isBan, auth, contactorga.post)
+    .post(isBan, auth, [
+        check('email').isEmail().withMessage('Veuillez rentrer un email valide'),
+        check('email2').isEmail().withMessage('Veuillez rentrer un email valide'),
+        check('sujet').escape(),
+        check('message').escape()
+    ], contactorga.post)
 
 //success
 router.route('/success')
@@ -158,13 +189,23 @@ router.route('/success')
 //lostPassword
 router.route('/lostPassword')
     .get(lostPassword.get)
-    .post(lostPassword.post)
+    .post([
+        check('email').isEmail().withMessage('Veuillez rentrer un email valide'),
+    ], lostPassword.post)
 
 
 //newPassword
 router.route('/newPassword/:id')
     .get(lostPassword.getReset)
-    .post(lostPassword.postReset)
+    .post([
+        check('password')
+            .matches(/^(?=.{8,}$)/).withMessage('Votre mot de passe doit contenir au moins 8 caracteres')
+            .matches(/(?=.*?[a-z])/).withMessage('Votre mot de passe doit contenir au moins 1 minuscule')
+            .matches(/(?=.*?[A-Z])/).withMessage('Votre mot de passe doit contenir au moins 1 majuscule')
+            .matches(/(?=.*?[0-9])/).withMessage('Votre mot de passe doit contenir au moins 1 chiffre')
+            .matches(/(?=.*?[[!@#$%^*])/).withMessage('Votre mot de passe doit contenir au moins 1 caractere spécial (!@#$%^*)')
+            .escape(),
+    ], lostPassword.postReset)
 
 
 

@@ -10,6 +10,7 @@ const oldusermodel = require('../database/models/oldUserModel')
 const bcrypt = require('bcrypt')
 const key = require('../config')
 const nodemailer = require('nodemailer')
+const { check, validationResult } = require('express-validator')
 
 // *************parametrage nodemailer***************
 
@@ -45,7 +46,7 @@ module.exports = {
     },
 
     put: async (req, res) => {
-
+        const errors = validationResult(req)
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
@@ -58,116 +59,124 @@ module.exports = {
             html: "Bonjour.<br> Merci de cliquer sur ce lien pour verifier votre adresse mail <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
         }
 
-        if (req.body.firstname) {
-            usermodel.findByIdAndUpdate(
-                { _id: req.params.id },
-                { firstname: req.body.firstname },
-                (err) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        res.redirect('back')
-                    }
-                }
-            )
-        } else if (req.body.lastname) {
-            usermodel.findByIdAndUpdate(
-                { _id: req.params.id },
-                { lastname: req.body.lastname },
-                (err) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        res.redirect('back')
-                    }
-                }
-            )
-        } else if (req.body.departement) {
-            usermodel.findByIdAndUpdate(
-                { _id: req.params.id },
-                { departement: req.body.departement },
-                (err) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        res.redirect('back')
-                    }
-                }
-            )
-        } else if (req.body.pays) {
-            usermodel.findByIdAndUpdate(
-                { _id: req.params.id },
-                { pays: req.body.pays },
-                (err) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        res.redirect('back')
-                    }
-                }
-            )
-        } else if (req.body.exposant) {
-            usermodel.findByIdAndUpdate(
-                { _id: req.params.id },
-                { exposant: req.body.exposant },
-                (err) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        res.redirect('back')
-                    }
-                }
-            )
-        } else if (req.body.visiteur) {
-            usermodel.findByIdAndUpdate(
-                { _id: req.params.id },
-                { visiteur: req.body.visiteur },
-                (err) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        res.redirect('back')
-                    }
-                }
-            )
-        } else if (req.body.organisateur) {
-            usermodel.findByIdAndUpdate(
-                { _id: req.params.id },
-                { organisateur: req.body.organisateur },
-                (err) => {
-                    if (err) {
-                        res.send(err)
-                    } else {
-                        res.redirect('back')
-                    }
-                }
-            )
-        } else if (req.body.email) {
-            const user = await usermodel.findById(req.params.id)
-            bcrypt.compare(req.body.password, user.password, (err, same) => {
-                if (!same) {
-                    res.redirect('back')
-                } else {
-                    usermodel.findByIdAndUpdate(
-                        { _id: req.params.id },
-                        { email: req.body.email },
-                        (err) => {
-                            if (err) {
-                                res.send(err)
-                            } else {
-                                transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
-                                    if (err) {
-                                        res.send(err)
-                                    } else {
-                                        next()
-                                    }
-                                })
-                                res.redirect('back')
-                            }
+        if (!errors.isEmpty()) {
+            const RT = req.cookies.rememberToast
+            const dbdepartement = await depmodel.find({})
+            const user = await usermodel.findById(req.params.id).populate("departement")
+            return res.status(422).render('myAccount', { errors: errors.array(), user, dbdepartement, RT });
+        } else {
+
+            if (req.body.firstname) {
+                usermodel.findByIdAndUpdate(
+                    { _id: req.params.id },
+                    { firstname: req.body.firstname },
+                    (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.redirect('back')
                         }
-                    )
-                }
-            })
+                    }
+                )
+            } else if (req.body.lastname) {
+                usermodel.findByIdAndUpdate(
+                    { _id: req.params.id },
+                    { lastname: req.body.lastname },
+                    (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.redirect('back')
+                        }
+                    }
+                )
+            } else if (req.body.departement) {
+                usermodel.findByIdAndUpdate(
+                    { _id: req.params.id },
+                    { departement: req.body.departement },
+                    (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.redirect('back')
+                        }
+                    }
+                )
+            } else if (req.body.pays) {
+                usermodel.findByIdAndUpdate(
+                    { _id: req.params.id },
+                    { pays: req.body.pays },
+                    (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.redirect('back')
+                        }
+                    }
+                )
+            } else if (req.body.exposant) {
+                usermodel.findByIdAndUpdate(
+                    { _id: req.params.id },
+                    { exposant: req.body.exposant },
+                    (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.redirect('back')
+                        }
+                    }
+                )
+            } else if (req.body.visiteur) {
+                usermodel.findByIdAndUpdate(
+                    { _id: req.params.id },
+                    { visiteur: req.body.visiteur },
+                    (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.redirect('back')
+                        }
+                    }
+                )
+            } else if (req.body.organisateur) {
+                usermodel.findByIdAndUpdate(
+                    { _id: req.params.id },
+                    { organisateur: req.body.organisateur },
+                    (err) => {
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            res.redirect('back')
+                        }
+                    }
+                )
+            } else if (req.body.email) {
+                const user = await usermodel.findById(req.params.id)
+                bcrypt.compare(req.body.password, user.password, (err, same) => {
+                    if (!same) {
+                        res.redirect('back')
+                    } else {
+                        usermodel.findByIdAndUpdate(
+                            { _id: req.params.id },
+                            { email: req.body.email },
+                            (err) => {
+                                if (err) {
+                                    res.send(err)
+                                } else {
+                                    transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
+                                        if (err) {
+                                            res.send(err)
+                                        } else {
+                                            next()
+                                        }
+                                    })
+                                    res.redirect('back')
+                                }
+                            }
+                        )
+                    }
+                })
+            }
         }
     },
 
@@ -202,7 +211,7 @@ module.exports = {
 
     delete: async (req, res, next) => {
         const myUser = await usermodel.findById(req.params.id)
-        
+
         oldusermodel.create(
             {
                 firstname: myUser.firstname,
