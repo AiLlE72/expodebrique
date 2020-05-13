@@ -10,7 +10,7 @@
     "cookie-parser": "^1.4.5",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "express-session": "^1.17.0",
+    "express-session": "^1.17.1",
     "express-validator": "^6.4.1",
     "handlebars": "4.5.3",
     "handlebars.moment": "^1.0.4",
@@ -23,9 +23,12 @@
     "nodemailer": "^6.4.3",
     "snyk": "^1.319.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^7.1.2",
+    "chai": "^4.2.0"
+  },
   "scripts": {
-    "test": "nodemon --exec 'mocha ./mocha/*.js'",
+    "test": "nodemon --exec 'mocha --timeout 10000 ./test/*.js'",
     "dev": "code .  && nodemon",
     "start": "nodemon server.js",
     "sass": "sass --watch ./publics/ressources/style/bootstrap/scss/bootstrap.scss:./publics/ressources/style/style.css",

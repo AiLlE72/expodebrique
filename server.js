@@ -61,7 +61,6 @@ mongoose.connect(urlDB, {
 });
 
 
-
 // Express-session
 app.use(expressSession({
     secret: 'securite',
