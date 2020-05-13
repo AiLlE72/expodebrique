@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
-const helpers = require('handlebars-helpers');
 const cron = require('node-cron')
 const cookieParser = require('cookie-parser')
 
@@ -21,7 +20,7 @@ const port = process.env.PORT || 3000
 const mongoStore = MongoStore(expressSession)
 const emailing = require('./api/emailing')
 const deleteArchive = require('./api/deleteArchive')
-const test = require('./api/controllers/projet')
+
 
 
 
