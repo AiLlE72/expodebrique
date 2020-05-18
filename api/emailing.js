@@ -21,7 +21,8 @@ const Mail = cron.schedule(' 0 10 25 * *', async () => {
 // const Mail = cron.schedule(' */1 * * * *', async () => {
     const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
         host: key.host, 
-        service: key.service, 
+        service: key.service,
+        pool: true, 
         port: key.port, 
         secure: key.secure, 
         auth: { 
@@ -61,6 +62,7 @@ const Mail = cron.schedule(' 0 10 25 * *', async () => {
                     next
                 }
             })
+            transporter.close()
         }
     }
     console.log("Tache d'email automatique executée à : " + new Date())
