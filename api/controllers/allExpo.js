@@ -6,6 +6,7 @@
 
 const expomodel = require('../database/models/expoModel')
 const depmodel = require('../database/models/depModel')
+const { check, validationResult } = require('express-validator')
 
 /************************
  *                      * 
@@ -18,7 +19,6 @@ module.exports = {
         const dbdepartement = await depmodel.find({})
         const dbexpo = await expomodel.find({}).populate("departement")
         const RT = req.cookies.rememberToast
-        res.render('allExpo', { dbexpo, dbdepartement, RT } )
-           
+        res.render('allExpo', { dbdepartement, dbexpo, RT })
     },
 }

@@ -8,20 +8,21 @@ const usermodel = require('../database/models/userModel')
 const nodemailer = require('nodemailer')
 const key = require('../config')
 const depmodel = require('../database/models/depModel')
+const { check, validationResult } = require('express-validator')
 
 // *************parametrage nodemailer***************
 
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
-    host: key.host, 
-    service: key.service, 
-    port: key.port, 
-    secure: key.secure, 
-    auth: { 
+    host: key.host,
+    service: key.service,
+    port: key.port,
+    secure: key.secure,
+    auth: {
         user: key.mailUser,
         pass: key.mailPass
     },
     tls: {
-        rejectUnauthorized: key.rejectUnauthorized 
+        rejectUnauthorized: key.rejectUnauthorized
     }
 })
 
@@ -40,9 +41,10 @@ module.exports = {
         res.render('createUser', { dbdepartement, RT })
     },
 
-    post: (req, res) => {
+    post: async (req, res) => {
         const Pass = req.body.password
         const confPass = req.body.confpassword
+        const errors = validationResult(req)
 
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
@@ -57,57 +59,72 @@ module.exports = {
         }
 
 
-        if (Pass !== confPass || Pass === '') {
-            res.redirect('/')
+
+
+        var Exposant, Visiteur, Organisateur //declaration de variable pour une porté globale
+        
+        if (req.body.exposant === undefined) {
+            Exposant = false
         } else {
-            var Exposant, Visiteur, Organisateur
-            if (req.body.exposant === undefined) {
-                Exposant = false
-            } else {
-                Exposant = true
-            }
-            if (req.body.organisateur === undefined) {
-                Organisateur = false
-            } else {
-                Organisateur = true
-            }
-            if (req.body.Visiteur === undefined) {
-                Visiteur = false
-            } else {
-                Visiteur = true
-            }
-
-            usermodel.create(
-                {
-                    firstname: req.body.firstname,
-                    lastname: req.body.lastname,
-                    email: req.body.email,
-                    departement: req.body.departement,
-                    pays: req.body.pays,
-                    password: req.body.password,
-                    exposant: Exposant,
-                    organisateur: Organisateur,
-                    visiteur: Visiteur,
-
-                },
-
-
-                (error, post) => {
-                    if (error) {
-                        res.send(error)
-                    } else {
-                        // Nodemailer transport 
-                        transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
-                            if (err) {
-                                res.send(err)
-                            } else {
-                                next()
-                            }
-                        }),
-                            res.redirect('/')
-                    }
-                })
+            Exposant = true
         }
+
+        if (req.body.organisateur === undefined) {
+            Organisateur = false
+        } else {
+            Organisateur = true
+        }
+
+        if (req.body.Visiteur === undefined) {
+            Visiteur = false
+        } else {
+            Visiteur = true
+        }
+
+        if (!errors.isEmpty()) {
+            console.log(errors)
+            const dbdepartement = await depmodel.find({})
+            const RT = req.cookies.rememberToast
+            return res.status(422).render('createUser', { errors: errors.array(), dbdepartement, RT });
+        } else {
+            if (Pass !== confPass || Pass === '') {
+                res.redirect('/')
+            } else {
+                usermodel.create(
+                    {
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        email: req.body.email,
+                        departement: req.body.departement,
+                        pays: req.body.pays,
+                        password: req.body.password,
+                        exposant: Exposant,
+                        organisateur: Organisateur,
+                        visiteur: Visiteur,
+
+                    },
+                    (error, post) => {
+                        if (error) {
+                            res.send(error)
+                        } else {
+                            // Nodemailer transport 
+                            transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
+                                if (err) {
+                                    res.send(err)
+                                } else {
+                                    next()
+                                }
+                            }),
+                                res.redirect('/')
+                        }
+                    })
+            }
+        }
+
+
+
+
+
     },
     verifMail: async (req, res, next) => {
         const userID = await usermodel.findOne({ email: mailOptions.to })
