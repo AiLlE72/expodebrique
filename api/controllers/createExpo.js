@@ -38,6 +38,8 @@ module.exports = {
         if (!errors.isEmpty()) {
             const dbdepartement = await depmodel.find({})
             const RT = req.cookies.rememberToast
+            console.log(errors);
+
             return res.status(422).render('createExpo', { errors: errors.array(), dbdepartement, RT });
         } else {
 
@@ -117,8 +119,11 @@ module.exports = {
 
         if (!errors.isEmpty()) {
             const dbdepartement = await depmodel.find({})
+            const dbexpo = await expomodel.find({}).populate("departement")
             const RT = req.cookies.rememberToast
-            return res.status(422).render('createExpo', { errors: errors.array(), dbdepartement, RT });
+            console.log(errors);
+
+            res.redirect('/allExpo')
         } else {
 
             if (!req.file) {
@@ -141,14 +146,12 @@ module.exports = {
                     { multi: true },
                     (err) => {
                         if (!err) {
-
                             res.redirect('/allExpo')
                         } else {
                             res.send(err)
                         }
                     })
             } else {
-                console.log(req.file)
                 fs.unlink(
                     image,
                     (err) => {

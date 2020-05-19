@@ -41,8 +41,8 @@ module.exports = {
 
     post: (req, res) => {
         const subject = req.body.sujet
-        const dest = req.body.email || req.body.email2
-        const name = req.session.name || req.body.email2
+        const dest = req.body.email 
+        const name = req.session.name || req.body.email
         const message = req.body.message
         const errors = validationResult(req)
 

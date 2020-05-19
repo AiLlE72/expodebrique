@@ -63,7 +63,7 @@ module.exports = {
             const RT = req.cookies.rememberToast
             const dbdepartement = await depmodel.find({})
             const user = await usermodel.findById(req.params.id).populate("departement")
-            return res.status(422).render('myAccount', { errors: errors.array(), user, dbdepartement, RT });
+            return res.status(422).render('myAccount', { user, dbdepartement, RT });
         } else {
 
             if (req.body.firstname) {

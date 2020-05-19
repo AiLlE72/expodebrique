@@ -59,6 +59,8 @@ module.exports = {
             const id = req.params.id
             const dbexpo = await expomodel.findById(req.params.id)
             const RT = req.cookies.rememberToast
+            console.log(errors);
+            
             return res.status(422).render('contactorga', { errors: errors.array(), dbexpo, id, RT });
         } else {
             transporter.sendMail(mailOptions, (err, res, next) => {
