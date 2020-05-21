@@ -6,7 +6,7 @@
 const express = require('express')
 const router = express.Router()
 const multer = require("multer")
-const { check, validationResult } = require('express-validator');
+const { check, validationResult } = require('express-validator')
 
 //config multer
 const MIME_TYPES = { //type d'image accepté
@@ -77,13 +77,6 @@ router.route('/createUser')
         check('departement').escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
         check('pays').escape().exists().withMessage("Merci d'utilisé un choix parmi les pays disponible"),
         check('password').matches(/^(?=.{8,}$)/).matches(/(?=.*?[a-z])/).matches(/(?=.*?[A-Z])/).matches(/(?=.*?[0-9])/).matches(/(?=.*?[[!@#$%^*])/).escape().withMessage('Votre mot de passe ne correspond pas aux exigences'),
-        // check('password')
-        //     .matches(/^(?=.{8,}$)/).withMessage('Votre mot de passe doit contenir au moins 8 caracteres')
-        //     .matches(/(?=.*?[a-z])/).withMessage('Votre mot de passe doit contenir au moins 1 minuscule')
-        //     .matches(/(?=.*?[A-Z])/).withMessage('Votre mot de passe doit contenir au moins 1 majuscule')
-        //     .matches(/(?=.*?[0-9])/).withMessage('Votre mot de passe doit contenir au moins 1 chiffre')
-        //     .matches(/(?=.*?[[!@#$%^*])/).withMessage('Votre mot de passe doit contenir au moins 1 caractere spécial (!@#$%^*)')
-        //     .escape(),
         check('confpassword').custom((value, { req, loc, path }) => {
             if (value !== req.body.password) {
                 // créer une nouvelle erreur sur les mots de passe ne correspondent pas 
@@ -114,7 +107,7 @@ router.route('/verifEditMail/:id')
 //createExpo
 router.route('/createExpo')
     .get(isBan, auth, createExpo.get)
-    .post(isBan, auth, [
+    .post(isBan, auth, upload.single('affiche'), [
         check('name').isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le nom de l'exposition"),
         check('adress').isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié l'adresse de l'exposition"),
         check('city').isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié la ville de l'exposition"),
@@ -126,7 +119,7 @@ router.route('/createExpo')
         check('horaire').isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié les horaires de l'exposition"),
         check('price').isLength({ min: 2 }).trim().escape().withMessage("Vous avez oublié le tarif de l'exposition"),
         check('contact').isEmail().withMessage('Veuillez rentrer un email valide'),
-    ], upload.single('affiche'), createExpo.post)
+    ], createExpo.post)
 
 //createExpo/:id
 router.route('/createExpo/:id')
@@ -156,7 +149,7 @@ router.route('/allExpo')
 //locationExpo
 router.route('/locationExpo')
     .get(locationExpo.get)
-    .post([check('departement').trim().escape().isLength({ min: 11 })], locationExpo.post)
+    .post([check('departement').trim().escape()], locationExpo.post)
 
 //contact
 router.route('/contact')

@@ -115,6 +115,8 @@ module.exports = {
                     }
                 )
             } else if (req.body.exposant) {
+                console.log(req.body.exposant)
+                
                 usermodel.findByIdAndUpdate(
                     { _id: req.params.id },
                     { exposant: req.body.exposant },

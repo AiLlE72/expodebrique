@@ -28,11 +28,13 @@ module.exports = {
         const d = new Date()
         const date = d.setDate(d.getDate() - 2);
         const dbdep = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
+        const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
+        const dbdepartement = await depmodel.find({})
         const dep = req.body.departement
+        const RT = req.cookies.rememberToast
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            console.log(errors)
             const RT = req.cookies.rememberToast
             return res.status(422).render('locationExpo', { errors: errors.array(), dbexpo, dbdep, dbdepartement, RT });
         } else {
