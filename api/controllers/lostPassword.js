@@ -44,7 +44,7 @@ module.exports = {
     post: async (req, res) => {
         const errors = validationResult(req)
         const userID = await usermodel.findOne({ email: req.body.email })
-                
+
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 37) //crer un chiffre random
         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
@@ -57,12 +57,12 @@ module.exports = {
             html: "Bonjour.<br> Merci de cliquer sur ce lien pour reinitialisé votre mot de passe <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
         }
 
-        if(!errors.isEmpty()) {
+        if (!errors.isEmpty()) {
             const RT = req.cookies.rememberToast
             return res.status(422).render('lostPassword', { errors: errors.array(), RT });
         } else {
-            if(!userID) {
-                res.redirect ('back')
+            if (!userID) {
+                res.redirect('back')
             } else {
                 // Nodemailer transport      
                 transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
@@ -116,7 +116,6 @@ module.exports = {
                         if (!err) {
                             res.redirect('/')
                         } else {
-                            console.log(err);
                             res.send(err)
                         }
                     }

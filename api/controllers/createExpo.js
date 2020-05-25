@@ -46,7 +46,7 @@ module.exports = {
                         return res.status(422).render('createExpo', { errors: errors.array(), dbdepartement, RT })
                     }
                 })
-               
+
             } else {
 
                 expomodel.create({
@@ -128,7 +128,6 @@ module.exports = {
             const dbdepartement = await depmodel.find({})
             const dbexpo = await expomodel.find({}).populate("departement")
             const RT = req.cookies.rememberToast
-            console.log(errors);
 
             res.redirect('/allExpo')
         } else {

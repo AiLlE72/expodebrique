@@ -76,10 +76,10 @@ router.route('/createUser')
         check('email').isEmail().withMessage('Veuillez rentrer un email valide'),
         check('departement').escape().isLength({ min: 11 }).withMessage("Merci d'utilisé un choix parmi les départements disponible"),
         check('pays').escape().exists().withMessage("Merci d'utilisé un choix parmi les pays disponible"),
-        check('password').matches(/^(?=.{8,}$)/).matches(/(?=.*?[a-z])/).matches(/(?=.*?[A-Z])/).matches(/(?=.*?[0-9])/).matches(/(?=.*?[[!@#$%^*])/).escape().withMessage('Votre mot de passe ne correspond pas aux exigences'),
-        check('confpassword').custom((value, { req, loc, path }) => {
+        check('password').matches(/^(?=.{8,}$)/).matches(/(?=.*?[a-z])/).matches(/(?=.*?[A-Z])/).matches(/(?=.*?[0-9])/).matches(/(?=.*?[[!@#$%^*/])/).escape().withMessage('Votre mot de passe ne correspond pas aux exigences'),
+        check('confpassword').escape().custom((value, { req, loc, path }) => {
             if (value !== req.body.password) {
-                // créer une nouvelle erreur sur les mots de passe ne correspondent pas 
+                // créer une nouvelle erreur sur les mots de passe ne correspondent pas  
                 throw new Error("Les mots de passe de correspondent pas");
             } else {
                 return value;
@@ -92,11 +92,12 @@ router.route('/createUser')
 router.route('/myAccount/:id')
     .get(myAccount.get)
     .put([
-        check('firstname').escape(),
+        check('firstname').optional().escape(),
         check('lastname').escape(),
-        check('email').escape(),
-        check('departement').escape().isLength({ min: 11 }),
-        check('pays').escape()
+        check('email').optional().isEmail().escape(),
+        check('departement').optional().escape().isLength({ min: 11 }),
+        check('pays').optional().escape(),
+        check('verifying').optional().isEmail()
     ], myAccount.put)
     .delete(myAccount.delete)
 
@@ -123,19 +124,19 @@ router.route('/createExpo')
 
 //createExpo/:id
 router.route('/createExpo/:id')
-    .put(isBan, auth, [
-        check('name').escape(),
-        check('adress').escape(),
-        check('city').escape(),
-        check('departement').escape(),
-        check('postCode').escape(),
-        check('country').escape(),
-        check('startDate').escape(),
-        check('endDate').escape(),
-        check('horaire').escape(),
-        check('price').escape(),
-        check('contact').escape(),
-    ], upload.single('affiche'), createExpo.put)
+    .put(isBan, auth,upload.single('affiche'), [
+        check('name').optional().isLength({ min: 2 }).trim().escape(),
+        check('adress').optional().isLength({ min: 2 }).trim().escape(),
+        check('city').optional().isLength({ min: 2 }).trim().escape(),
+        check('departement').optional().escape().isLength({ min: 11 }),
+        check('postCode').optional().isLength({ min: 2 }).trim().escape(),
+        check('country').optional().isLength({ min: 2 }).trim().escape(),
+        check('startDate').optional().isISO8601(),
+        check('endDate').optional().isISO8601(),
+        check('horaire').optional().isLength({ min: 2 }).trim().escape(),
+        check('price').optional().isLength({ min: 2 }).trim().escape(),
+        check('contact').optional().isEmail(),
+    ],  createExpo.put)
 
 //dateExpo
 router.route('/dateExpo')
@@ -193,7 +194,7 @@ router.route('/lostPassword')
 router.route('/newPassword/:id')
     .get(lostPassword.getReset)
     .post([
-        check('password').matches(/^(?=.{8,}$)/).matches(/(?=.*?[a-z])/).matches(/(?=.*?[A-Z])/).matches(/(?=.*?[0-9])/).matches(/(?=.*?[[!@#$%^*])/).escape().withMessage('Votre mot de passe ne correspond pas aux exigences'),
+        check('password').matches(/^(?=.{8,}$)/).matches(/(?=.*?[a-z])/).matches(/(?=.*?[A-Z])/).matches(/(?=.*?[0-9])/).matches(/(?=.*?[[!@#$%^*/])/).escape().withMessage('Votre mot de passe ne correspond pas aux exigences'),
     ], lostPassword.postReset)
 
 

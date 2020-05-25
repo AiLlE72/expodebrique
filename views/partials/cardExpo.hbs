@@ -55,24 +55,12 @@
 
 {{#ifCond author @root.name}}
 <div class="container mt-3">
-    {{#if errors}}
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <ul class="list-group">
-                {{#each errors}}
-                <li class="list-group-item list-group-item-danger">{{this.msg}}</li>
-                {{/each}}
-            </ul>
-        </div>
-    </div>
-    {{/if}}
     <div class="row text-center">
-        <div class="modal fade" id="modalEditer{{ _id }}" tabindex="-1" role="dialog" aria-labelledby="modalEditerLabel"
+        <div class="modal fade" id="modalEditer{{ _id }}" tabindex="-1" role="dialog" 
             aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -118,10 +106,9 @@
                                         <div class="col-md-6 col-sm-6 ">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <label class="input-group-text"
-                                                        for="inputGroupSelect01">Pays</label>
+                                                    <label class="input-group-text" for="inputGroupCountry{{id}}">Pays</label>
                                                 </div>
-                                                <select class="custom-select" name="country">
+                                                <select class="custom-select" name="country" id="inputGroupCountry{{id}}">
                                                     <option selected hidden>{{this.country}}</option>
                                                     <option value="France">France</option>
                                                     <option value="Belgique">Belgique</option>
@@ -139,12 +126,12 @@
 
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <label for="start">Date de début</label>
+                                                    <label for="start{{id}}">Date de début</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="date" name="startDate" max="3000-12-31"
+                                                    <input id="start{{id}}" type="date" name="startDate" max="2100-12-31"
                                                         min="2020-01-01" class="form-control"
                                                         value="{{moment this.startDate format="YYYY-MM-DD"}}">
                                                 </div>
@@ -153,12 +140,12 @@
                                         <div class="col-md-6 col-sm-6 ">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <label for="end">Date de fin</label>
+                                                    <label for="end{{id}}">Date de fin</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="date" name="endDate" max="3000-12-31" min="2020-01-01"
+                                                    <input id="end{{id}}"type="date" name="endDate" max="2100-12-31" min="2020-01-01"
                                                         class="form-control"
                                                         value="{{moment this.endDate format="YYYY-MM-DD"}}">
                                                 </div>
@@ -232,12 +219,11 @@
 {{#if @root.isAdmin}}
 <div class="container mt-3">
     <div class="row text-center">
-        <div class="modal fade" id="modalEditer{{ _id }}" tabindex="-1" role="dialog" aria-labelledby="modalEditerLabel"
+        <div class="modal fade" id="modalEditer{{ _id }}" tabindex="-1" role="dialog" 
             aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"> </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -283,10 +269,9 @@
                                         <div class="col-md-6 col-sm-6 ">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <label class="input-group-text"
-                                                        for="inputGroupSelect01">Pays</label>
+                                                    <label class="input-group-text" for="inputGroupCountry2{{id}}">Pays</label>
                                                 </div>
-                                                <select class="custom-select" name="country">
+                                                <select class="custom-select" name="country" id="inputGroupCountry2{{id}}">
                                                     <option selected hidden>{{this.country}}</option>
                                                     <option value="France">France</option>
                                                     <option value="Belgique">Belgique</option>
@@ -304,12 +289,12 @@
 
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <label for="start">Date de début</label>
+                                                    <label for="start2{{id}}">Date de début</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="date" name="startDate" max="3000-12-31"
+                                                    <input id="start2{{id}}" type="date" name="startDate" max="2100-12-31"
                                                         min="2020-01-01" class="form-control"
                                                         value="{{moment this.startDate format="YYYY-MM-DD"}}">
                                                 </div>
@@ -318,12 +303,12 @@
                                         <div class="col-md-6 col-sm-6 ">
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <label for="end">Date de fin</label>
+                                                    <label for="end2{{id}}">Date de fin</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <input type="date" name="endDate" max="3000-12-31" min="2020-01-01"
+                                                    <input id="end2{{id}}" type="date" name="endDate" max="2100-12-31" min="2020-01-01"
                                                         class="form-control"
                                                         value="{{moment this.endDate format="YYYY-MM-DD"}}">
                                                 </div>

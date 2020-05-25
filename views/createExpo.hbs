@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 mb-3 ">
                                     <select name="departement" class="custom-select" required>
-                                        <option hidden>Département</option>
+                                        <option value ="" hidden>Département</option>
                                         {{!-- affiche chaque departement de la db --}}
                                         {{#each dbdepartement}}
                                         <option value="{{this.id}}">({{this.code}}) - {{this.name}}</option>
@@ -85,7 +85,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <input type="date" name="startDate" max="3000-12-31" min="2020-01-01"
+                                                <input type="date" name="startDate" max="2100-12-31" min="2020-01-01"
                                                     class="form-control" id="start">
                                             </div>
                                         </div>
@@ -100,7 +100,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <input type="date" name="endDate" max="3000-12-31" min="2020-01-01"
+                                                <input type="date" name="endDate" max="2100-12-31" min="2020-01-01"
                                                     class="form-control" id="end">
                                             </div>
                                         </div>

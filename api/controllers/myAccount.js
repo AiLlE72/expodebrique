@@ -46,20 +46,16 @@ module.exports = {
     },
 
     put: async (req, res) => {
+
         const errors = validationResult(req)
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
         link = "http://" + req.get('host') + "/verifEditMail/" + rand // construction du lien avec adresse du site et le chiffre random
-        mailOptions = {
-            from: key.mailUser, // adresse du mail qui envoi le lien de verif
-            to: req.body.email, // adresse de la personne qui s'inscrit
-            subject: 'Merci de confirmer votre compte email', // sujet du mail de verif
-            rand: rand, // nombre random generer a l'envoi du mail
-            html: "Bonjour.<br> Merci de cliquer sur ce lien pour verifier votre adresse mail <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
-        }
 
         if (!errors.isEmpty()) {
+            console.log(errors);
+
             const RT = req.cookies.rememberToast
             const dbdepartement = await depmodel.find({})
             const user = await usermodel.findById(req.params.id).populate("departement")
@@ -115,8 +111,6 @@ module.exports = {
                     }
                 )
             } else if (req.body.exposant) {
-                console.log(req.body.exposant)
-                
                 usermodel.findByIdAndUpdate(
                     { _id: req.params.id },
                     { exposant: req.body.exposant },
@@ -154,6 +148,13 @@ module.exports = {
                 )
             } else if (req.body.email) {
                 const user = await usermodel.findById(req.params.id)
+                mailOptions = {
+                    from: key.mailUser, // adresse du mail qui envoi le lien de verif
+                    to: req.body.email, // adresse de la personne qui s'inscrit
+                    subject: 'Merci de confirmer votre compte email', // sujet du mail de verif
+                    rand: rand, // nombre random generer a l'envoi du mail
+                    html: "Bonjour.<br> Merci de cliquer sur ce lien pour verifier votre adresse mail <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
+                }
                 bcrypt.compare(req.body.password, user.password, (err, same) => {
                     if (!same) {
                         res.redirect('back')
@@ -178,6 +179,22 @@ module.exports = {
                         )
                     }
                 })
+            } else if (req.body.verifying) {
+                mailOptions = {
+                    from: key.mailUser, // adresse du mail qui envoi le lien de verif
+                    to: req.body.verifying, // adresse de la personne qui s'inscrit
+                    subject: 'Merci de confirmer votre compte email', // sujet du mail de verif
+                    rand: rand, // nombre random generer a l'envoi du mail
+                    html: "Bonjour.<br> Merci de cliquer sur ce lien pour verifier votre adresse mail <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
+                },
+                    transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
+                        if (err) {
+                            res.send(err)
+                        } else {
+                            next()
+                        }
+                    })
+                res.redirect('back')
             }
         }
     },
@@ -198,7 +215,6 @@ module.exports = {
                         if (!err) {
                             res.redirect('/myAccount/' + userID._id)
                         } else {
-                            console.log(err);
                             res.send(err)
                         }
                     }
