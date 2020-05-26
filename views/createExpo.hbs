@@ -4,6 +4,17 @@
     </div>
 </div>
 <div class="container mt-4">
+    {{#if errors}}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <ul class="list-group">
+                {{#each errors}}
+                <li class="list-group-item list-group-item-danger">{{this.msg}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{/if}}
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card-body">
@@ -28,7 +39,7 @@
                                 </div>
                                 <div class="col-md-6 col-sm-6 mb-3 ">
                                     <select name="departement" class="custom-select" required>
-                                        <option hidden>Département</option>
+                                        <option value ="" hidden>Département</option>
                                         {{!-- affiche chaque departement de la db --}}
                                         {{#each dbdepartement}}
                                         <option value="{{this.id}}">({{this.code}}) - {{this.name}}</option>
@@ -54,8 +65,8 @@
                                         <select class="custom-select" id="inputGroupSelect01" name="country">
                                             <option selected hidden>Choisir...</option>
                                             <option value="France">France</option>
-                                            <option value="Belgique">Belgique</option>
-                                            <option value="Espagne">Espagne</option>
+                                            {{!-- <option value="Belgique">Belgique</option>
+                                            <option value="Espagne">Espagne</option> --}}
                                         </select>
                                     </div>
                                 </div>
@@ -74,7 +85,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <input type="date" name="startDate" max="3000-12-31" min="2020-01-01"
+                                                <input type="date" name="startDate" max="2100-12-31" min="2020-01-01"
                                                     class="form-control" id="start">
                                             </div>
                                         </div>
@@ -89,7 +100,7 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <input type="date" name="endDate" max="3000-12-31" min="2020-01-01"
+                                                <input type="date" name="endDate" max="2100-12-31" min="2020-01-01"
                                                     class="form-control" id="end">
                                             </div>
                                         </div>

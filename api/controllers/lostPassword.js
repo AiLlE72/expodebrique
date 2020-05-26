@@ -8,20 +8,21 @@ const usermodel = require('../database/models/userModel')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer')
 const key = require('../config')
+const { check, validationResult } = require('express-validator')
 
 // *************parametrage nodemailer***************
 
 const transporter = nodemailer.createTransport({ //creation de la constante transporteur 
-    host: key.host, 
-    service: key.service, 
-    port: key.port, 
-    secure: key.secure, 
-    auth: { 
+    host: key.host,
+    service: key.service,
+    port: key.port,
+    secure: key.secure,
+    auth: {
         user: key.mailUser,
         pass: key.mailPass
     },
     tls: {
-        rejectUnauthorized: key.rejectUnauthorized 
+        rejectUnauthorized: key.rejectUnauthorized
     }
 })
 
@@ -36,12 +37,14 @@ var rand, mailOptions, host, link // creation de variable sans affectation pour 
 module.exports = {
     get: (req, res) => {
         const RT = req.cookies.rememberToast
-        res.render('lostPassword',{ RT});
+        res.render('lostPassword', { RT });
     },
 
 
     post: async (req, res) => {
+        const errors = validationResult(req)
         const userID = await usermodel.findOne({ email: req.body.email })
+
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 37) //crer un chiffre random
         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
@@ -54,18 +57,23 @@ module.exports = {
             html: "Bonjour.<br> Merci de cliquer sur ce lien pour reinitialisé votre mot de passe <br><a href=" + link + ">Cliquer ici pour verifier</a>", // contenu du mail
         }
 
-        if (!userID) {
-            res.send('pas dans la base')
+        if (!errors.isEmpty()) {
+            const RT = req.cookies.rememberToast
+            return res.status(422).render('lostPassword', { errors: errors.array(), RT });
         } else {
-            // Nodemailer transport      
-            transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
-                if (err) {
-                    res.send(err)
-                } else {
-                    next()
-                }
-            })
-            res.redirect('/')
+            if (!userID) {
+                res.redirect('back')
+            } else {
+                // Nodemailer transport      
+                transporter.sendMail(mailOptions, (err, res, next) => { // utilisation de la constante transporter et de la fonction d'envoi de mail
+                    if (err) {
+                        res.send(err)
+                    } else {
+                        next()
+                    }
+                })
+                res.redirect('/')
+            }
         }
     },
 
@@ -89,26 +97,30 @@ module.exports = {
         const userID = await usermodel.findOne({ email: mailOptions.to })
         const Pass = req.body.password
         const confPass = req.body.confpassword
+        const errors = validationResult(req)
 
-
-        if (Pass !== confPass || Pass === '') {
-            res.send(err)
+        if (!errors.isEmpty()) {
+            const RT = req.cookies.rememberToast
+            return res.status(422).render('back', { errors: errors.array(), RT });
         } else {
-            const passCrypt = bcrypt.hashSync(Pass, 10)
-            usermodel.findByIdAndUpdate( // modifie l'info isVerified de l'utilisateur 
-                userID._id,
-                {
-                    password: passCrypt
-                },
-                (err) => {
-                    if (!err) {
-                        res.redirect('/')
-                    } else {
-                        console.log(err);
-                        res.send(err)
+            if (Pass !== confPass || Pass === '') {
+                res.send(err)
+            } else {
+                const passCrypt = bcrypt.hashSync(Pass, 10)
+                usermodel.findByIdAndUpdate( // modifie l'info isVerified de l'utilisateur 
+                    userID._id,
+                    {
+                        password: passCrypt
+                    },
+                    (err) => {
+                        if (!err) {
+                            res.redirect('/')
+                        } else {
+                            res.send(err)
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }

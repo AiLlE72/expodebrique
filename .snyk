@@ -1,0 +1,36 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-HANDLEBARS-567742:
+    - express-handlebars > handlebars:
+        reason: 'version 4.6 ne me convient pas '
+        expires: '2020-06-05T16:26:53.577Z'
+      handlebars:
+        reason: pb d'image avec 4.6.0
+        expires: '2020-06-19T12:37:07.439Z'
+  SNYK-JS-AUTOLINKER-564438:
+    - handlebars-helpers > helper-markdown > remarkable > autolinker:
+        reason: pas de maj dispo
+        expires: '2020-06-05T16:26:53.578Z'
+  SNYK-JS-AUTOLINKER-73494:
+    - handlebars-helpers > helper-markdown > remarkable > autolinker:
+        reason: pas de maj dispo
+        expires: '2020-06-05T16:26:53.578Z'
+  SNYK-JS-MINIMIST-559764:
+    - handlebars > optimist > minimist:
+        reason: 'pas de maj dispo '
+        expires: '2020-06-19T12:37:07.439Z'
+    - express-handlebars > handlebars > optimist > minimist:
+        reason: 'pas de maj dispo '
+        expires: '2020-06-19T12:37:07.439Z'
+    - handlebars.moment > handlebars > optimist > minimist:
+        reason: 'pas de maj dispo '
+        expires: '2020-06-19T12:37:07.439Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - handlebars.moment > lodash:
+        patched: '2020-05-20T12:33:23.166Z'
+    - express-validator > lodash:
+        patched: '2020-05-20T12:33:23.166Z'

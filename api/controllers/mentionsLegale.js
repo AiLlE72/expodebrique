@@ -5,8 +5,8 @@
  ************************/
 
 module.exports = {
-    get: (req, res) => {
+    get: (req, res ) => {
         const RT = req.cookies.rememberToast
-        res.render('success', { RT });
+        res.render('mentionsLegales', { RT });
     }
 }

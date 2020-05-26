@@ -10,7 +10,7 @@
         <div class="col-md-12 col-sm-12">
             <ul class="list-group ">
                 {{#each dbuser}}
-                <li class="list-item border border-color5 rounded m-2 p-3">
+                <li class="list-item border rounded m-2 p-3 {{#if this.isAdmin}} border-color2 {{else}} border-color5{{/if}}">
                     <div class="row">
 
                         <div class="col-md-7 pt-4 col-sm-7">
@@ -30,56 +30,80 @@
                             <button class="btn btn-color2 m-1" data-toggle="modal" type="submit"
                                 data-target="#modalConfirmSuppUser{{_id}}">Supprimer</button>
                         </div>
+                    </div>
                 </li>
                 {{!-- Modal Editer user --}}
-                <div class="container mt-3">
-                    <div class="row text-center">
-                        <div class="modal fade" id="modalEditerUser{{ _id }}" tabindex="-1" role="dialog"
-                            aria-labelledby="modalEditerLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title"> Utilisateur : {{ this.lastname }} {{ this.firstname }}
-                                        </h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
+
+
+
+                <div class="modal fade" id="modalEditerUser{{_id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                    <form action="/listUser/{{ _id }}/?_method=PUT" method="POST">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modification</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Banni</label>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01" name="isBan" required>
+                                            {{#if this.isBan}}
+                                            <option value="true" hidden>Oui</option>
+                                            {{else}}
+                                            <option value="false" hidden>Non</option>
+                                            {{/if}}
+                                            <option value="true">Oui</option>
+                                            <option value="false">Non</option>
+                                        </select>
                                     </div>
-                                    <div class="modal-body">
-                                        <form action="/listUser/{{ _id }}/?_method=PUT" method="POST">
-                                            <div class="row mx-1">
-                                                <input type="text" class="form-control" name="firstname"
-                                                    contenteditable="true" value="{{ this.firstname }}">
-                                            </div>
-                                            <div class="row mx-1">
-                                                <input type="text" class="form-control" name="lastname"
-                                                    contenteditable="true" value="{{ this.lastname }}">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>Sujet</label>
-                                                        <select class="form-control" name="status" required>
-                                                            <option></option>
-                                                            <option value="isAdmin">Administrateur</option>
-                                                            <option value="isVerified">Verifié</option>
-                                                            <option value="isBan">Banni</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-color4"
-                                                    data-dismiss="modal">Fermer</button>
-                                                <button type="submit" class="btn btn-color2">Confirmer la
-                                                    modification</button>
-                                            </div>
-                                        </form>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text"
+                                                for="inputGroupSelect01">Administrateur</label>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01" name="isAdmin" required>
+                                            {{#if this.isAdmin}}
+                                            <option value="true" hidden>Oui</option>
+                                            {{else}}
+                                            <option value="false" hidden>Non</option>
+                                            {{/if}}
+                                            <option value="true">Oui</option>
+                                            <option value="false">Non</option>
+                                        </select>
                                     </div>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Email
+                                                verifié</label>
+                                        </div>
+                                        <select class="custom-select" id="inputGroupSelect01" name="isVerified"
+                                            required>
+                                            {{#if this.isVerified}}
+                                            <option value="true" hidden>Oui</option>
+                                            {{else}}
+                                            <option value="false" hidden>Non</option>
+                                            {{/if}}
+                                            <option value="true">Oui</option>
+                                            <option value="false">Non</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-color1" data-dismiss="modal">Fermer</button>
+                                    <button type="submit" class="btn btn-color2">Sauvergarder</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 {{!-- Modal Supprimer user --}}
                 <div class="modal fade" id="modalConfirmSuppUser{{_id}}" tabindex="-1" role="dialog">
@@ -91,7 +115,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Confirmez-vous la suppression de {{ name}} ?</p>
+                                <p>Confirmez-vous la suppression de {{ name }} ?</p>
                             </div>
                             <div class="modal-footer">
                                 <form action="/listUser/{{ _id }}/?_method=delete" method="POST">

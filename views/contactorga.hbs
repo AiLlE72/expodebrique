@@ -5,21 +5,32 @@
 </div>
 
 <div class="container">
+    {{#if errors}}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <ul class="list-group">
+                {{#each errors}}
+                <li class="list-group-item list-group-item-danger">{{this.msg}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{/if}}
     <div class="row justify-content-center">
         <div class="col-md-8">
             <form action="/contactorga/{{ id }}" method="POST">
                 <div class="form-group row ">
                     <label>Votre adresse Email :</label>
                     {{#if email}}
-                    <input type="email" class="form-control" name="email"  value="{{email}}">
+                    <input type="email" class="form-control" name="email" value="{{email}}" disabled>
                     {{/if}}
                 </div>
                 <div class="form-group row ">
                     <label>Sujet :</label>
                     <select class="form-control" name="sujet" required>
-                        <option hidden>Choisir...</option>
-                        <option >Demande d'information</option>
-                        <option >Je suis exposant et souhaite exposer lors de votre expostition</option>
+                        <option value ="" hidden>Choisir...</option>
+                        <option>Demande d'information</option>
+                        <option>Je suis exposant et souhaite exposer lors de votre expostition</option>
                     </select>
                 </div>
                 <div class="form-group row ">

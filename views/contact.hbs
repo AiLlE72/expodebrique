@@ -5,21 +5,32 @@
 </div>
 
 <div class="container">
+    {{#if errors}}
+    <div class="row justify-content-center">
+        <div class="col-md-8 py-1">
+            <ul class="list-group">
+                {{#each errors}}
+                <li class="list-group-item list-group-item-danger">{{this.msg}}</li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{/if}}
     <div class="row justify-content-center">
         <div class="col-md-8">
             <form action="/contact" method="POST">
                 <div class="form-group row justify-content-center">
-                    {{!-- affiche l'input avec l'email de l'utilisateur si connecer ou propose de remplir l'email si non connecter --}}
+                    {{!-- affiche l'input avec l'email de l'utilisateur si connecter ou propose de remplir l'email si non connecter --}}
                     {{#if email}}
-                    <input type="email" class="form-control" name="email"  value="{{email}}" disabled>
+                    <input type="email" class="form-control" name="email" value="{{ email }}" >
                     {{else}}
-                    <input type="email" class="form-control" placeholder="Email de contact" name="email2" required>
+                    <input type="email" class="form-control" placeholder="Email de contact" name="email" required>
                     {{/if}}
                 </div>
                 <div class="form-group row ">
                     <label>Sujet</label>
                     <select class="form-control" name="sujet" required>
-                        <option hidden>Choisir...</option>
+                        <option value="" hidden>Choisir...</option>
                         <option value="contact">Contact</option>
                         <option value="support">Rapport de Bug</option>
                     </select>

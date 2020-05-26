@@ -1,12 +1,12 @@
 //Import module
-const Handlebars = require("handlebars");
-const exphbs = require('express-handlebars');
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const methodOverride = require('method-override');
+const Handlebars = require("handlebars")
+const exphbs = require('express-handlebars')
+const express = require('express')
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const methodOverride = require('method-override')
 const expressSession = require('express-session')
-const MongoStore = require('connect-mongo');
+const MongoStore = require('connect-mongo')
 const cron = require('node-cron')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
@@ -29,12 +29,12 @@ app.engine('hbs', exphbs({
     extname: 'hbs',
     defaultLayout: 'main',
 }));
-app.set('view engine', 'hbs');
+app.set('view engine', 'hbs')
 
 //Moment
-var MomentHandler = require("handlebars.moment");
-MomentHandler.registerHelpers(Handlebars);
-var moment = require('moment');
+var MomentHandler = require("handlebars.moment")
+MomentHandler.registerHelpers(Handlebars)
+var moment = require('moment')
 moment.locale('fr')
 
 
@@ -71,7 +71,7 @@ app.use(expressSession({
     store: new mongoStore({
         mongooseConnection: mongoose.connection
     })
-}));
+}))
 
 //cookie parser
 app.use(cookieParser());
@@ -87,6 +87,12 @@ app.use('*', (req, res, next) => {
     }
     next()
 })
+
+//express validator
+app.use(express.json())
+
+//helmet
+app.use(helmet())
 
 
 /******** HELPERS **********/

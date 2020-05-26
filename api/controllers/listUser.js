@@ -20,15 +20,15 @@ module.exports = {
     },
 
     put: (req, res) => {
+        
         const myuser = { _id: req.params.id }
-        if (req.body.status === 'isAdmin') {
+        
             usermodel.updateOne(
                 myuser,
                 {
-                    name: req.body.name,
-                    isVerified: true,
-                    isAdmin: true,
-                    isBan: false
+                    isVerified:req.body.isVerified,
+                    isAdmin:req.body.isAdmin,
+                    isBan: req.body.isBan
                 },
                 { multi: true },
                 (err) => {
@@ -38,44 +38,7 @@ module.exports = {
                         res.rend(err)
                     }
                 }
-            )
-        } else if (req.body.status === 'isVerified') {
-            usermodel.updateOne(
-                myuser,
-                {
-                    name: req.body.name,
-                    isVerified: true,
-                    isAdmin: false,
-                    isBan: false
-                },
-                { multi: true },
-                (err) => {
-                    if (!err) {
-                        res.redirect('/listUser')
-                    } else {
-                        res.rend(err)
-                    }
-                }
-            )
-        } else if (req.body.status === 'isBan') {
-            usermodel.updateOne(
-                myuser,
-                {
-                    name: req.body.name,
-                    isVerified: false,
-                    isAdmin: false,
-                    isBan: true
-                },
-                { multi: true },
-                (err) => {
-                    if (!err) {
-                        res.redirect('/listUser')
-                    } else {
-                        res.rend(err)
-                    }
-                }
-            )
-        }
+            )        
     },
 
     delete: async (req, res) => {
