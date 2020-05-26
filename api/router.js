@@ -38,12 +38,14 @@ const allExpo = require('./controllers/allExpo')
 const locationExpo = require('./controllers/locationExpo')
 const listUser = require('./controllers/listUser')
 const listContact = require('./controllers/listContact')
-const contact = require('./controllers/contact')
+const mentionsLegales = require('./controllers/mentionsLegale')
 const success = require('./controllers/success')
 const contactorga = require('./controllers/contactorga')
 const lostPassword = require('./controllers/lostPassword')
 const myAccount = require('./controllers/myAccount')
 const cookie = require('./controllers/cookie')
+const contact = require('./controllers/contact')
+const privacyPolicies = require('./controllers/privacyPolicies')
 
 
 
@@ -67,6 +69,15 @@ router.route('/logout')
     .get(home.getLogout)
 
 /******** PAGE visiteur **********/
+
+//mentions legales
+router.route('/mentionsLegales')
+    .get(mentionsLegales.get)
+
+//privacyPolicies
+router.route('/rgpd')
+.get(privacyPolicies.get)
+
 //createUser
 router.route('/createUser')
     .get(createUser.get)
@@ -124,7 +135,7 @@ router.route('/createExpo')
 
 //createExpo/:id
 router.route('/createExpo/:id')
-    .put(isBan, auth,upload.single('affiche'), [
+    .put(isBan, auth, upload.single('affiche'), [
         check('name').optional().isLength({ min: 2 }).trim().escape(),
         check('adress').optional().isLength({ min: 2 }).trim().escape(),
         check('city').optional().isLength({ min: 2 }).trim().escape(),
@@ -136,7 +147,7 @@ router.route('/createExpo/:id')
         check('horaire').optional().isLength({ min: 2 }).trim().escape(),
         check('price').optional().isLength({ min: 2 }).trim().escape(),
         check('contact').optional().isEmail(),
-    ],  createExpo.put)
+    ], createExpo.put)
 
 //dateExpo
 router.route('/dateExpo')
@@ -223,11 +234,13 @@ router.route('/listContact/:id')
 
 //listUser
 router.route('/listUser')
-    .get(isAdmin, listUser.get)
+    // .get(isAdmin, listUser.get)
 
 router.route('/listUser/:id')
     .put(isAdmin, listUser.put)
     .delete(isAdmin, listUser.delete)
+
+
 
 /************** Cookies **************/
 
