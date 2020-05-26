@@ -9,7 +9,7 @@ const expressSession = require('express-session')
 const MongoStore = require('connect-mongo');
 const cron = require('node-cron')
 const cookieParser = require('cookie-parser')
-
+const helmet = require('helmet')
 
 
 // Constante
@@ -45,7 +45,8 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
+//Helmet
+app.use(helmet())
 
 //express-handlebars
 app.use('/assets', express.static('publics'))
