@@ -119,18 +119,18 @@ module.exports = {
                     })
             }
         }
-
-
-
-
-
     },
     verifMail: async (req, res, next) => {
         const userID = await usermodel.findOne({ email: mailOptions.to })
         const rand = req.params.id
+        console.log(req.get('host'));
+        console.log(req.protocol);
+        console.log(host);
+        
+        
         if ((req.protocol + "://" + req.get('host')) == (host)) { //compare le lien utiliser pour venir sur la page et celui de la page 
             if (rand == mailOptions.rand) { //recupere le numero random present dans le mail
-                console.log(req);
+                
 
                 usermodel.findByIdAndUpdate( // modifie l'info isVerified de l'utilisateur 
                     userID._id,
