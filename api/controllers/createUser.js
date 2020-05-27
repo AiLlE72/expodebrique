@@ -49,7 +49,7 @@ module.exports = {
         // Nodemailer config  affectation des constantes declaré plus haut
         rand = Math.floor((Math.random() * 100) + 54) //crer un chiffre random
         host = req.get('host') // adresse du site hebergant l'envoi du mail de verif
-        link = "https://expodebrique.willyparis.fr/verify/" + rand // construction du lien avec adresse du site et le chiffre random
+        link = "http://"+ host + "/verify/" + rand // construction du lien avec adresse du site et le chiffre random
         mailOptions = {
             from: key.mailUser, // adresse du mail qui envoi le lien de verif
             to: req.body.email, // adresse de la personne qui s'inscrit
@@ -123,8 +123,11 @@ module.exports = {
     verifMail: async (req, res, next) => {
         const userID = await usermodel.findOne({ email: mailOptions.to })
         const rand = req.params.id      
-        
-        if ((req.protocol + "://" + req.get('host')) == (host)) { //compare le lien utiliser pour venir sur la page et celui de la page 
+        console.log('host:' +  host)
+	    console.log('link:'  + link )
+	    console.log(req.protocol + '://' + req.get('host'))
+        if ((req.protocol + "://" + req.get('host')) == ('http://' + host) ) { //compare le lien utiliser pour venir sur la page et celui de la page
+	
             if (rand == mailOptions.rand) { //recupere le numero random present dans le mail
                 
 
