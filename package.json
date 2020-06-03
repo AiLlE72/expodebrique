@@ -28,7 +28,7 @@
     "chai": "^4.2.0"
   },
   "scripts": {
-    "test": "nodemon --exec 'mocha --timeout 10000 ./test/*.js'",
+    "test": "nodemon --exec 'mocha --timeout 10000 ./test/test2.js'",
     "dev": "code .  && nodemon",
     "start": "nodemon server.js",
     "sass": "sass --watch ./publics/ressources/style/bootstrap/scss/bootstrap.scss:./publics/ressources/style/style.css",
