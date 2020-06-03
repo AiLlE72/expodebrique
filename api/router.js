@@ -234,7 +234,7 @@ router.route('/listContact/:id')
 
 //listUser
 router.route('/listUser')
-    // .get(isAdmin, listUser.get)
+    .get(isAdmin, listUser.get)
 
 router.route('/listUser/:id')
     .put(isAdmin, listUser.put)
