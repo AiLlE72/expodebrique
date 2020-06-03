@@ -1,28 +1,36 @@
 
 {{#unless RT }}
-<div aria-live="polite" aria-atomic="true" style="position: relative">
-    <div class="toast" data-delay="5000" id="toastdecookie"
-        style="z-index:99; position: absolute; top: 10px; right: 10px;">
-        <div class="toast-header">
-            <strong class="mr-auto ">Bienvenue</strong>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+
+<div class="alert alert-secondary py-1" role="alert">
+    <div class="container-fluid">
+        <div class="row ">
+            <p class="mx-auto text-muted">
+                Nous utilisons des cookies pour nous permettre de mieux comprendre comment le site est utilisé.
+                Cochez si dessous les coockies que vous acceptez.
+            </p>
         </div>
-        <div class="toast-body">
-            Ce site n'utilise aucun cookie publicitaire ou tracker.
-            Seulement un cookie de fonctionnement
-        </div>
-        <div class="row justify-content-center">
-            <form action="/cookie" method="post">
-                <button type="submit" class="btn btn-outline-color4 mb-2">Accepter</button>
-            </form>
-        </div>
+        <form action="/cookie" method="post">
+            <div class="row mx-auto">
+                <div class="col-md-3"></div>
+                <div class="col-md-2 p-1 mx-auto">
+                    <p class="p-0 m-0 text-center text-muted"> <input type="checkbox"
+                            aria-label="Checkbox for following text input" checked disabled>
+                        Cookie technique</p>
+                </div>
+                <div class="col-md-2 p-1 mx-auto">
+                    <p class="p-0 m-0 text-center text-muted"><input type="checkbox" aria-label="Checkbox for following text input"
+                            name="cookieGA" checked>
+                        Cookie de suivi</p>
+                </div>
+                <div class="col-md-2 p-0 mx-auto">
+                    <button type="submit" class="btn btn-outline-dark p-1">Accepter</button>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </form>
+
+
     </div>
 </div>
 
-<script>
-    $('#toastdecookie').on('hidden.bs.toast', function (res) {
-        document.cookie = "rememberToast=RT;"
-    })
-   
-</script>
 {{/unless}}
