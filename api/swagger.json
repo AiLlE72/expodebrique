@@ -1,0 +1,409 @@
+{
+    "info": {
+      "title": "expodebrique",
+      "version": "1.0.0",
+      "license": {
+        "name": "ISC"
+      },
+      "description": "[Specification JSON](/api-spec)\n\n<Pour pas demarré from Scratch"
+    },
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "/",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/logout": {
+        "get": {
+          "summary": "/logout",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/createUser": {
+        "get": {
+          "summary": "/createUser",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/createUser",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/myAccount/{id}": {
+        "get": {
+          "summary": "/myAccount/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        },
+        "put": {
+          "summary": "/myAccount/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        },
+        "delete": {
+          "summary": "/myAccount/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/verifEditMail/{id}": {
+        "get": {
+          "summary": "/verifEditMail/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/createExpo": {
+        "get": {
+          "summary": "/createExpo",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/createExpo",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/createExpo/{id}": {
+        "put": {
+          "summary": "/createExpo/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/dateExpo": {
+        "get": {
+          "summary": "/dateExpo",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/allExpo": {
+        "get": {
+          "summary": "/allExpo",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/locationExpo": {
+        "get": {
+          "summary": "/locationExpo",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/locationExpo",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/contact": {
+        "get": {
+          "summary": "/contact",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/contact",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/contactorga/{id}": {
+        "get": {
+          "summary": "/contactorga/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/contactorga/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/success": {
+        "get": {
+          "summary": "/success",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/lostPassword": {
+        "get": {
+          "summary": "/lostPassword",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/lostPassword",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/newPassword/{id}": {
+        "get": {
+          "summary": "/newPassword/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        },
+        "post": {
+          "summary": "/newPassword/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/verify/{id}": {
+        "get": {
+          "summary": "/verify/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/verifMail": {
+        "get": {
+          "summary": "/verifMail",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/admin": {
+        "get": {
+          "summary": "/admin",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/listContact": {
+        "get": {
+          "summary": "/listContact",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/listContact/{id}": {
+        "delete": {
+          "summary": "/listContact/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/listUser": {
+        "get": {
+          "summary": "/listUser",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      },
+      "/listUser/{id}": {
+        "put": {
+          "summary": "/listUser/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        },
+        "delete": {
+          "summary": "/listUser/{id}",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ],
+          "responses": {}
+        }
+      },
+      "/cookie": {
+        "post": {
+          "summary": "/cookie",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [],
+          "responses": {}
+        }
+      }
+    },
+    "swagger": "2.0"
+  }

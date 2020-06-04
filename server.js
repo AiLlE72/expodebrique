@@ -10,6 +10,9 @@ const MongoStore = require('connect-mongo')
 const cron = require('node-cron')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
+const swaggerUi = require('swagger-ui-express')
+// const expressOasGenerator = require('express-oas-generator')
+
 
 
 
@@ -21,7 +24,12 @@ const port = process.env.PORT || 3000
 const mongoStore = MongoStore(expressSession)
 const emailing = require('./api/emailing')
 const deleteArchive = require('./api/deleteArchive')
+const swaggerDocument = require('./api/swagger.json')
 
+
+
+//expressoasGenerator
+// expressOasGenerator.init(app, {});
 
 
 
@@ -132,6 +140,10 @@ Handlebars.registerHelper('ifCond', function (v1, v2, options) {
     }
     return options.inverse(this);
 });
+
+
+//swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Router
 const router = require('./api/router')
