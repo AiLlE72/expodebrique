@@ -42,7 +42,8 @@ module.exports = {
         const dbdepartement = await depmodel.find({})
         const user = await usermodel.findById(req.params.id).populate("departement")
         const RT = req.cookies.rememberToast
-        res.render('myAccount', { user, dbdepartement, RT })
+        const GA = req.cookies.rememberGA
+        res.render('myAccount', { user, dbdepartement, RT, GA })
     },
 
     put: async (req, res) => {
@@ -55,11 +56,11 @@ module.exports = {
 
         if (!errors.isEmpty()) {
             console.log(errors);
-
+            const GA = req.cookies.rememberGA
             const RT = req.cookies.rememberToast
             const dbdepartement = await depmodel.find({})
             const user = await usermodel.findById(req.params.id).populate("departement")
-            return res.status(422).render('myAccount', { user, dbdepartement, RT });
+            return res.status(422).render('myAccount', { user, dbdepartement, RT, GA });
         } else {
 
             if (req.body.firstname) {

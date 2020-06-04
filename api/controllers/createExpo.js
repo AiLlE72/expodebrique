@@ -22,7 +22,8 @@ module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
         const RT = req.cookies.rememberToast
-        res.render('createExpo', { dbdepartement, RT })
+        const GA = req.cookies.rememberGA
+        res.render('createExpo', { dbdepartement, RT, GA })
     },
     post: async (req, res) => {
         const errors = validationResult(req)

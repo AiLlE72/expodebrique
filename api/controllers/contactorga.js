@@ -37,10 +37,13 @@ module.exports = {
         const id = req.params.id
         const dbexpo = await expomodel.findById(req.params.id)
         const RT = req.cookies.rememberToast
-        res.render('contactorga', { dbexpo, id, RT })
+        const GA = req.cookies.rememberGA
+        res.render('contactorga', { dbexpo, id, RT, GA })
     },
 
     post: async (req, res) => {
+        const RT = req.cookies.rememberToast
+        const GA = req.cookies.rememberGA
         const dbexpo = await expomodel.findById(req.params.id)
         const expo = dbexpo.name
         const dest = req.body.email
@@ -69,7 +72,7 @@ module.exports = {
                     next()
                 }
             })
-            res.render('success')
+            res.render('success', {RT, GA})
         }
     }
 }

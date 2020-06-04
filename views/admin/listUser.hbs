@@ -49,9 +49,9 @@
                                 <div class="modal-body">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Banni</label>
+                                            <label class="input-group-text" for="inputGroupSelect01{{_id}}">Banni</label>
                                         </div>
-                                        <select class="custom-select" id="inputGroupSelect01" name="isBan" required>
+                                        <select class="custom-select" id="inputGroupSelect01{{_id}}" name="isBan" required>
                                             {{#if this.isBan}}
                                             <option value="true" hidden>Oui</option>
                                             {{else}}
@@ -66,9 +66,9 @@
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <label class="input-group-text"
-                                                for="inputGroupSelect01">Administrateur</label>
+                                                for="inputGroupSelect02{{_id}}">Administrateur</label>
                                         </div>
-                                        <select class="custom-select" id="inputGroupSelect01" name="isAdmin" required>
+                                        <select class="custom-select" id="inputGroupSelect02{{_id}}" name="isAdmin" required>
                                             {{#if this.isAdmin}}
                                             <option value="true" hidden>Oui</option>
                                             {{else}}
@@ -82,10 +82,10 @@
                                 <div class="modal-body">
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <label class="input-group-text" for="inputGroupSelect01">Email
+                                            <label class="input-group-text" for="inputGroupSelect03{{_id}}">Email
                                                 verifié</label>
                                         </div>
-                                        <select class="custom-select" id="inputGroupSelect01" name="isVerified"
+                                        <select class="custom-select" id="inputGroupSelect03{{_id}}" name="isVerified"
                                             required>
                                             {{#if this.isVerified}}
                                             <option value="true" hidden>Oui</option>

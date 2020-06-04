@@ -7,6 +7,7 @@
 module.exports = {
     get: (req, res) => {
         const RT = req.cookies.rememberToast
-        res.render('verifMail', { RT })
+        const GA = req.cookies.rememberGA
+        res.render('verifMail', { RT, GA })
     },
 }

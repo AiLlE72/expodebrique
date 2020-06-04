@@ -19,6 +19,7 @@ module.exports = {
         const dbdepartement = await depmodel.find({})
         const dbexpo = await expomodel.find({}).populate("departement")
         const RT = req.cookies.rememberToast
-        res.render('allExpo', { dbdepartement, dbexpo, RT })
+        const GA = req.cookies.rememberGA
+        res.render('allExpo', { dbdepartement, dbexpo, RT, GA })
     },
 }

@@ -36,10 +36,13 @@ module.exports = {
 
     get: async (req, res) => {
         const RT = req.cookies.rememberToast
-        res.render('contact', { RT })
+        const GA = req.cookies.rememberGA
+        res.render('contact', { RT, GA })
     },
 
     post: (req, res) => {
+        const RT = req.cookies.rememberToast
+        const GA = req.cookies.rememberGA
         const subject = req.body.sujet
         const dest = req.body.email
         const name = req.session.name || req.body.email
@@ -56,7 +59,7 @@ module.exports = {
             const RT = req.cookies.rememberToast
             console.log(errors);
             
-            return res.status(422).render('contact', { errors: errors.array(), RT });
+            return res.status(422).render('contact', { errors: errors.array(), RT, GA });
         } else {
             transporter.sendMail(mailOptions, (err, res, next) => {
                 if (err) {
@@ -70,7 +73,7 @@ module.exports = {
                     next()
                 }
             })
-            res.render('success')
+            res.render('success', {RT, GA})
         }
     }
 }

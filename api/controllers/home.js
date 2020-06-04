@@ -18,7 +18,9 @@ module.exports = {
     get: async (req, res) => {
         const dbexpo = await expomodel.find({})
         const RT = req.cookies.rememberToast
-        res.render('home', { dbexpo, RT })
+        const GA = req.cookies.rememberGA
+
+        res.render('home', { dbexpo, RT, GA })
     },
 
     post: async (req, res) => {

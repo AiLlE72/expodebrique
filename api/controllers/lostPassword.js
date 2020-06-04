@@ -37,7 +37,9 @@ var rand, mailOptions, host, link // creation de variable sans affectation pour 
 module.exports = {
     get: (req, res) => {
         const RT = req.cookies.rememberToast
-        res.render('lostPassword', { RT });
+        const GA = req.cookies.rememberGA
+
+        res.render('lostPassword', { RT, GA });
     },
 
 
@@ -59,7 +61,9 @@ module.exports = {
 
         if (!errors.isEmpty()) {
             const RT = req.cookies.rememberToast
-            return res.status(422).render('lostPassword', { errors: errors.array(), RT });
+            const GA = req.cookies.rememberGA
+
+            return res.status(422).render('lostPassword', { errors: errors.array(), RT, GA});
         } else {
             if (!userID) {
                 res.redirect('back')
@@ -80,11 +84,13 @@ module.exports = {
     getReset: async (req, res) => {
         const user = await usermodel.findOne({ email: mailOptions.to })  //recherche de l'utilisateur concerné par l'email (celui à qui on envoi et donc celui recup via req.body lors du post)
         const rand = req.params.id
+        const RT = req.cookies.rememberToast
+        const GA = req.cookies.rememberGA
 
         if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) { //compare le lien utiliser pour venir sur la page et celui de la page 
             // console.log("Domain is matched. Information is from Authentic email")
             if (rand == mailOptions.rand) { //recupere le numero random present dans le mail
-                res.render('newPassword', { user, rand })
+                res.render('newPassword', { user, rand, RT, GA })
             } else {
                 res.send(" Bad Request")
             }
@@ -98,10 +104,11 @@ module.exports = {
         const Pass = req.body.password
         const confPass = req.body.confpassword
         const errors = validationResult(req)
+        const RT = req.cookies.rememberToast
+        const GA = req.cookies.rememberGA
 
         if (!errors.isEmpty()) {
-            const RT = req.cookies.rememberToast
-            return res.status(422).render('back', { errors: errors.array(), RT });
+            return res.status(422).render('back', { errors: errors.array(), RT, GA });
         } else {
             if (Pass !== confPass || Pass === '') {
                 res.send(err)

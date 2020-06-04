@@ -22,7 +22,9 @@ module.exports = {
         const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
         const dbdepartement = await depmodel.find({})
         const RT = req.cookies.rememberToast
-        res.render('locationExpo', { dbexpo, dbdep, dbdepartement, RT })
+        const GA = req.cookies.rememberGA
+
+        res.render('locationExpo', { dbexpo, dbdep, dbdepartement, RT,GA })
     },
     post: async (req, res) => {
         const d = new Date()
@@ -36,14 +38,16 @@ module.exports = {
 
         if (!errors.isEmpty()) {
             const RT = req.cookies.rememberToast
+            const GA = req.cookies.rememberGA
+
             return res.status(422).render('locationExpo', { errors: errors.array(), dbexpo, dbdep, dbdepartement, RT });
         } else {
             if (dep === "all") {
                 const dbexpo = await expomodel.find({ startDate: { $gte: date } }).populate("departement")
-                res.render('locationExpo', { dbexpo, dbdep, dbdepartement, RT })
+                res.render('locationExpo', { dbexpo, dbdep, dbdepartement, RT, GA })
             } else {
                 const dbexpo = await expomodel.find({ startDate: { $gte: date },departement: dep })
-                res.render('locationExpo', { dbexpo, dbdep, dbdepartement, RT })
+                res.render('locationExpo', { dbexpo, dbdep, dbdepartement, RT, GA })
             }
 
         }

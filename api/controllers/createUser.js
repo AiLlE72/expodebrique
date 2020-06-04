@@ -38,7 +38,9 @@ module.exports = {
     get: async (req, res) => {
         const dbdepartement = await depmodel.find({})
         const RT = req.cookies.rememberToast
-        res.render('createUser', { dbdepartement, RT })
+        const GA = req.cookies.rememberGA
+
+        res.render('createUser', { dbdepartement, RT, GA })
     },
 
     post: async (req, res) => {

@@ -7,6 +7,7 @@
 module.exports = {
     get: (req, res ) => {
         const RT = req.cookies.rememberToast
-        res.render('mentionsLegales', { RT });
+        const GA = req.cookies.rememberGA
+        res.render('mentionsLegales', { RT, GA });
     }
 }
