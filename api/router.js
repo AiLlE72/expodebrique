@@ -48,7 +48,6 @@ const contact = require('./controllers/contact')
 const privacyPolicies = require('./controllers/privacyPolicies')
 
 
-
 //import de middleware
 const isAdmin = require('./middleware/admin')
 const isBan = require('./middleware/ban')
@@ -241,11 +240,15 @@ router.route('/listUser/:id')
     .delete(isAdmin, listUser.delete)
 
 
-
 /************** Cookies **************/
 
 router.route('/cookie')
     .post(cookie.post)
 
+
+/************** Sitemap **************/
+router.get('/sitemap.xml', function(req, res) {
+    res.sendFile('sitemap.xml', {root: './'});
+    });
 
 module.exports = router
