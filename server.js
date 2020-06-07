@@ -135,12 +135,6 @@ Handlebars.registerHelper('ifCond', function (v1, v2, options) {
     return options.inverse(this);
 });
 
-//unescapre des caracteres speciaux
-Handlebars.registerHelper('unescape', function (input) {  
-    console.log(input.unescape());
-    
-    return input.unescape()
-});
 
 // Router
 const router = require('./api/router')
