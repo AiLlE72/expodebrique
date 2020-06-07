@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo')
 const cron = require('node-cron')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
+const sharp = ('sharp')
 
 
 // Constante
@@ -132,6 +133,13 @@ Handlebars.registerHelper('ifCond', function (v1, v2, options) {
         return options.fn(this);
     }
     return options.inverse(this);
+});
+
+//unescapre des caracteres speciaux
+Handlebars.registerHelper('unescape', function (input) {  
+    console.log(input.unescape());
+    
+    return input.unescape()
 });
 
 // Router

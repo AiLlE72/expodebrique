@@ -7,20 +7,22 @@ const expoSchema = new mongoose.Schema({
     name: String,
     adress: String,
     city: String,
-    departement: { type : mongoose.Schema.Types.ObjectId, ref:depmodel},
+    departement: { type: mongoose.Schema.Types.ObjectId, ref: depmodel },
     postCode: String,
     country: String,
     startDate: Date,
     endDate: Date,
-    image: String,
-    affiche: String,
+    fullimage: String,
+    fullaffiche: String,
+    lowimage: String,
+    lowaffiche: String,
     horaire: String,
     price: String,
     contact: String,
     search: Boolean,
     author: {
         type: String,
-        default : 'noAuthor'
+        default: 'noAuthor'
     },
 })
 

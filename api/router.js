@@ -7,6 +7,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require("multer")
 const { check, validationResult } = require('express-validator')
+const sharp = require('sharp')
 
 //config multer
 const MIME_TYPES = { //type d'image accepté
