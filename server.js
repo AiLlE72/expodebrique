@@ -49,6 +49,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //Helmet
 app.use(helmet())
 
+
+
 //express-handlebars
 app.use('/assets', express.static('publics'))
 
