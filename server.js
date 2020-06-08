@@ -49,7 +49,11 @@ app.use(bodyParser.urlencoded({ extended: true }))
 //Helmet
 app.use(helmet())
 
-
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+        styleSrc: ["'self'"]
+    }
+}))
 
 //express-handlebars
 app.use('/assets', express.static('publics'))
@@ -67,7 +71,7 @@ mongoose.connect(urlDB, {
 
 // Express-session
 app.use(expressSession({
-    secret: 'securite',
+    secret: 's3curite',
     name: 'galette',
     saveUninitialized: true,
     resave: false,
@@ -94,8 +98,6 @@ app.use('*', (req, res, next) => {
 //express validator
 app.use(express.json())
 
-//helmet
-app.use(helmet())
 
 
 /******** HELPERS **********/

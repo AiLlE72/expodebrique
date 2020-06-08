@@ -29,12 +29,20 @@ module.exports = {
         const User = await usermodel.findOne({ email: email })
 
         if (!User) {
+            console.log('1');
+            
             res.redirect('/')
         } else {
+            console.log('2');
+            
             bcrypt.compare(password, User.password, (err, same) => {
                 if (!same) {
+                    console.log('3');
+                    
                     res.redirect('/')
                 } else {
+                    console.log('4');
+                    
                     if (User.isAdmin == true) {
                         req.session.userId = User._id
                         req.session.name = User.lastname
