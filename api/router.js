@@ -253,7 +253,8 @@ router.get('/sitemap.xml', function(req, res) {
     });
 
 /************** robot **************/
-router.get('/robot.txt', function(req, res) {
-    res.sendFile('robot.txt', {root: './'});
+router.get('/robots.txt', function(req, res) {
+    res.sendFile('robots.txt', {root: './'});
     });
+    
 module.exports = router
