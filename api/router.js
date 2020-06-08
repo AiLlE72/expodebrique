@@ -252,4 +252,8 @@ router.get('/sitemap.xml', function(req, res) {
     res.sendFile('sitemap.xml', {root: './'});
     });
 
+/************** robot **************/
+router.get('/robot.txt', function(req, res) {
+    res.sendFile('robot.txt', {root: './'});
+    });
 module.exports = router
